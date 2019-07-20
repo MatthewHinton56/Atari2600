@@ -1,8 +1,6 @@
 #pragma once
       
-#include "gtest/gtest.h"
 #include "pch.h"
-#include "MOS6507/Memory.h"
 
 #define COMMA ,
 
@@ -12,6 +10,12 @@ namespace {
 
 	class MemoryTest : public ::testing::Test {
 	protected:
+
+		MemoryTest():
+		mem(),
+		page()
+		{}
+
 
 		void SetUp() override 
 		{

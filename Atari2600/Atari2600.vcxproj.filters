@@ -18,9 +18,18 @@
     <ClInclude Include="MOS6507\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6507\MOS6507Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\MemoryAccessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MOS6507\test.cpp">
+    <ClCompile Include="MOS6507\MemoryAccessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

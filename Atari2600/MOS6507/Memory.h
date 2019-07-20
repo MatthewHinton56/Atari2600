@@ -34,6 +34,8 @@ namespace mos6507
 			}
 		}
 
+		virtual ~Memory() = default;
+
 		inline uint8_t& operator[](unsigned int i)
 		{
 			if ((~getAddressMask() & i))
@@ -76,14 +78,12 @@ namespace mos6507
 		inline unsigned int getPageMask() const
 		{
 			unsigned int mask = ((1 << pageAddressSize) - 1) << offsetAddressSize;
-			std::cout << mask << std::endl;
 			return mask;
 		}
 
 		inline unsigned int getOffsetMask() const
 		{
 			unsigned int mask = ((1 << offsetAddressSize) - 1);
-			std::cout << mask << std::endl;
 			return mask;
 		}
 

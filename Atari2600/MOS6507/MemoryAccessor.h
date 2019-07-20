@@ -1,0 +1,48 @@
+#pragma once
+#include <cstdint>
+#include <vector>
+#include <array>
+#include <cmath>
+#include <stdexcept>
+#include <iostream>
+#include "MOS6507Constants.h"
+#include "Memory.h"
+
+namespace mos6507
+{
+	class MemoryAccessor
+	{
+		public:
+			MemoryAccessor();
+
+			virtual ~MemoryAccessor() = default;
+
+			virtual Word readWord
+			(
+				Word address
+			);
+
+			virtual Word indirect
+			(
+				Word address
+			);
+
+			virtual Word xIndexIndirect
+			(
+				Byte address,
+				Byte registerX
+			);
+
+			virtual Word yIndexIndirect
+			(
+				Byte address,
+				Byte registerY
+			);
+
+			virtual Memory<PAGE_SIZE, NUM_PAGES>& getMemory();
+
+		private:
+			Memory<PAGE_SIZE, NUM_PAGES> memory;
+
+	};
+}

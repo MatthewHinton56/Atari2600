@@ -124,9 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MOS6507\Memory.h" />
+    <ClInclude Include="MOS6507\MemoryAccessor.h" />
+    <ClInclude Include="MOS6507\MOS6507Constants.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MOS6507\test.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
+    <ClCompile Include="MOS6507\MemoryAccessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
