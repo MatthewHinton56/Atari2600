@@ -123,12 +123,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ALInstruction.h" />
+    <ClInclude Include="MOS6507\Instructions\ArithmeticLogicInstruction.h" />
+    <ClInclude Include="MOS6507\Instructions\Instruction.h" />
+    <ClInclude Include="MOS6507\Instructions\InstructionConstants.h" />
     <ClInclude Include="MOS6507\Memory.h" />
     <ClInclude Include="MOS6507\MemoryAccessor.h" />
     <ClInclude Include="MOS6507\MOS6507Constants.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
+    <ClCompile Include="MOS6507\Instructions\ArithmeticLogicInstruction.cpp" />
     <ClCompile Include="MOS6507\MemoryAccessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -39,6 +39,12 @@ namespace mos6507
 				Byte registerY
 			);
 
+			inline uint8_t& operator[](unsigned int i)
+			{
+				return memory[i];
+			}
+
+
 			virtual Memory<PAGE_SIZE, NUM_PAGES>& getMemory();
 
 		private:
