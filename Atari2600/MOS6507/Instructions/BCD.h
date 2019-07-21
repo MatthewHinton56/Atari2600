@@ -5,7 +5,7 @@ namespace mos6507
 {
 	inline uint8_t convertByteToBCD(Byte input)
 	{
-		uint8_t highOrder = (input & 0xF0) * 10;
+		uint8_t highOrder = ((input & 0xF0) >> 4) * 10;
 		uint8_t lowOrder = (input & 0x0F);
 
 		return highOrder + lowOrder;
@@ -19,16 +19,15 @@ namespace mos6507
 		return (highOrder << 4) | lowOrder;
 	}
 
-	inline Byte addWithCarryBSD
+	inline Byte addWithCarryBCD
 	(
 		Byte operand1,
 		Byte operand2,
-		Byte statusRegister
+		Byte& statusRegister
 	)
 	{
 		uint8_t dec1 = convertByteToBCD(operand1);
 		uint8_t dec2 = convertByteToBCD(operand2);
-
 		uint8_t sum = dec1 + dec2 + (getCarryFlag(statusRegister));
 		clearCarryFlag(statusRegister);
 
@@ -38,22 +37,22 @@ namespace mos6507
 			setCarryFlag(statusRegister);
 		}
 
-		Byte bsd = convertBCDTOByte(sum);
+		Byte bcd = convertBCDTOByte(sum);
 
-		(!bsd) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(!bcd) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
-		(0x80 & bsd) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+		(0x80 & bcd) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 
 		setOverflowFlag(statusRegister);
 
-		return bsd;
+		return bcd;
 	}
 
-	inline Byte subtracWithCarryBSD
+	inline Byte subtracWithCarryBCD
 	(
 		Byte operand1,
 		Byte operand2,
-		Byte statusRegister
+		Byte& statusRegister
 	)
 	{
 		int8_t dec1 = convertByteToBCD(operand1);
@@ -68,15 +67,15 @@ namespace mos6507
 			clearCarryFlag(statusRegister);
 		}
 
-		Byte bsd = convertBCDTOByte(result);
+		Byte bcd = convertBCDTOByte(result);
 
-		(!bsd) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(!bcd) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
-		(0x80 & bsd) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+		(0x80 & bcd) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 
 		setOverflowFlag(statusRegister);
 
-		return bsd;
+		return bcd;
 	}
 
 }

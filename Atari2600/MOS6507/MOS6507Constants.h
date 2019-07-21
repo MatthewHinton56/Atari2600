@@ -16,21 +16,21 @@
 #define getOverflowFlag(x) ((x & 0x40) >> 6)
 #define getNegativeFlag(x) ((x & 0x80) >> 7)
 
-#define setCarryFlag(x) x | 0x1
-#define setZeroFlag(x) x | 0x2
-#define setInterruptFlag(x) x | 0x4
-#define setDecimalFlag(x) x | 0x8
-#define setBreakFlag(x) x | 0x10
-#define setOverflowFlag(x) x | 0x40
-#define setNegativeFlag(x) x | 0x80
+#define setCarryFlag(x) x = (x | 0x1)
+#define setZeroFlag(x) x = (x | 0x2)
+#define setInterruptFlag(x) x = (x | 0x4)
+#define setDecimalFlag(x) x = (x | 0x8)
+#define setBreakFlag(x) x = (x | 0x10)
+#define setOverflowFlag(x) x = (x | 0x40)
+#define setNegativeFlag(x) x = (x | 0x80)
 
-#define clearCarryFlag(x) x & ~0x1
-#define clearZeroFlag(x) x & ~0x2
-#define clearInterruptFlag(x) x & ~0x4
-#define clearDecimalFlag(x) x & ~0x8
-#define clearBreakFlag(x) x & ~0x10
-#define clearOverflowFlag(x) x & ~0x40
-#define clearNegativeFlag(x) x & ~0x80
+#define clearCarryFlag(x) x = (x & ~0x1)
+#define clearZeroFlag(x) x = (x & ~0x2)
+#define clearInterruptFlag(x) x = (x & ~0x4)
+#define clearDecimalFlag(x) x = (x & ~0x8)
+#define clearBreakFlag(x) x = (x & ~0x10)
+#define clearOverflowFlag(x) x = (x & ~0x40)
+#define clearNegativeFlag(x) x = (x & ~0x80)
 
 
 namespace mos6507

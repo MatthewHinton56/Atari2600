@@ -70,7 +70,7 @@ namespace {
 
 		ASSERT_EQ(page.size(), actualPage.size()) << "Vectors x and y are of unequal length";
 
-		for (int i = 0; i < actualPage.size(); ++i) {
+		for (size_t i = 0; i < actualPage.size(); ++i) {
 			EXPECT_EQ(actualPage[i], page[i]) << "Vectors x and y differ at index " << i;
 		}
 	}
@@ -84,13 +84,13 @@ namespace {
 
 	TEST_F(MemoryTest, MemoryClear)
 	{
-		for (int i = 0; i < mem.getTotalBytes(); ++i) {
+		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
 			mem[i] = 0x11;
 		}
 
 		mem.clearMemory();
 
-		for (int i = 0; i < mem.getTotalBytes(); ++i) {
+		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
 			EXPECT_EQ(mem[i], 0x00);
 		}
 	}

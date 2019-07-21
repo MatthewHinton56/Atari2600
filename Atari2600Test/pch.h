@@ -8,3 +8,5 @@
 #include "gtest/gtest.h"
 #include "MOS6507/Memory.h"
 #include "MOS6507\MemoryAccessor.h"
+#include "MOS6507\Instructions\BCD.h"
+#include "MOS6507\Instructions\Binary.h"

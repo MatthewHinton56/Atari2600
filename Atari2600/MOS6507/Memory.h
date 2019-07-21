@@ -18,8 +18,8 @@ namespace mos6507
 		(
 
 		) :
-			pageAddressSize(log2(numPages)),
-			offsetAddressSize(log2(pageSize)),
+			pageAddressSize(static_cast<int>(log2(numPages))),
+			offsetAddressSize(static_cast<int>(log2(pageSize))),
 			addressSize(pageAddressSize + offsetAddressSize),
 			memory()
 		{
