@@ -41,7 +41,7 @@ void StandardInstruction::decode
 
 	if (decodeMode == InstructionAddressingMode::immediate)
 	{
-		decodeVal = (specialMode) ? registerMap["Accumulator"] : lowOrderOperand;;
+		decodeVal = (specialMode) ? registerMap["A"] : lowOrderOperand;;
 		return;
 	}
 
@@ -58,17 +58,18 @@ void StandardInstruction::decode
 		case InstructionAddressingMode::absoluteX:
 			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
 			address = highOrderOperand << 8 | lowOrderOperand;
-			address += registerVal;
-
 			page = memory.getMemory().getPageMask() & address;
+			
+			address += registerVal;
 			newPage = memory.getMemory().getPageMask() & address;
+			
 			cycles += (newPage != page) ? 1 : 0;
 			break;
 
 		case InstructionAddressingMode::xZeroPage:
 		case InstructionAddressingMode::zeroPage:
 			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
-			address = registerVal + lowOrderOperand;
+			address = (Byte)(registerVal + lowOrderOperand);
 			break;
 
 		case InstructionAddressingMode::xIndirect:
