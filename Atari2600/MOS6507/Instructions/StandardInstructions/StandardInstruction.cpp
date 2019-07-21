@@ -118,8 +118,9 @@ void StandardInstruction::execute(RegisterMap& registerMap)
 			executeVal = shift(shiftFunctions[instruction], decodeVal, registerMap["SR"]);
 			break;
 
-		case StandardInstructions::iSta:
 		case StandardInstructions::iLda:
+			examine(decodeVal, registerMap["SR"]);
+		case StandardInstructions::iSta:
 			executeVal = decodeVal;
 			break;
 	}
@@ -140,6 +141,7 @@ void StandardInstruction::writeBack
 	{
 		registerMap["A"] = executeVal;
 	}
+
 }
 
 Word StandardInstruction::pc()

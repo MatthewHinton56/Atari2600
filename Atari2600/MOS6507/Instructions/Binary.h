@@ -290,4 +290,14 @@ namespace mos6507
 		return result;
 	}
 
+	inline void examine
+	(
+		Byte operand1,
+		Byte& statusRegister
+	)
+	{
+		(operand1 == 0) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(operand1 & 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+	}
+
 }

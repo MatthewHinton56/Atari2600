@@ -143,15 +143,58 @@ void XDecIncInstruction::decode
 
 void mos6507::XDecIncInstruction::execute(RegisterMap& registerMap)
 {
-	/*switch (instruction)
+	switch (instruction)
 	{
+		case XDecIncInstructions::iDex:
 		case XDecIncInstructions::iDec:
-				
-	}*/
+			executeVal = dec(decodeVal, registerMap["SR"]);
+			break;
+
+		case XDecIncInstructions::iInc:
+			executeVal = inc(decodeVal, registerMap["SR"]);
+			break;
+
+		case XDecIncInstructions::iTxa:
+		case XDecIncInstructions::iLdx:
+		case XDecIncInstructions::iTax:
+		case XDecIncInstructions::iTsx:
+			examine(decodeVal, registerMap["SR"]);
+		case XDecIncInstructions::iNop:
+		case XDecIncInstructions::iTxs:
+		case XDecIncInstructions::iStx:
+			executeVal = decodeVal;
+			break;
+	}
 }
 
 void mos6507::XDecIncInstruction::writeBack(RegisterMap& registerMap, MemoryAccessor& memory)
 {
+	switch (instruction)
+	{
+
+	case XDecIncInstructions::iTax:
+	case XDecIncInstructions::iLdx:
+	case XDecIncInstructions::iTsx:
+	case XDecIncInstructions::iDex:
+		registerMap["X"] = executeVal;
+		break;
+
+	case XDecIncInstructions::iStx:
+	case XDecIncInstructions::iInc:
+	case XDecIncInstructions::iDec:
+		memory[address] = executeVal;
+		break;
+
+	case XDecIncInstructions::iTxs:
+		registerMap["SP"] = executeVal;
+		break;
+	case XDecIncInstructions::iTxa:
+		registerMap["A"] = executeVal;
+		break;
+
+	case XDecIncInstructions::iNop:
+		break;
+	}
 }
 
 Word XDecIncInstruction::pc()

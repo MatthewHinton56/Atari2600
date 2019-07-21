@@ -130,7 +130,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xF7);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap["SR"], 0x80);
 
 		si.writeBack(registerMap, memory);
 
