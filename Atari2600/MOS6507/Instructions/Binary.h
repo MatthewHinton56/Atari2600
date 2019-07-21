@@ -62,7 +62,7 @@ namespace mos6507
 		Byte& statusRegister
 	)
 	{
-		(operand1 > operand2) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+		(operand1 >= operand2) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
 
 		(operand1 == operand2) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
@@ -114,7 +114,7 @@ namespace mos6507
 		ROL
 	};
 
-	inline Byte logic
+	inline Byte shift
 	(
 		ShiftOperator op,
 		Byte operand,

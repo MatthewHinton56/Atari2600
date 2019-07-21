@@ -251,7 +251,111 @@ namespace {
 
 	TEST_F(OperationTest, BinaryShift)
 	{
-		ASSERT_EQ(false, true);
+		//ASL
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ASL, 0x80, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x03);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ASL, 0x40, statusRegister), 0x80);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ASL, 0x77, statusRegister), 0xEE);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		//LSR
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::LSR, 0x01, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x03);
+
+		statusRegister = 0x80;
+		ASSERT_EQ(shift(ShiftOperator::LSR, 0xFE, statusRegister), 0x7F);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::LSR, 0xEE, statusRegister), 0x77);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		//ROL
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x80, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x03);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x40, statusRegister), 0x80);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x77, statusRegister), 0xEE);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x80, statusRegister), 0x01);
+		ASSERT_EQ(statusRegister, 0x01);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x40, statusRegister), 0x81);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(shift(ShiftOperator::ROL, 0x77, statusRegister), 0xEF);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		//ROR
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0x01, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x03);
+
+		statusRegister = 0x80;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0xFE, statusRegister), 0x7F);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0xEE, statusRegister), 0x77);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0x01, statusRegister), 0x80);
+		ASSERT_EQ(statusRegister, 0x81);
+
+		statusRegister = 0x81;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0xFE, statusRegister), 0xFF);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(shift(ShiftOperator::ROR, 0xEE, statusRegister), 0xF7);
+		ASSERT_EQ(statusRegister, 0x80);
+	}
+
+	TEST_F(OperationTest, Compare)
+	{
+		compare(7, 6, statusRegister);
+		ASSERT_EQ(statusRegister, 0x01);
+
+		statusRegister = 0x0;
+		compare(7, 7, statusRegister);
+		ASSERT_EQ(statusRegister, 0x03);
+
+		statusRegister = 0x0;
+		compare(7, 8, statusRegister);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x0;
+		compare(0x80, 0x7F, statusRegister);
+		ASSERT_EQ(statusRegister, 0x81);
+
+		statusRegister = 0x0;
+		compare(0x80, 0x81, statusRegister);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		compare(0x80, 0x80, statusRegister);
+		ASSERT_EQ(statusRegister, 0x83);
 	}
 
 }
