@@ -143,12 +143,12 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absSTA)
 	{
-		memory[0x1F7] = 0x56;
-
+		registerMap["A"] = 0x56;
+		memory[0x1F7] = 0xFF;
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iLda),
+			static_cast<uint8_t>(StandardInstructions::iSta),
 			InstructionAddressingMode::absolute,
 			PC,
 			0xF7,
@@ -171,6 +171,7 @@ namespace {
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(registerMap["A"], 0x56);
+		ASSERT_EQ(memory[0x1F7], 0x56);
 
 		PC = si.pc();
 

@@ -84,8 +84,10 @@ void StandardInstruction::decode
 			break;
 	}
 
-	if(instruction != StandardInstructions::iSta)
+	if (instruction != StandardInstructions::iSta)
 		decodeVal = memory[address];
+	else
+		decodeVal = registerMap["A"];
 }
 
 void StandardInstruction::execute(RegisterMap& registerMap)
@@ -112,11 +114,9 @@ void StandardInstruction::execute(RegisterMap& registerMap)
 			executeVal = shift(shiftFunctions[instruction], decodeVal, registerMap["SR"]);
 			break;
 
+		case StandardInstructions::iSta:
 		case StandardInstructions::iLda:
 			executeVal = decodeVal;
-			break;
-
-		case StandardInstructions::iSta:
 			break;
 	}
 }
@@ -128,17 +128,13 @@ void StandardInstruction::writeBack
 )
 {
 
-	if (instruction == StandardInstructions::iSta)
+	if (instruction == StandardInstructions::iSta || (specialMode && decodeMode != InstructionAddressingMode::immediate))
 	{
-		memory[address] = registerMap["A"];
-	}
-	else if(!specialMode || decodeMode == InstructionAddressingMode::immediate)
-	{
-		registerMap["A"] = executeVal;
+		memory[address] = executeVal;
 	}
 	else
 	{
-		memory[address] = executeVal;
+		registerMap["A"] = executeVal;
 	}
 }
 
