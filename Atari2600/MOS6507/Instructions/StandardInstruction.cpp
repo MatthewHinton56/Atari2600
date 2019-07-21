@@ -67,7 +67,7 @@ void StandardInstruction::decode
 
 		case InstructionAddressingMode::xZeroPage:
 		case InstructionAddressingMode::zeroPage:
-			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["Y"];
+			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
 			address = registerVal + lowOrderOperand;
 			break;
 
@@ -96,9 +96,7 @@ void StandardInstruction::execute(RegisterMap& registerMap)
 		case StandardInstructions::iSbc:
 		case StandardInstructions::iCmp:
 		case StandardInstructions::iAdc:
-			executeVal = (getDecimalFlag(registerMap["SR"])) ?
-				airthmenticBCD(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]) :
-				airthmentic(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
+			executeVal = arithmetic(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
 			break;
 
 		case StandardInstructions::iOra:

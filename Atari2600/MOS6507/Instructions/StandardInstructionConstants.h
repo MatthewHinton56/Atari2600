@@ -69,7 +69,7 @@ namespace mos6507
 		{InstructionAddressingMode::xIndirect, 2},
 		{InstructionAddressingMode::zeroPage, 2},
 		{InstructionAddressingMode::immediate, 2},
-		{InstructionAddressingMode::absolute, 2},
+		{InstructionAddressingMode::absolute, 3},
 		{InstructionAddressingMode::yIndirect, 2},
 		{InstructionAddressingMode::xZeroPage, 2},
 		{InstructionAddressingMode::absoluteY, 3},

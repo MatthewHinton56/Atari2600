@@ -78,26 +78,6 @@ namespace mos6507
 		CMP
 	};
 
-	inline Byte airthmentic
-	(
-		ArithmeticOperator op,
-		Byte operand1,
-		Byte operand2,
-		Byte& statusRegister
-	)
-	{
-		switch (op)
-		{
-			case ArithmeticOperator::ADD:
-				return addWithCarry(operand1, operand2, statusRegister);
-			case ArithmeticOperator::SUB:
-				return subtractWithCarry(operand1, operand2, statusRegister);
-			case ArithmeticOperator::CMP:
-				return compare(operand1, operand2, statusRegister);
-		}
-
-	}
-
 	enum class LogicOperator
 	{
 		AND,
@@ -259,7 +239,7 @@ namespace mos6507
 		return bcd;
 	}
 
-	inline Byte airthmenticBCD
+	inline Byte arithmetic
 	(
 		ArithmeticOperator op,
 		Byte operand1,
@@ -267,13 +247,18 @@ namespace mos6507
 		Byte& statusRegister
 	)
 	{
+		bool isDec = getDecimalFlag(statusRegister);
 		switch (op)
 		{
 		case ArithmeticOperator::ADD:
-			return addWithCarryBCD(operand1, operand2, statusRegister);
+			return (isDec) ?
+				addWithCarryBCD(operand1, operand2, statusRegister) :
+				addWithCarry(operand1, operand2, statusRegister);
 
 		case ArithmeticOperator::SUB:
-			return subtractWithCarryBCD(operand1, operand2, statusRegister);
+			return (isDec) ?
+				subtractWithCarryBCD(operand1, operand2, statusRegister) :
+				subtractWithCarry(operand1, operand2, statusRegister);
 
 		case ArithmeticOperator::CMP:
 			return compare(operand1, operand2, statusRegister);

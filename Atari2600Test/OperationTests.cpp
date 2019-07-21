@@ -358,6 +358,26 @@ namespace {
 		ASSERT_EQ(statusRegister, 0x83);
 	}
 
+	TEST_F(OperationTest, ArithmeticTest)
+	{
+		ASSERT_EQ(arithmetic(ArithmeticOperator::ADD, 0x23, 0x23, statusRegister), 0x46);
+
+		statusRegister = 0x1;
+		ASSERT_EQ(arithmetic(ArithmeticOperator::SUB, 0x23, 0x23, statusRegister), 0x00);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(arithmetic(ArithmeticOperator::CMP, 0x24, 0x23, statusRegister), 0x24);
+
+		statusRegister = 0x08;
+		ASSERT_EQ(arithmetic(ArithmeticOperator::ADD, 0x50, 0x50, statusRegister), 0x00);
+
+		statusRegister = 0x08;
+		ASSERT_EQ(arithmetic(ArithmeticOperator::SUB, 0x50, 0x50, statusRegister), 0x99);
+
+		statusRegister = 0x08;
+		ASSERT_EQ(arithmetic(ArithmeticOperator::CMP, 0x24, 0x23, statusRegister), 0x24);
+	}
+
 }
 
 
