@@ -36,7 +36,8 @@ namespace mos6507
 			virtual Word yIndexIndirect
 			(
 				Byte address,
-				Byte registerY
+				Byte registerY,
+				bool& crossedPage
 			);
 
 			inline uint8_t& operator[](unsigned int i)

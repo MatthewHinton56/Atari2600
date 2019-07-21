@@ -40,10 +40,17 @@ Word MemoryAccessor::xIndexIndirect
 Word MemoryAccessor::yIndexIndirect
 (
 	Byte address, 
-	Byte registerY
+	Byte registerY,
+	bool& crossedPage
 )
 {
-	return readWord(address) + registerY;
+	Word newAddress = readWord(address);
+	Word page = memory.getPageMask() & newAddress;
+
+	newAddress += registerY;
+	Word newPage = memory.getPageMask() & newAddress;
+	crossedPage = (page != newPage);
+	return newAddress;
 }
 
 Memory<PAGE_SIZE, NUM_PAGES>& mos6507::MemoryAccessor::getMemory()

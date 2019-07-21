@@ -27,13 +27,19 @@
     <ClInclude Include="MOS6507\Instructions\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\ArithmeticLogicInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ALInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\InstructionConstants.h">
+    <ClInclude Include="MOS6507\Instructions\StandardInstruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\StandardInstructionConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\BCD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,7 +50,7 @@
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\ArithmeticLogicInstruction.cpp">
+    <ClCompile Include="MOS6507\Instructions\StandardInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

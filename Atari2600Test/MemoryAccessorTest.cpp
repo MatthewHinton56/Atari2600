@@ -51,7 +51,12 @@ namespace {
 	{
 		memory.getMemory()[0x00] = 0xCD;
 		memory.getMemory()[0x01] = 0xAB;
-		ASSERT_EQ(memory.yIndexIndirect(0x00, 1), 0xABCE);
+		bool crossed;
+		ASSERT_EQ(memory.yIndexIndirect(0x00, 1, crossed), 0xABCE);
+		ASSERT_EQ(crossed, false);
+
+		ASSERT_EQ(memory.yIndexIndirect(0x00, 0xFF, crossed), 0xACCC);
+		ASSERT_EQ(crossed, true);
 	}
 
 }

@@ -8,18 +8,14 @@ namespace mos6507
 	{
 	public:
 
-		virtual void decode(RegisterMap& registerMap, MemoryAccessor& memory);
+		virtual void decode(RegisterMap& registerMap, MemoryAccessor& memory) = 0;
 
-		virtual void execute();
+		virtual void execute() = 0;
 
-		virtual void memory(MemoryAccessor& memory);
+		virtual void memory(MemoryAccessor& memory) = 0;
 
-		virtual void writeBack(RegisterMap& registerMap);
+		virtual void writeBack(RegisterMap& registerMap) = 0;
 
-		virtual void pc(Word& PC);
-
-	protected:
-		virtual Word decodeSelector(instructionAddressingMode mode, RegisterMap& registerMap);
-
+		virtual void pc(Word& PC) = 0;
 	};
 }
