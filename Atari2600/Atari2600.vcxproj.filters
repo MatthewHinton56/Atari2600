@@ -27,9 +27,6 @@
     <ClInclude Include="MOS6507\Instructions\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ALInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6507\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,10 +42,10 @@
     <ClInclude Include="MOS6507\Instructions\InstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\XInstructions\XDecIncIntructions.h">
+    <ClInclude Include="MOS6507\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\XInstructions\XDecIncInstructionConstants.h">
+    <ClInclude Include="MOS6507\Instructions\XDecIncInstructions\XDecIncIntructions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -62,7 +59,7 @@
     <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\XInstructions\XDecIncinstructions.cpp">
+    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncinstructions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
