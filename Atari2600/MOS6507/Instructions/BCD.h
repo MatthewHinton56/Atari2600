@@ -48,7 +48,7 @@ namespace mos6507
 		return bcd;
 	}
 
-	inline Byte subtracWithCarryBCD
+	inline Byte subtractWithCarryBCD
 	(
 		Byte operand1,
 		Byte operand2,

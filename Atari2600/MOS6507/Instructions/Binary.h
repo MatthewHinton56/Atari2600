@@ -24,6 +24,8 @@ namespace mos6507
 		(!sum) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
 		(0x80 & sum) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+
+		return sum;
 	};
 
 	inline Byte subtractWithCarry
@@ -35,19 +37,19 @@ namespace mos6507
 	{
 		bool carry = getCarryFlag(statusRegister);
 
-		int8_t result = operand1 + operand2 - 1 + carry;
+		int16_t temp = (int8_t)operand1 - (int8_t)operand2 - 1 + carry;
+		(temp < -128 || temp > 127) ? setOverflowFlag(statusRegister) : clearOverflowFlag(statusRegister);
+
+		int8_t result = temp & 0xFF;
 		clearCarryFlag(statusRegister);
 
-		(result < 0) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+		(result < 0) ? clearCarryFlag(statusRegister) : setCarryFlag(statusRegister);
 
 		(!result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
 		bool sign1 = (0x80 & operand1);
 		bool sign2 = (0x80 & operand2);
 		bool signSum = (0x80 & result);
-
-		(sign1 == sign2 && sign1 != signSum) ? setOverflowFlag(statusRegister) : clearOverflowFlag(statusRegister);
-
 		(signSum) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 
 		return result;
