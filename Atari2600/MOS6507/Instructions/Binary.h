@@ -99,7 +99,7 @@ namespace mos6507
 				break;
 		}
 		
-		(result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(!result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
 		(result >= 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 
@@ -148,7 +148,7 @@ namespace mos6507
 			break;
 		}
 
-		(result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(!result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 
 		(result >= 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 

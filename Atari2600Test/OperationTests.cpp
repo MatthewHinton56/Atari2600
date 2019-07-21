@@ -212,7 +212,41 @@ namespace {
 
 	TEST_F(OperationTest, BinaryLogic)
 	{
-		ASSERT_EQ(false, true);
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::AND,0xF0, 0x0F, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x02);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::AND, 0xF0, 0xC0, statusRegister), 0xC0);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::AND, 0x0C, 0x0B, statusRegister), 0x08);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::OR, 0x00, 0x00, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x02);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::OR, 0xF0, 0xC0, statusRegister), 0xF0);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::OR, 0x0C, 0x0B, statusRegister), 0x0F);
+		ASSERT_EQ(statusRegister, 0x00);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::XOR, 0xCA, 0xCA, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x02);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::XOR, 0xF0, 0x70, statusRegister), 0x80);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0x0;
+		ASSERT_EQ(logic(LogicOperator::XOR, 0x0C, 0x0B, statusRegister), 0x07);
+		ASSERT_EQ(statusRegister, 0x00);
 	}
 
 	TEST_F(OperationTest, BinaryShift)
