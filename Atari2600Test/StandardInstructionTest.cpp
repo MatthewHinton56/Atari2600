@@ -46,7 +46,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iAnd),
-			InstructionAddressingMode::xIndirect,
+			static_cast<uint8_t>(InstructionAddressingMode::xIndirect),
 			PC,
 			0x80
 		);
@@ -81,7 +81,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iAdc),
-			InstructionAddressingMode::zeroPage,
+			static_cast<uint8_t>(InstructionAddressingMode::zeroPage),
 			PC,
 			0x80
 		);
@@ -114,7 +114,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iLda),
-			InstructionAddressingMode::immediate,
+			static_cast<uint8_t>(InstructionAddressingMode::immediate),
 			PC,
 			0xF7
 		);
@@ -149,7 +149,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iSta),
-			InstructionAddressingMode::absolute,
+			static_cast<uint8_t>(InstructionAddressingMode::absolute),
 			PC,
 			0xF7,
 			0x01
@@ -192,7 +192,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iEor),
-			InstructionAddressingMode::yIndirect,
+			static_cast<uint8_t>(InstructionAddressingMode::yIndirect),
 			PC,
 			0xBB
 		);
@@ -234,7 +234,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iSbc),
-			InstructionAddressingMode::xZeroPage ,
+			static_cast<uint8_t>(InstructionAddressingMode::xZeroPage),
 			PC,
 			0x64
 		);
@@ -274,7 +274,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iAdc),
-			InstructionAddressingMode::absoluteY,
+			static_cast<uint8_t>(InstructionAddressingMode::absoluteY),
 			PC,
 			0x44,
 			0x5
@@ -317,7 +317,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iCmp),
-			InstructionAddressingMode::absoluteX,
+			static_cast<uint8_t>(InstructionAddressingMode::absoluteX),
 			PC,
 			0x44,
 			0x5
@@ -356,7 +356,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iAsl),
-			InstructionAddressingMode::immediate,
+			static_cast<uint8_t>(InstructionAddressingMode::immediate),
 			PC
 		);
 
@@ -391,7 +391,7 @@ namespace {
 		StandardInstruction si
 		(
 			static_cast<uint8_t>(StandardInstructions::iRol),
-			InstructionAddressingMode::absolute,
+			static_cast<uint8_t>(InstructionAddressingMode::absolute),
 			PC,
 			0xFF,
 			0x1F

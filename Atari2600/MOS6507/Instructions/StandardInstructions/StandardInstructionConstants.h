@@ -1,6 +1,7 @@
 #pragma once
 #pragma once
 #include "../Binary.h"
+#include "../InstructionConstants.h"
 #include <cstdint>
 #include <vector>
 #include <array>
@@ -14,7 +15,7 @@ namespace mos6507
 
 	static const uint8_t A = 2;
 
-	enum class StandardInstructions
+	enum class StandardInstructions : uint8_t
 	{
 		iOra = 010,
 		iAnd,
@@ -28,18 +29,6 @@ namespace mos6507
 		iRol,
 		iLsr,
 		iRor
-	};
-
-	enum class InstructionAddressingMode
-	{
-		xIndirect,
-		zeroPage,
-		immediate,
-		absolute,
-		yIndirect,
-		xZeroPage,
-		absoluteY,
-		absoluteX
 	};
 
 	static std::map<InstructionAddressingMode, uint8_t> specialCycleTimes

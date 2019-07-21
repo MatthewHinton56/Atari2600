@@ -13,7 +13,7 @@ namespace mos6507
 		StandardInstruction
 		(
 			uint8_t caValue,
-			InstructionAddressingMode decodeMode,
+			uint8_t bValue,
 			Word PC,
 			Byte lowOrderOperand = 0,
 			Byte highOrderOperand = 0

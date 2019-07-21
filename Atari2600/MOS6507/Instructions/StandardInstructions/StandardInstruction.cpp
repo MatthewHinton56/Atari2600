@@ -7,13 +7,13 @@ using namespace mos6507;
 StandardInstruction::StandardInstruction
 (
 	uint8_t caValue, 
-	InstructionAddressingMode decodeMode,
+	uint8_t bValue,
 	Word PC, 
 	Byte lowOrderOperand, 
 	Byte highOrderOperand
 ) :
 	instruction(static_cast<StandardInstructions>(caValue)),
-	decodeMode(decodeMode),
+	decodeMode(static_cast<InstructionAddressingMode>(bValue)),
 	specialMode(instruction >= static_cast<StandardInstructions>(020)),
 	PC(PC),
 	lowOrderOperand(lowOrderOperand),

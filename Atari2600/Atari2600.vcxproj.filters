@@ -39,13 +39,16 @@
     <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\XInstructions\XInstructionsConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6507\Instructions\XInstructions\XIntructions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MOS6507\Instructions\DecodeHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\InstructionConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
