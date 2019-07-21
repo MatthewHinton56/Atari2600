@@ -18,7 +18,6 @@ StandardInstruction::StandardInstruction
 	PC(PC),
 	lowOrderOperand(lowOrderOperand),
 	highOrderOperand(highOrderOperand),
-	cycles(0),
 	instructionSize(InstructionSizes[decodeMode]),
 	decodeVal(0),
 	address(0),
@@ -27,6 +26,8 @@ StandardInstruction::StandardInstruction
 {
 	if (specialMode && decodeMode == InstructionAddressingMode::immediate)
 		instructionSize = 1;
+
+	cycles = (specialMode) ? specialCycleTimes[decodeMode] : 2 + cycleTimes[decodeMode];
 }
 
 void StandardInstruction::decode
@@ -36,7 +37,6 @@ void StandardInstruction::decode
 )
 {
 	//Special Mode - A mode and different cycles
-	cycles = (specialMode) ? specialCycleTimes[decodeMode] : cycleTimes[decodeMode];
 	Byte registerVal;
 	address;
 
@@ -89,13 +89,13 @@ void StandardInstruction::decode
 		decodeVal = memory[address];
 }
 
-void StandardInstruction::execute(RegisterMap registerMap)
+void StandardInstruction::execute(RegisterMap& registerMap)
 {
-	Byte statusRegister = registerMap["SR"];
+	//Byte statusRegister = registerMap["SR"];
 	switch (instruction)
 	{
 		case StandardInstructions::iAdc:
-			executeVal = (getDecimalFlag(statusRegister)) ? 
+			executeVal = (getDecimalFlag(registerMap["SR"])) ?
 				addWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) : 
 				addWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
 			break;
@@ -138,7 +138,7 @@ void StandardInstruction::execute(RegisterMap registerMap)
 			break;
 
 		case StandardInstructions::iSbc:
-			executeVal = (getDecimalFlag(statusRegister)) ?
+			executeVal = (getDecimalFlag(registerMap["SR"])) ?
 			subtractWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) :
 			subtractWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
 			break;
@@ -148,7 +148,11 @@ void StandardInstruction::execute(RegisterMap registerMap)
 	}
 }
 
-void StandardInstruction::writeBack(MemoryAccessor& memory, RegisterMap& registerMap)
+void StandardInstruction::writeBack
+(
+	RegisterMap& registerMap, 
+	MemoryAccessor& memory
+)
 {
 
 	if (instruction == StandardInstructions::iSta)
@@ -175,6 +179,11 @@ Byte mos6507::StandardInstruction::getDecodeVal() const
 	return decodeVal;
 }
 
+Word mos6507::StandardInstruction::getAddress() const
+{
+	return address;
+}
+
 Byte mos6507::StandardInstruction::getExceuteVal() const
 {
 	return executeVal;
@@ -185,17 +194,17 @@ Byte mos6507::StandardInstruction::getMemoryVal() const
 	return memoryVal;
 }
 
-Byte mos6507::StandardInstruction::getPC() const
+Word mos6507::StandardInstruction::getPC() const
 {
 	return PC;
 }
 
-Byte mos6507::StandardInstruction::getInstructionSize() const
+unsigned int mos6507::StandardInstruction::getInstructionSize() const
 {
 	return instructionSize;
 }
 
-Byte mos6507::StandardInstruction::getCycles() const
+unsigned int mos6507::StandardInstruction::getCycles() const
 {
 	return cycles;
 }
