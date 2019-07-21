@@ -1,16 +1,17 @@
 #pragma once
+#pragma once
 #include "../../MemoryAccessor.h"
 #include "../../MOS6507Constants.h"
 #include "../Instruction.h"
-#include "StandardInstructionConstants.h"
+#include "XDecIncInstructionConstants.h"
 
 namespace mos6507
 {
-	class StandardInstruction : Instruction
+	class XDecIncInstruction : Instruction
 	{
 	public:
 
-		StandardInstruction
+		XDecIncInstruction
 		(
 			uint8_t caValue,
 			uint8_t bValue,
@@ -22,7 +23,7 @@ namespace mos6507
 
 		virtual void decode
 		(
-			RegisterMap& registerMap, 
+			RegisterMap& registerMap,
 			MemoryAccessor& memory
 		);
 
@@ -48,7 +49,7 @@ namespace mos6507
 
 	protected:
 
-		StandardInstructions instruction;
+		XDecIncInstructions instruction;
 		InstructionAddressingMode decodeMode;
 
 		Byte lowOrderOperand;

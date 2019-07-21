@@ -53,18 +53,6 @@ namespace mos6507
 		{InstructionAddressingMode::absoluteX, 2}
 	};
 
-	static std::map<InstructionAddressingMode, uint8_t> InstructionSizes
-	{
-		{InstructionAddressingMode::xIndirect, 2},
-		{InstructionAddressingMode::zeroPage, 2},
-		{InstructionAddressingMode::immediate, 2},
-		{InstructionAddressingMode::absolute, 3},
-		{InstructionAddressingMode::yIndirect, 2},
-		{InstructionAddressingMode::xZeroPage, 2},
-		{InstructionAddressingMode::absoluteY, 3},
-		{InstructionAddressingMode::absoluteX, 3}
-	};
-
 	static std::map<StandardInstructions, LogicOperator> logicFunctions
 	{
 		{StandardInstructions::iOra, LogicOperator::OR},

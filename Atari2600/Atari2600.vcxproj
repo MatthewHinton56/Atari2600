@@ -130,8 +130,8 @@
     <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.h" />
     <ClInclude Include="MOS6507\Instructions\Instruction.h" />
     <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstructionConstants.h" />
-    <ClInclude Include="MOS6507\Instructions\XInstructions\XInstructionConstants.h" />
-    <ClInclude Include="MOS6507\Instructions\XInstructions\XIntructions.h" />
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XDecIncInstructionConstants.h" />
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XDecIncIntructions.h" />
     <ClInclude Include="MOS6507\Memory.h" />
     <ClInclude Include="MOS6507\MemoryAccessor.h" />
     <ClInclude Include="MOS6507\MOS6507Constants.h" />
@@ -139,7 +139,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
     <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp" />
-    <ClCompile Include="MOS6507\Instructions\XInstructions\Xinstructions.cpp" />
+    <ClCompile Include="MOS6507\Instructions\XInstructions\XDecIncinstructions.cpp" />
     <ClCompile Include="MOS6507\MemoryAccessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

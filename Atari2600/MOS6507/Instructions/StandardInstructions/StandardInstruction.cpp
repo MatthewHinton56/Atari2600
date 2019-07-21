@@ -14,7 +14,6 @@ StandardInstruction::StandardInstruction
 ) :
 	instruction(static_cast<StandardInstructions>(caValue)),
 	decodeMode(static_cast<InstructionAddressingMode>(bValue)),
-	specialMode(instruction >= static_cast<StandardInstructions>(020)),
 	PC(PC),
 	lowOrderOperand(lowOrderOperand),
 	highOrderOperand(highOrderOperand),
@@ -24,10 +23,15 @@ StandardInstruction::StandardInstruction
 	executeVal(0),
 	memoryVal(0)
 {
-	if (specialMode && decodeMode == InstructionAddressingMode::immediate)
-		instructionSize = 1;
+	cycles = (instruction >= static_cast<StandardInstructions>(020)) ?
+		specialCycleTimes[decodeMode] :
+		2 + cycleTimes[decodeMode];
 
-	cycles = (specialMode) ? specialCycleTimes[decodeMode] : 2 + cycleTimes[decodeMode];
+	if (instruction >= static_cast<StandardInstructions>(020) && decodeMode == InstructionAddressingMode::immediate)
+	{
+		decodeMode = InstructionAddressingMode::implied;
+		instructionSize = 1;
+	}
 }
 
 void StandardInstruction::decode
@@ -41,7 +45,13 @@ void StandardInstruction::decode
 
 	if (decodeMode == InstructionAddressingMode::immediate)
 	{
-		decodeVal = (specialMode) ? registerMap["A"] : lowOrderOperand;;
+		decodeVal = lowOrderOperand;
+		return;
+	}
+
+	if (decodeMode == InstructionAddressingMode::implied)
+	{
+		decodeVal = registerMap["A"];
 		return;
 	}
 
@@ -121,8 +131,8 @@ void StandardInstruction::writeBack
 	MemoryAccessor& memory
 )
 {
-
-	if (instruction == StandardInstructions::iSta || (specialMode && decodeMode != InstructionAddressingMode::immediate))
+	bool specialMode = instruction >= static_cast<StandardInstructions>(020);
+	if (instruction == StandardInstructions::iSta || (specialMode && decodeMode != InstructionAddressingMode::implied))
 	{
 		memory[address] = executeVal;
 	}
@@ -137,37 +147,37 @@ Word StandardInstruction::pc()
 	return PC + instructionSize;
 }
 
-Byte mos6507::StandardInstruction::getDecodeVal() const
+Byte StandardInstruction::getDecodeVal() const
 {
 	return decodeVal;
 }
 
-Word mos6507::StandardInstruction::getAddress() const
+Word StandardInstruction::getAddress() const
 {
 	return address;
 }
 
-Byte mos6507::StandardInstruction::getExceuteVal() const
+Byte StandardInstruction::getExceuteVal() const
 {
 	return executeVal;
 }
 
-Byte mos6507::StandardInstruction::getMemoryVal() const
+Byte StandardInstruction::getMemoryVal() const
 {
 	return memoryVal;
 }
 
-Word mos6507::StandardInstruction::getPC() const
+Word StandardInstruction::getPC() const
 {
 	return PC;
 }
 
-unsigned int mos6507::StandardInstruction::getInstructionSize() const
+unsigned int StandardInstruction::getInstructionSize() const
 {
 	return instructionSize;
 }
 
-unsigned int mos6507::StandardInstruction::getCycles() const
+unsigned int StandardInstruction::getCycles() const
 {
 	return cycles;
 }
