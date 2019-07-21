@@ -53,7 +53,7 @@ Word MemoryAccessor::yIndexIndirect
 	return newAddress;
 }
 
-Memory<PAGE_SIZE, NUM_PAGES>& mos6507::MemoryAccessor::getMemory()
+Memory<PAGE_SIZE, NUM_PAGES>& MemoryAccessor::getMemory()
 {
 	return memory;
 }

@@ -26,13 +26,11 @@ namespace mos6507
 			MemoryAccessor& memory
 		);
 
-		virtual void execute();
+		virtual void execute(RegisterMap registerMap);
 
-		virtual void memory(MemoryAccessor& memory);
+		virtual void writeBack(MemoryAccessor& memory, RegisterMap& registerMap);
 
-		virtual void writeBack(RegisterMap& registerMap);
-
-		virtual void pc(Word& PC);
+		virtual Word pc();
 
 		virtual Byte getDecodeVal() const;
 

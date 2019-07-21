@@ -53,13 +53,25 @@ namespace mos6507
 
 	static std::map<InstructionAddressingMode, uint8_t> cycleTimes
 	{
-		{InstructionAddressingMode::xIndirect,0},
-		{InstructionAddressingMode::zeroPage,1},
-		{InstructionAddressingMode::immediate,2},
-		{InstructionAddressingMode::absolute,2},
-		{InstructionAddressingMode::yIndirect,2},
-		{InstructionAddressingMode::xZeroPage,2},
-		{InstructionAddressingMode::absoluteY,4},
-		{InstructionAddressingMode::absoluteX,3}
+		{InstructionAddressingMode::xIndirect, 0},
+		{InstructionAddressingMode::zeroPage, 1},
+		{InstructionAddressingMode::immediate, 2},
+		{InstructionAddressingMode::absolute, 2},
+		{InstructionAddressingMode::yIndirect, 2},
+		{InstructionAddressingMode::xZeroPage, 2},
+		{InstructionAddressingMode::absoluteY, 4},
+		{InstructionAddressingMode::absoluteX, 3}
+	};
+
+	static std::map<InstructionAddressingMode, uint8_t> InstructionSizes
+	{
+		{InstructionAddressingMode::xIndirect, 2},
+		{InstructionAddressingMode::zeroPage, 2},
+		{InstructionAddressingMode::immediate, 2},
+		{InstructionAddressingMode::absolute, 2},
+		{InstructionAddressingMode::yIndirect, 2},
+		{InstructionAddressingMode::xZeroPage, 2},
+		{InstructionAddressingMode::absoluteY, 3},
+		{InstructionAddressingMode::absoluteX, 3}
 	};
 }

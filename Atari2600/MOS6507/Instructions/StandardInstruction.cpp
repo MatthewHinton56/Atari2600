@@ -1,4 +1,6 @@
 #include "StandardInstruction.h"
+#include "Binary.h"
+#include "BCD.h"
 
 using namespace mos6507;
 
@@ -17,13 +19,14 @@ StandardInstruction::StandardInstruction
 	lowOrderOperand(lowOrderOperand),
 	highOrderOperand(highOrderOperand),
 	cycles(0),
-	instructionSize(0),
+	instructionSize(InstructionSizes[decodeMode]),
 	decodeVal(0),
 	address(0),
 	executeVal(0),
 	memoryVal(0)
 {
-
+	if (specialMode && decodeMode == InstructionAddressingMode::immediate)
+		instructionSize = 1;
 }
 
 void StandardInstruction::decode
@@ -82,52 +85,117 @@ void StandardInstruction::decode
 			break;
 	}
 
-	if(instruction != StandardInstructions::iLda && instruction != StandardInstructions::iSta)
+	if(instruction != StandardInstructions::iSta)
 		decodeVal = memory[address];
 }
 
-void StandardInstruction::execute()
+void StandardInstruction::execute(RegisterMap registerMap)
 {
+	Byte statusRegister = registerMap["SR"];
+	switch (instruction)
+	{
+		case StandardInstructions::iAdc:
+			executeVal = (getDecimalFlag(statusRegister)) ? 
+				addWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) : 
+				addWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iAnd:
+			executeVal = logic(LogicOperator::AND, registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iAsl:
+			executeVal = shift(ShiftOperator::ASL, decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iCmp:
+			compare(registerMap["A"], decodeVal, registerMap["SR"]);
+			executeVal = registerMap["A"];
+			break;
+
+		case StandardInstructions::iEor:
+			executeVal = logic(LogicOperator::XOR, registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iLda:
+			executeVal = decodeVal;
+			break;
+
+		case StandardInstructions::iLsr:
+			executeVal = shift(ShiftOperator::LSR, decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iOra:
+			executeVal = logic(LogicOperator::OR, registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iRol:
+			executeVal = shift(ShiftOperator::ROL, decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iRor:
+			executeVal = shift(ShiftOperator::ROR, decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iSbc:
+			executeVal = (getDecimalFlag(statusRegister)) ?
+			subtractWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) :
+			subtractWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iSta:
+			break;
+	}
 }
 
-void mos6507::StandardInstruction::memory(MemoryAccessor& memory)
+void StandardInstruction::writeBack(MemoryAccessor& memory, RegisterMap& registerMap)
 {
+
+	if (instruction == StandardInstructions::iSta)
+	{
+		memory[address] = registerMap["A"];
+	}
+	else if(!specialMode || decodeMode == InstructionAddressingMode::immediate)
+	{
+		registerMap["A"] = executeVal;
+	}
+	else
+	{
+		memory[address] = executeVal;
+	}
 }
 
-void StandardInstruction::writeBack(RegisterMap& registerMap)
+Word StandardInstruction::pc()
 {
-}
-
-void StandardInstruction::pc(Word& PC)
-{
+	return PC + instructionSize;
 }
 
 Byte mos6507::StandardInstruction::getDecodeVal() const
 {
-	return Byte();
+	return decodeVal;
 }
 
 Byte mos6507::StandardInstruction::getExceuteVal() const
 {
-	return Byte();
+	return executeVal;
 }
 
 Byte mos6507::StandardInstruction::getMemoryVal() const
 {
-	return Byte();
+	return memoryVal;
 }
 
 Byte mos6507::StandardInstruction::getPC() const
 {
-	return Byte();
+	return PC;
 }
 
 Byte mos6507::StandardInstruction::getInstructionSize() const
 {
-	return Byte();
+	return instructionSize;
 }
 
 Byte mos6507::StandardInstruction::getCycles() const
 {
-	return Byte();
+	return cycles;
 }
