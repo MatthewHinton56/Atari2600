@@ -378,6 +378,24 @@ namespace {
 		ASSERT_EQ(arithmetic(ArithmeticOperator::CMP, 0x24, 0x23, statusRegister), 0x24);
 	}
 
+	TEST_F(OperationTest, IncDec)
+	{
+		ASSERT_EQ(inc(0x7F, statusRegister), 0x80);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0;
+		ASSERT_EQ(inc(0xFF, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x02);
+
+		ASSERT_EQ(dec(0x00, statusRegister), 0xFF);
+		ASSERT_EQ(statusRegister, 0x80);
+
+		statusRegister = 0;
+		ASSERT_EQ(dec(0x01, statusRegister), 0x00);
+		ASSERT_EQ(statusRegister, 0x02);
+
+	}
+
 }
 
 

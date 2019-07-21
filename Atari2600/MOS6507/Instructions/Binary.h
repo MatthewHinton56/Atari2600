@@ -266,4 +266,28 @@ namespace mos6507
 
 	}
 
+	inline Byte inc
+	(
+		Byte operand1,
+		Byte& statusRegister
+	)
+	{
+		Byte result = operand1 + 1;
+		(result == 0) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(result & 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+		return result;
+	}
+
+	inline Byte dec
+	(
+		Byte operand1,
+		Byte& statusRegister
+	)
+	{
+		Byte result = operand1 - 1;
+		(result == 0) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
+		(result & 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
+		return result;
+	}
+
 }

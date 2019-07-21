@@ -64,6 +64,39 @@ void XDecIncInstruction::decode
 
 	bool crossedPage = false;
 
+	if (decodeMode == InstructionAddressingMode::immediate)
+	{
+		decodeVal = lowOrderOperand;
+		return;
+	}
+
+	if (decodeMode == InstructionAddressingMode::implied)
+	{
+		switch (instruction)
+		{
+			case XDecIncInstructions::iNop:
+				address = 0;
+				decodeVal = 0;
+				break;
+
+			case XDecIncInstructions::iTxs:
+				address = 0;
+				decodeVal = registerMap["X"];
+				break;
+
+			case XDecIncInstructions::iTsx:
+				address = 0;
+				decodeVal = registerMap["SP"];
+				break;
+
+			case XDecIncInstructions::iDex:
+				address = 0;
+				decodeVal = registerMap["X"];
+				break;
+		}
+		return;
+	}
+
 	switch (decodeMode)
 	{
 	case InstructionAddressingMode::absolute:
@@ -77,9 +110,11 @@ void XDecIncInstruction::decode
 		cycles += (crossedPage) ? 1 : 0;
 		break;
 
+	case InstructionAddressingMode::yZeroPage:
 	case InstructionAddressingMode::xZeroPage:
 	case InstructionAddressingMode::zeroPage:
 		registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
+		registerVal = (decodeMode == InstructionAddressingMode::yZeroPage) ? registerMap["Y"] : registerVal;
 		address = zeroPage(lowOrderOperand, registerVal);
 		break;
 
@@ -93,12 +128,26 @@ void XDecIncInstruction::decode
 		address = yIndirect(memory, lowOrderOperand, registerVal, crossedPage);
 		cycles += (crossedPage) ? 1 : 0;
 		break;
+
+	default:
+		throw std::invalid_argument("Address Mode not Supported");
+
 	}
+
+	if (instruction != XDecIncInstructions::iStx)
+		decodeVal = memory[address];
+	else
+		decodeVal = registerMap["X"];
 
 }
 
 void mos6507::XDecIncInstruction::execute(RegisterMap& registerMap)
 {
+	/*switch (instruction)
+	{
+		case XDecIncInstructions::iDec:
+				
+	}*/
 }
 
 void mos6507::XDecIncInstruction::writeBack(RegisterMap& registerMap, MemoryAccessor& memory)
