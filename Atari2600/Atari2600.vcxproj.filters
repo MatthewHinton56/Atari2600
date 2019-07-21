@@ -36,9 +36,6 @@
     <ClInclude Include="MOS6507\Instructions\StandardInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\BCD.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6507\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>

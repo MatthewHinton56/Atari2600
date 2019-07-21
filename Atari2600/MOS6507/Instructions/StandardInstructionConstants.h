@@ -1,5 +1,6 @@
 #pragma once
 #pragma once
+#include "Binary.h"
 #include <cstdint>
 #include <vector>
 #include <array>
@@ -74,4 +75,27 @@ namespace mos6507
 		{InstructionAddressingMode::absoluteY, 3},
 		{InstructionAddressingMode::absoluteX, 3}
 	};
+
+	static std::map<StandardInstructions, LogicOperator> logicFunctions
+	{
+		{StandardInstructions::iOra, LogicOperator::OR},
+		{StandardInstructions::iEor, LogicOperator::XOR},
+		{StandardInstructions::iAnd, LogicOperator::AND}
+	};
+
+	static std::map<StandardInstructions, ArithmeticOperator> arithmeticFunctions
+	{
+		{StandardInstructions::iCmp, ArithmeticOperator::CMP},
+		{StandardInstructions::iAdc, ArithmeticOperator::ADD},
+		{StandardInstructions::iSbc, ArithmeticOperator::SUB}
+	};
+
+	static std::map<StandardInstructions, ShiftOperator> shiftFunctions
+	{
+		{StandardInstructions::iRor, ShiftOperator::ROR},
+		{StandardInstructions::iRol, ShiftOperator::ROL},
+		{StandardInstructions::iAsl, ShiftOperator::ASL},
+		{StandardInstructions::iLsr, ShiftOperator::LSR}
+	};
+
 }

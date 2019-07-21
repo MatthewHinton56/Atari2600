@@ -1,6 +1,5 @@
 #include "StandardInstruction.h"
 #include "Binary.h"
-#include "BCD.h"
 
 using namespace mos6507;
 
@@ -94,53 +93,29 @@ void StandardInstruction::execute(RegisterMap& registerMap)
 	//Byte statusRegister = registerMap["SR"];
 	switch (instruction)
 	{
+		case StandardInstructions::iSbc:
+		case StandardInstructions::iCmp:
 		case StandardInstructions::iAdc:
 			executeVal = (getDecimalFlag(registerMap["SR"])) ?
-				addWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) : 
-				addWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
+				airthmenticBCD(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]) :
+				airthmentic(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
 			break;
 
-		case StandardInstructions::iAnd:
-			executeVal = logic(LogicOperator::AND, registerMap["A"], decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iAsl:
-			executeVal = shift(ShiftOperator::ASL, decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iCmp:
-			compare(registerMap["A"], decodeVal, registerMap["SR"]);
-			executeVal = registerMap["A"];
-			break;
-
+		case StandardInstructions::iOra:
 		case StandardInstructions::iEor:
-			executeVal = logic(LogicOperator::XOR, registerMap["A"], decodeVal, registerMap["SR"]);
+		case StandardInstructions::iAnd:
+			executeVal = logic(logicFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
+			break;
+
+		case StandardInstructions::iRor:
+		case StandardInstructions::iRol:
+		case StandardInstructions::iLsr:
+		case StandardInstructions::iAsl:
+			executeVal = shift(shiftFunctions[instruction], decodeVal, registerMap["SR"]);
 			break;
 
 		case StandardInstructions::iLda:
 			executeVal = decodeVal;
-			break;
-
-		case StandardInstructions::iLsr:
-			executeVal = shift(ShiftOperator::LSR, decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iOra:
-			executeVal = logic(LogicOperator::OR, registerMap["A"], decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iRol:
-			executeVal = shift(ShiftOperator::ROL, decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iRor:
-			executeVal = shift(ShiftOperator::ROR, decodeVal, registerMap["SR"]);
-			break;
-
-		case StandardInstructions::iSbc:
-			executeVal = (getDecimalFlag(registerMap["SR"])) ?
-			subtractWithCarryBCD(registerMap["A"], decodeVal, registerMap["SR"]) :
-			subtractWithCarry(registerMap["A"], decodeVal, registerMap["SR"]);
 			break;
 
 		case StandardInstructions::iSta:

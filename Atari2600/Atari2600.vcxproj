@@ -124,7 +124,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ALInstruction.h" />
-    <ClInclude Include="MOS6507\Instructions\BCD.h" />
     <ClInclude Include="MOS6507\Instructions\Binary.h" />
     <ClInclude Include="MOS6507\Instructions\StandardInstruction.h" />
     <ClInclude Include="MOS6507\Instructions\Instruction.h" />
