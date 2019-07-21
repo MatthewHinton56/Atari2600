@@ -125,16 +125,20 @@
   <ItemGroup>
     <ClInclude Include="ALInstruction.h" />
     <ClInclude Include="MOS6507\Instructions\Binary.h" />
-    <ClInclude Include="MOS6507\Instructions\StandardInstruction.h" />
+    <ClInclude Include="MOS6507\Instructions\DecodeHelper.h" />
+    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.h" />
     <ClInclude Include="MOS6507\Instructions\Instruction.h" />
-    <ClInclude Include="MOS6507\Instructions\StandardInstructionConstants.h" />
+    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstructionConstants.h" />
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XInstructionsConstants.h" />
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XIntructions.h" />
     <ClInclude Include="MOS6507\Memory.h" />
     <ClInclude Include="MOS6507\MemoryAccessor.h" />
     <ClInclude Include="MOS6507\MOS6507Constants.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
-    <ClCompile Include="MOS6507\Instructions\StandardInstruction.cpp" />
+    <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp" />
+    <ClCompile Include="MOS6507\Instructions\XInstructions\Xinstructions.cpp" />
     <ClCompile Include="MOS6507\MemoryAccessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

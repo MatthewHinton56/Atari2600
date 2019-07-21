@@ -30,13 +30,22 @@
     <ClInclude Include="ALInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\StandardInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\StandardInstructionConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6507\Instructions\Binary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstructionConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XInstructionsConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\XInstructions\XIntructions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6507\Instructions\DecodeHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +56,10 @@
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\StandardInstruction.cpp">
+    <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6507\Instructions\XInstructions\Xinstructions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

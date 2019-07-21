@@ -1,6 +1,6 @@
 #pragma once
 #pragma once
-#include "Binary.h"
+#include "../Binary.h"
 #include <cstdint>
 #include <vector>
 #include <array>

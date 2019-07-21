@@ -1,5 +1,6 @@
 #include "StandardInstruction.h"
-#include "Binary.h"
+#include "../Binary.h"
+#include "../DecodeHelper.h"
 
 using namespace mos6507;
 
@@ -37,7 +38,6 @@ void StandardInstruction::decode
 {
 	//Special Mode - A mode and different cycles
 	Byte registerVal;
-	address;
 
 	if (decodeMode == InstructionAddressingMode::immediate)
 	{
@@ -45,42 +45,35 @@ void StandardInstruction::decode
 		return;
 	}
 
-	Word page;
-	Word newPage;
+	bool crossedPage = false;
 
 	switch (decodeMode)
 	{
 		case InstructionAddressingMode::absolute:
-			address = highOrderOperand << 8 | lowOrderOperand;
+			address = absolute(memory, lowOrderOperand, highOrderOperand);
 			break;
 
 		case InstructionAddressingMode::absoluteY:
 		case InstructionAddressingMode::absoluteX:
 			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
-			address = highOrderOperand << 8 | lowOrderOperand;
-			page = memory.getMemory().getPageMask() & address;
-			
-			address += registerVal;
-			newPage = memory.getMemory().getPageMask() & address;
-			
-			cycles += (newPage != page) ? 1 : 0;
+			address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
+			cycles += (crossedPage) ? 1 : 0;
 			break;
 
 		case InstructionAddressingMode::xZeroPage:
 		case InstructionAddressingMode::zeroPage:
 			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
-			address = (Byte)(registerVal + lowOrderOperand);
+			address = zeroPage(lowOrderOperand, registerVal);
 			break;
 
 		case InstructionAddressingMode::xIndirect:
 			registerVal = registerMap["X"];
-			address = memory.xIndexIndirect(lowOrderOperand, registerVal);
+			address = xIndirect(memory, lowOrderOperand, registerVal);
 			break;
 
 		case InstructionAddressingMode::yIndirect:
 			registerVal = registerMap["Y"];
-			bool crossedPage;
-			address = memory.yIndexIndirect(lowOrderOperand, registerVal, crossedPage);
+			address = yIndirect(memory, lowOrderOperand, registerVal, crossedPage);
 			cycles += (crossedPage) ? 1 : 0;
 			break;
 	}
