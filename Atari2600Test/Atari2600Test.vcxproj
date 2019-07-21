@@ -49,7 +49,6 @@
     </ClCompile>
     <ClCompile Include="OperationTests.cpp" />
     <ClCompile Include="StandardInstructionTest.cpp" />
-    <ClCompile Include="XDecIncInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atari2600\Atari2600.vcxproj">

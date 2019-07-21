@@ -2,20 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="MemoryAccessorTest.cpp">
+    <ClCompile Include="StandardInstructionTest.cpp">
+      <Filter>InstructionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="OperationTests.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
     <ClCompile Include="MemoryTest.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
-    <ClCompile Include="OperationTests.cpp">
+    <ClCompile Include="MemoryAccessorTest.cpp">
       <Filter>SupportTests</Filter>
-    </ClCompile>
-    <ClCompile Include="StandardInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
-    </ClCompile>
-    <ClCompile Include="XDecIncInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
