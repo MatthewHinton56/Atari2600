@@ -265,3 +265,13 @@ unsigned int XDecIncInstruction::getCycles() const
 {
 	return cycles;
 }
+
+XDecIncInstructions XDecIncInstruction::getInstruction() const
+{
+	return instruction;
+}
+
+InstructionAddressingMode XDecIncInstruction::getDecodeMode() const
+{
+	return decodeMode;
+}

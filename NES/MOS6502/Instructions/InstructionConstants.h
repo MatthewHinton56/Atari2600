@@ -2,7 +2,7 @@
 
 namespace mos6502
 {
-	enum class InstructionAddressingMode
+	enum class InstructionAddressingMode : uint8_t
 	{
 		xIndirect,
 		zeroPage,

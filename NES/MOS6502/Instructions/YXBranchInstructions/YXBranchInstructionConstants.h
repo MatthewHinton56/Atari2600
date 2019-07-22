@@ -1,11 +1,12 @@
+#pragma once
 
 namespace mos6502
 {
-	enum class YXBranchInstructionAddressingMode
+	enum class YXBranchInstructionAddressingMode : uint8_t
 	{
 		immediate = 0,
 		zeroPage,
-		impl,
+		implied,
 		absolute,
 		relative,
 		xZeroPage,
@@ -13,7 +14,7 @@ namespace mos6502
 		absoluteX
 	};
 
-	enum class YXBranchInstructions
+	enum class YXBranchInstructions : uint8_t
 	{
 		iSty,
 		iDey,
@@ -49,7 +50,43 @@ namespace mos6502
 		{0xB0, YXBranchInstructions::iBcs},
 		{0xB4, YXBranchInstructions::iLdy},
 		{0xB8, YXBranchInstructions::iClv},
-		{0xBC, YXBranchInstructions::iLdy}
+		{0xBC, YXBranchInstructions::iLdy},
+
+		{0xC0, YXBranchInstructions::iCpy},
+		{0xC4, YXBranchInstructions::iCpy},
+		{0xC8, YXBranchInstructions::iIny},
+		{0xCC, YXBranchInstructions::iCpy},
+		{0xD0, YXBranchInstructions::iBne},
+		{0xB8, YXBranchInstructions::iCld},
+
+		{0xE0, YXBranchInstructions::iCpx},
+		{0xE4, YXBranchInstructions::iCpx},
+		{0xE8, YXBranchInstructions::iInx},
+		{0xEC, YXBranchInstructions::iCpx},
+		{0xF0, YXBranchInstructions::iBeq},
+		{0xF8, YXBranchInstructions::iSed}
+	};
+
+	static std::map<YXBranchInstructionAddressingMode, uint8_t> cycleTimes
+	{
+		{YXBranchInstructionAddressingMode::immediate, 2},
+		{YXBranchInstructionAddressingMode::zeroPage, 3},
+		{YXBranchInstructionAddressingMode::implied, 2},
+		{YXBranchInstructionAddressingMode::absolute, 4},
+		{YXBranchInstructionAddressingMode::relative, 2},
+		{YXBranchInstructionAddressingMode::xZeroPage, 4},
+		{YXBranchInstructionAddressingMode::absoluteX, 4}
+	};
+
+	static std::map<YXBranchInstructionAddressingMode, uint8_t> InstructionSizes
+	{
+		{YXBranchInstructionAddressingMode::relative, 2},
+		{YXBranchInstructionAddressingMode::zeroPage, 2},
+		{YXBranchInstructionAddressingMode::immediate, 2},
+		{YXBranchInstructionAddressingMode::absolute, 3},
+		{YXBranchInstructionAddressingMode::xZeroPage, 2},
+		{YXBranchInstructionAddressingMode::absoluteX, 3},
+		{YXBranchInstructionAddressingMode::implied, 1}
 	};
 
 }

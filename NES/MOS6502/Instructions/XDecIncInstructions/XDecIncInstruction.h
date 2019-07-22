@@ -48,6 +48,10 @@ namespace mos6502
 
 		virtual unsigned int getCycles() const;
 
+		virtual XDecIncInstructions getInstruction() const;
+
+		virtual InstructionAddressingMode getDecodeMode() const;
+
 	protected:
 
 		XDecIncInstructions instruction;

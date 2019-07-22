@@ -5,7 +5,7 @@
 
 namespace mos6502
 {
-	enum class XDecIncInstructions
+	enum class XDecIncInstructions : uint8_t
 	{
 		iStx = 024,
 		iLdx,
@@ -55,5 +55,7 @@ namespace mos6502
 		{InstructionAddressingMode::absolute, 4},
 		{InstructionAddressingMode::absoluteY, 4}
 	};
+
+
 
 }

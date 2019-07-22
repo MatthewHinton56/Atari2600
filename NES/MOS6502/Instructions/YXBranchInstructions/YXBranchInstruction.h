@@ -13,8 +13,9 @@ namespace mos6502
 
 		YXBranchInstruction
 		(
-			uint8_t caValue,
+			uint8_t aValue,
 			uint8_t bValue,
+			uint8_t cValue,
 			Word PC,
 			Byte lowOrderOperand = 0,
 			Byte highOrderOperand = 0
@@ -52,6 +53,8 @@ namespace mos6502
 		YXBranchInstructions instruction;
 		YXBranchInstructionAddressingMode decodeMode;
 
+		Word PC;
+
 		Byte lowOrderOperand;
 		Byte highOrderOperand;
 
@@ -59,7 +62,7 @@ namespace mos6502
 		Word address;
 		Byte executeVal;
 		Byte memoryVal;
-		Word PC;
+
 		unsigned int instructionSize;
 		unsigned int cycles;
 	};

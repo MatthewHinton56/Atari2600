@@ -48,6 +48,9 @@ namespace {
 			PC
 		);
 
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iTxa);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
+
 		ASSERT_EQ(si.getInstructionSize(), 1);
 
 		ASSERT_EQ(si.getCycles(), 2);
@@ -77,10 +80,14 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iStx),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteY),
+			4,
+			6,
+			2,
 			PC
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iTxs);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
 
@@ -111,10 +118,14 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iLdx),
-			static_cast<uint8_t>(InstructionAddressingMode::immediate),
+			5,
+			2,
+			2,
 			PC
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iTax);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
 
@@ -145,10 +156,14 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iLdx),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteY),
+			5,
+			6,
+			2,
 			PC
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iTsx);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
 
@@ -178,12 +193,16 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iDec),
-			static_cast<uint8_t>(InstructionAddressingMode::immediate),
+			6,
+			2,
+			2,
 			PC
 		);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iDex);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getCycles(), 2);
 
@@ -209,12 +228,16 @@ namespace {
 	{
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iInc),
-			static_cast<uint8_t>(InstructionAddressingMode::immediate),
+			7,
+			2,
+			2,
 			PC
 		);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iNop);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getCycles(), 2);
 
@@ -244,11 +267,15 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iLdx),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteX),
+			5,
+			7,
+			2,
 			PC,
 			0x60
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iLdx);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absoluteY);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -283,11 +310,15 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iStx),
-			static_cast<uint8_t>(InstructionAddressingMode::xZeroPage),
+			4,
+			5,
+			2,
 			PC,
 			0x0
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iStx);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::yZeroPage);
 
 		ASSERT_EQ(si.getInstructionSize(), 2);
 
@@ -317,11 +348,15 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iLdx),
-			static_cast<uint8_t>(InstructionAddressingMode::xIndirect),
+			5,
+			0,
+			2,
 			PC,
 			0xCA
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iLdx);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::immediate);
 
 		ASSERT_EQ(si.getInstructionSize(), 2);
 
@@ -351,11 +386,15 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iDec),
-			static_cast<uint8_t>(InstructionAddressingMode::zeroPage),
+			6,
+			1,
+			2,
 			PC,
 			0xDD
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iDec);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::zeroPage);
 
 		ASSERT_EQ(si.getInstructionSize(), 2);
 
@@ -385,12 +424,16 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iInc),
-			static_cast<uint8_t>(InstructionAddressingMode::absolute),
+			7,
+			3,
+			2,
 			PC,
 			0xFF,
 			0xF
 		);
+
+		ASSERT_EQ(si.getInstruction(), XDecIncInstructions::iInc);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absolute);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
