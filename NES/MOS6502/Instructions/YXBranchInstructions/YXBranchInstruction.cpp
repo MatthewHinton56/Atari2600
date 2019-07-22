@@ -1,6 +1,7 @@
 #include "YXBranchInstruction.h"
 #include "YXBranchInstructionConstants.h"
 #include "../DecodeHelper.h"
+#include "../Binary.h"
 
 using namespace mos6502;
 
@@ -24,7 +25,8 @@ YXBranchInstruction::YXBranchInstruction
 	executeVal(0),
 	memoryVal(0),
 	instructionSize(InstructionSizes[decodeMode]),
-	cycles(cycleTimes[decodeMode])
+	cycles(cycleTimes[decodeMode]),
+	branch(0)
 {
 	decodeMode = (decodeMode == YXBranchInstructionAddressingMode::impl_two) ?
 		YXBranchInstructionAddressingMode::implied :
@@ -48,7 +50,22 @@ void YXBranchInstruction::decode
 
 	if (decodeMode == YXBranchInstructionAddressingMode::implied)
 	{
-		decodeVal = registerMap["A"];
+		switch (instruction)
+		{
+			case YXBranchInstructions::iIny:
+			case YXBranchInstructions::iDey:
+			case YXBranchInstructions::iTya:
+				decodeVal = registerMap["Y"];
+				break;
+
+			case YXBranchInstructions::iTay:
+				decodeVal = registerMap["A"];
+				break;
+
+			case YXBranchInstructions::iInx:
+				decodeVal = registerMap["X"];
+				break;
+		}
 		return;
 	}
 
@@ -81,17 +98,115 @@ void YXBranchInstruction::decode
 
 void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
 {
-	
+	switch (instruction)
+	{
+		case YXBranchInstructions::iBcc:
+			executeVal = (getCarryFlag(registerMap["SR"])) ? 0 : decodeVal;
+			break;
+		
+		case YXBranchInstructions::iBcs:
+			executeVal = (getCarryFlag(registerMap["SR"])) ? decodeVal : 0;
+			break;
+
+		case YXBranchInstructions::iBeq:
+			executeVal = (getZeroFlag(registerMap["SR"])) ? decodeVal : 0;
+			break;
+
+		case YXBranchInstructions::iBne:
+			executeVal = (getZeroFlag(registerMap["SR"])) ? 0 : decodeVal;
+			break;
+		
+		case YXBranchInstructions::iCld:
+			clearDecimalFlag(registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iClv:
+			clearOverflowFlag(registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iCpx:
+			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap["X"], decodeVal, registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iCpy:
+			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap["Y"], decodeVal, registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iDey:
+			executeVal = dec(registerMap["Y"], registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iInx:
+			executeVal = inc(registerMap["X"], registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iIny:
+			executeVal = inc(registerMap["Y"], registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iSed:
+			setDecimalFlag(registerMap["SR"]);
+			break;
+
+		case YXBranchInstructions::iLdy:
+		case YXBranchInstructions::iTay:
+		case YXBranchInstructions::iTya:
+			examine(decodeVal, registerMap["SR"]);
+		case YXBranchInstructions::iSty:
+			executeVal = decodeVal;
+			break;
+	}
+
+
+
 }
 
 void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAccessor& memory)
 {
-	
+	switch (instruction)
+	{
+	case YXBranchInstructions::iIny:
+	case YXBranchInstructions::iDey:
+	case YXBranchInstructions::iTay:
+	case YXBranchInstructions::iLdy:
+	case YXBranchInstructions::iCpy:
+		registerMap["Y"] = executeVal;
+		break;
+
+	case YXBranchInstructions::iTya:
+		registerMap["A"] = executeVal;
+		break;
+
+	case YXBranchInstructions::iInx:
+	case YXBranchInstructions::iCpx:
+		registerMap["X"] = executeVal;
+		break;
+
+	case YXBranchInstructions::iSty:
+		memory[address] = executeVal;
+		break;
+
+	case YXBranchInstructions::iBcc:
+	case YXBranchInstructions::iBcs:
+	case YXBranchInstructions::iBeq:
+	case YXBranchInstructions::iBne:
+		branch = executeVal;
+		if (branch != 0)
+		{
+			Word oldPage = (PC + instructionSize) & memory.getMemory().getPageMask();
+
+			Word newPage = (PC + instructionSize + (int8_t)branch) & memory.getMemory().getPageMask();
+
+			cycles += (newPage != oldPage) ? 2 : 1;
+
+		}
+		break;
+	}
 }
 
 Word YXBranchInstruction::pc()
 {
-	return PC + instructionSize;
+	return PC + executeVal + (int8_t)branch;
 }
 
 Byte YXBranchInstruction::getDecodeVal() const

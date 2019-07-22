@@ -26,11 +26,11 @@ namespace {
 	TEST_F(MemoryAccessorTest, MemoryConstruction)
 	{
 		ASSERT_EQ(memory.getMemory().getPageSize(), 256);
-		ASSERT_EQ(memory.getMemory().getNumPages(), 32);
-		ASSERT_EQ(memory.getMemory().getAddressSize(), 13);
+		ASSERT_EQ(memory.getMemory().getNumPages(), 256);
+		ASSERT_EQ(memory.getMemory().getAddressSize(), 16);
 		ASSERT_EQ(memory.getMemory().getOffsetAddressSize(), 8);
-		ASSERT_EQ(memory.getMemory().getPageAddressSize(), 5);
-		ASSERT_EQ(memory.getMemory().getTotalBytes(), 8192);
+		ASSERT_EQ(memory.getMemory().getPageAddressSize(), 8);
+		ASSERT_EQ(memory.getMemory().getTotalBytes(), 65536);
 	}
 
 	TEST_F(MemoryAccessorTest, MemoryReadWord)

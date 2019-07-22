@@ -43,7 +43,7 @@ namespace mos6502
 
 	typedef std::map<std::string, Byte> RegisterMap;
 
-	static const unsigned int NUM_PAGES = 32;
+	static const unsigned int NUM_PAGES = 256;
 	static const unsigned int PAGE_SIZE = 256;
 	
 	static const unsigned int aMask = 0xE0;

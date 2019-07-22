@@ -65,5 +65,7 @@ namespace mos6502
 
 		unsigned int instructionSize;
 		unsigned int cycles;
+
+		Byte branch;
 	};
 }
