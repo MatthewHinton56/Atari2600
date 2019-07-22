@@ -48,6 +48,10 @@ namespace mos6502
 
 		virtual unsigned int getCycles() const;
 
+		virtual YXBranchInstructions getInstruction() const;
+
+		virtual YXBranchInstructionAddressingMode getDecodeMode() const;
+
 	protected:
 
 		YXBranchInstructions instruction;

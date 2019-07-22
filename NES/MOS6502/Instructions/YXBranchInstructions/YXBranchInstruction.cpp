@@ -24,13 +24,16 @@ YXBranchInstruction::YXBranchInstruction
 	address(0),
 	executeVal(0),
 	memoryVal(0),
-	instructionSize(InstructionSizes[decodeMode]),
-	cycles(cycleTimes[decodeMode]),
+	instructionSize(0),
+	cycles(0),
 	branch(0)
 {
 	decodeMode = (decodeMode == YXBranchInstructionAddressingMode::impl_two) ?
 		YXBranchInstructionAddressingMode::implied :
 		decodeMode;
+
+	instructionSize = (YXBInstructionSizes[decodeMode]);
+	cycles = (YXBcycleTimes[decodeMode]);
 }
 
 void YXBranchInstruction::decode
@@ -198,7 +201,6 @@ void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAcc
 			Word newPage = (PC + instructionSize + (int8_t)branch) & memory.getMemory().getPageMask();
 
 			cycles += (newPage != oldPage) ? 2 : 1;
-
 		}
 		break;
 	}
@@ -206,7 +208,7 @@ void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAcc
 
 Word YXBranchInstruction::pc()
 {
-	return PC + executeVal + (int8_t)branch;
+	return PC + instructionSize + (int8_t)branch;
 }
 
 Byte YXBranchInstruction::getDecodeVal() const
@@ -242,4 +244,14 @@ unsigned int YXBranchInstruction::getInstructionSize() const
 unsigned int YXBranchInstruction::getCycles() const
 {
 	return cycles;
+}
+
+YXBranchInstructions YXBranchInstruction::getInstruction() const
+{
+	return instruction;
+}
+
+YXBranchInstructionAddressingMode YXBranchInstruction::getDecodeMode() const
+{
+	return decodeMode;
 }

@@ -15,6 +15,7 @@
       <Filter>SupportTests</Filter>
     </ClCompile>
     <ClCompile Include="XDecIncInstructionTest.cpp" />
+    <ClCompile Include="YXBranchInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

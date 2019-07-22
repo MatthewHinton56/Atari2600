@@ -51,6 +51,7 @@
     <ClCompile Include="OperationTests.cpp" />
     <ClCompile Include="StandardInstructionTest.cpp" />
     <ClCompile Include="XDecIncInstructionTest.cpp" />
+    <ClCompile Include="YXBranchInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NES\NES.vcxproj">
@@ -78,7 +79,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)NES\Debug\MemoryAccessor.obj;$(SolutionDir)NES\Debug\StandardInstruction.obj;$(SolutionDir)NES\Debug\XDecIncInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)NES\Debug\MemoryAccessor.obj;$(SolutionDir)NES\Debug\StandardInstruction.obj;$(SolutionDir)NES\Debug\XDecIncInstruction.obj;$(SolutionDir)NES\Debug\YXBranchInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

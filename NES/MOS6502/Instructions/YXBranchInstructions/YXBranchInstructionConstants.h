@@ -57,7 +57,7 @@ namespace mos6502
 		{0xC8, YXBranchInstructions::iIny},
 		{0xCC, YXBranchInstructions::iCpy},
 		{0xD0, YXBranchInstructions::iBne},
-		{0xB8, YXBranchInstructions::iCld},
+		{0xD8, YXBranchInstructions::iCld},
 
 		{0xE0, YXBranchInstructions::iCpx},
 		{0xE4, YXBranchInstructions::iCpx},
@@ -67,7 +67,7 @@ namespace mos6502
 		{0xF8, YXBranchInstructions::iSed}
 	};
 
-	static std::map<YXBranchInstructionAddressingMode, uint8_t> cycleTimes
+	static std::map<YXBranchInstructionAddressingMode, uint8_t> YXBcycleTimes
 	{
 		{YXBranchInstructionAddressingMode::immediate, 2},
 		{YXBranchInstructionAddressingMode::zeroPage, 3},
@@ -78,7 +78,7 @@ namespace mos6502
 		{YXBranchInstructionAddressingMode::absoluteX, 4}
 	};
 
-	static std::map<YXBranchInstructionAddressingMode, uint8_t> InstructionSizes
+	static std::map<YXBranchInstructionAddressingMode, uint8_t> YXBInstructionSizes
 	{
 		{YXBranchInstructionAddressingMode::relative, 2},
 		{YXBranchInstructionAddressingMode::zeroPage, 2},
