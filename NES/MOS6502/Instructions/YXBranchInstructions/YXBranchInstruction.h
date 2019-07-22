@@ -1,20 +1,20 @@
 #pragma once
+#pragma once
 #include "../../MemoryAccessor.h"
 #include "../../mos6502Constants.h"
 #include "../Instruction.h"
-#include "StandardInstructionConstants.h"
+#include "YXBranchInstructionConstants.h"
 
 namespace mos6502
 {
-	class StandardInstruction : Instruction
+	class YXBranchInstruction : Instruction
 	{
 	public:
 
-		StandardInstruction
+		YXBranchInstruction
 		(
-			uint8_t aValue,
+			uint8_t caValue,
 			uint8_t bValue,
-			uint8_t cValue,
 			Word PC,
 			Byte lowOrderOperand = 0,
 			Byte highOrderOperand = 0
@@ -23,7 +23,7 @@ namespace mos6502
 
 		virtual void decode
 		(
-			RegisterMap& registerMap, 
+			RegisterMap& registerMap,
 			MemoryAccessor& memory
 		);
 
@@ -47,14 +47,10 @@ namespace mos6502
 
 		virtual unsigned int getCycles() const;
 
-		virtual StandardInstructions getInstruction() const;
-
-		virtual InstructionAddressingMode getDecodeMode() const;
-
 	protected:
 
-		StandardInstructions instruction;
-		InstructionAddressingMode decodeMode;
+		YXBranchInstructions instruction;
+		YXBranchInstructionAddressingMode decodeMode;
 
 		Byte lowOrderOperand;
 		Byte highOrderOperand;

@@ -1,4 +1,4 @@
-#include "XDecIncIntructions.h"
+#include "XDecIncInstruction.h"
 #include "../DecodeHelper.h"
 
 using namespace mos6502;

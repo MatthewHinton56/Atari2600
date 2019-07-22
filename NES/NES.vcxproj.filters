@@ -24,9 +24,6 @@
     <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncIntructions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,7 +42,13 @@
     <ClInclude Include="MOS6502\MemoryAccessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\MOS6507Constants.h">
+    <ClInclude Include="MOS6502\MOS6502Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,11 +59,18 @@
     <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MOS6502\MemoryAccessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstructionConstants.h" />
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

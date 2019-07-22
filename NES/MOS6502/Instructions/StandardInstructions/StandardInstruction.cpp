@@ -6,13 +6,14 @@ using namespace mos6502;
 
 StandardInstruction::StandardInstruction
 (
-	uint8_t caValue, 
+	uint8_t aValue,
 	uint8_t bValue,
+	uint8_t cValue,
 	Word PC, 
 	Byte lowOrderOperand, 
 	Byte highOrderOperand
 ) :
-	instruction(static_cast<StandardInstructions>(caValue)),
+	instruction(static_cast<StandardInstructions>(generateCA(aValue, cValue))),
 	decodeMode(static_cast<InstructionAddressingMode>(bValue)),
 	PC(PC),
 	lowOrderOperand(lowOrderOperand),
@@ -182,4 +183,14 @@ unsigned int StandardInstruction::getInstructionSize() const
 unsigned int StandardInstruction::getCycles() const
 {
 	return cycles;
+}
+
+StandardInstructions StandardInstruction::getInstruction() const
+{
+	return instruction;
+}
+
+InstructionAddressingMode StandardInstruction::getDecodeMode() const
+{
+	return decodeMode;
 }

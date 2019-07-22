@@ -131,16 +131,22 @@
     <ClInclude Include="MOS6502\Instructions\Instruction.h" />
     <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncIntructions.h" />
+    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.h" />
+    <ClInclude Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.h" />
     <ClInclude Include="MOS6502\Memory.h" />
     <ClInclude Include="MOS6502\MemoryAccessor.h" />
-    <ClInclude Include="MOS6502\MOS6507Constants.h" />
+    <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
     <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructions.cpp" />
+    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp" />
+    <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp" />
     <ClCompile Include="MOS6502\MemoryAccessor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+    <None Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstructionConstants.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

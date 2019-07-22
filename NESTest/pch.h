@@ -10,4 +10,4 @@
 #include "mos6502\MemoryAccessor.h"
 #include "mos6502\Instructions\Binary.h"
 #include "mos6502\Instructions\StandardInstructions\StandardInstruction.h"
-#include "mos6502\Instructions\XDecIncInstructions\XDecIncIntructions.h""
+#include "mos6502\Instructions\XDecIncInstructions\XDecIncInstruction.h""
