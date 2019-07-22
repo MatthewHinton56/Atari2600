@@ -43,17 +43,17 @@ namespace mos6507
 	static std::map<InstructionAddressingMode, uint8_t> stxCycleTimes
 	{
 		{InstructionAddressingMode::zeroPage, 3},
-		{InstructionAddressingMode::xZeroPage, 4},
+		{InstructionAddressingMode::yZeroPage, 4},
 		{InstructionAddressingMode::absolute, 4}
 	};
 
 	static std::map<InstructionAddressingMode, uint8_t> ldxCycleTimes
 	{
-		{InstructionAddressingMode::immediate, 3},
-		{InstructionAddressingMode::xZeroPage, 3},
-		{InstructionAddressingMode::xZeroPage, 4},
+		{InstructionAddressingMode::immediate, 2},
+		{InstructionAddressingMode::zeroPage, 3},
+		{InstructionAddressingMode::yZeroPage, 4},
 		{InstructionAddressingMode::absolute, 4},
-		{InstructionAddressingMode::absoluteX, 4}
+		{InstructionAddressingMode::absoluteY, 4}
 	};
 
 }

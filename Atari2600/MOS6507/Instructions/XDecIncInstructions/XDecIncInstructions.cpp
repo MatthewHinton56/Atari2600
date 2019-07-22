@@ -45,29 +45,29 @@ XDecIncInstruction::XDecIncInstruction
 	if (instruction == XDecIncInstructions::iStx || instruction == XDecIncInstructions::iLdx)
 	{
 		decodeMode = (decodeMode == InstructionAddressingMode::xIndirect) ? InstructionAddressingMode::immediate : decodeMode;
-		decodeMode = (decodeMode == InstructionAddressingMode::xZeroPage) ? InstructionAddressingMode::yIndirect : decodeMode;
+		decodeMode = (decodeMode == InstructionAddressingMode::xZeroPage) ? InstructionAddressingMode::yZeroPage : decodeMode;
 		decodeMode = (decodeMode == InstructionAddressingMode::absoluteX) ? InstructionAddressingMode::absoluteY : decodeMode;
 
 	}
 
 	switch (instruction)
 	{
-	case XDecIncInstructions::iDec:
-	case XDecIncInstructions::iInc:
-		cycles = incDecCycleTimes[decodeMode];
-		break;
+		case XDecIncInstructions::iDec:
+		case XDecIncInstructions::iInc:
+			cycles = incDecCycleTimes[decodeMode];
+			break;
 
-	case XDecIncInstructions::iLdx:
-		cycles = ldxCycleTimes[decodeMode];
-		break;
+		case XDecIncInstructions::iLdx:
+			cycles = ldxCycleTimes[decodeMode];
+			break;
 
-	case XDecIncInstructions::iStx:
-		cycles = stxCycleTimes[decodeMode];
-		break;
+		case XDecIncInstructions::iStx:
+			cycles = stxCycleTimes[decodeMode];
+			break;
 
-	default:
-		cycles = 2;
-		break;
+		default:
+			cycles = 2;
+			break;
 	}
 
 	instructionSize = InstructionSizes[decodeMode];
