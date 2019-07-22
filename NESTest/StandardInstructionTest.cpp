@@ -127,8 +127,7 @@ namespace {
 			PC,
 			0xF7
 		);
-		printf("Hex: %x\n", generateABC(5, 2, 1));
-		printf("Hex: %x\n", generateCA(5, 1));
+
 		ASSERT_EQ(si.getInstruction(), StandardInstructions::iLda);
 		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::immediate);
 
@@ -161,12 +160,16 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iSta),
-			static_cast<uint8_t>(InstructionAddressingMode::absolute),
+			4,
+			3,
+			1,
 			PC,
 			0xF7,
 			0x01
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iSta);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absolute);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -204,11 +207,15 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iEor),
-			static_cast<uint8_t>(InstructionAddressingMode::yIndirect),
+			2,
+			4,
+			1,
 			PC,
 			0xBB
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iEor);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::yIndirect);
 
 		ASSERT_EQ(si.getInstructionSize(), 2);
 
@@ -246,11 +253,15 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iSbc),
-			static_cast<uint8_t>(InstructionAddressingMode::xZeroPage),
+			7,
+			5,
+			1,
 			PC,
 			0x64
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iSbc);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::xZeroPage);
 
 		ASSERT_EQ(si.getInstructionSize(), 2);
 
@@ -286,12 +297,17 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iAdc),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteY),
+			3,
+			6,
+			1,
 			PC,
 			0x44,
 			0x5
 		);
+
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iAdc);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absoluteY);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -329,12 +345,16 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iCmp),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteX),
+			6,
+			7,
+			1,
 			PC,
 			0x44,
 			0x5
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iCmp);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absoluteX);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -360,7 +380,7 @@ namespace {
 		ASSERT_EQ(PC, 3);
 	}
 
-/*	TEST_F(StandardInstructionTest, aASL)
+	TEST_F(StandardInstructionTest, aASL)
 	{
 		registerMap["SR"] = 0x0;
 		registerMap["A"] = 0x80;
@@ -368,10 +388,14 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iAsl),
-			static_cast<uint8_t>(InstructionAddressingMode::immediate),
+			0,
+			2,
+			2,
 			PC
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iAsl);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::implied);
 
 		ASSERT_EQ(si.getInstructionSize(), 1);
 
@@ -403,12 +427,16 @@ namespace {
 
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iRol),
-			static_cast<uint8_t>(InstructionAddressingMode::absolute),
+			1,
+			3,
+			2,
 			PC,
 			0xFF,
 			0x1F
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iRol);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absolute);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -440,12 +468,16 @@ namespace {
 		
 		StandardInstruction si
 		(
-			static_cast<uint8_t>(StandardInstructions::iRor),
-			static_cast<uint8_t>(InstructionAddressingMode::absoluteX),
+			3,
+			7,
+			2,
 			PC,
 			0x40,
 			0x1
 		);
+
+		ASSERT_EQ(si.getInstruction(), StandardInstructions::iRor);
+		ASSERT_EQ(si.getDecodeMode(), InstructionAddressingMode::absoluteX);
 
 		ASSERT_EQ(si.getInstructionSize(), 3);
 
@@ -469,5 +501,5 @@ namespace {
 		PC = si.pc();
 
 		ASSERT_EQ(PC, 3);
-	}*/
+	}
 }

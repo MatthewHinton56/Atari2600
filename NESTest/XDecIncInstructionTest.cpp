@@ -42,8 +42,9 @@ namespace {
 
 		XDecIncInstruction si
 		(
-			static_cast<uint8_t>(XDecIncInstructions::iStx),
-			static_cast<uint8_t>(InstructionAddressingMode::immediate),
+			4,
+			2,
+			2,
 			PC
 		);
 

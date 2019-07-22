@@ -13,8 +13,9 @@ namespace mos6502
 
 		XDecIncInstruction
 		(
-			uint8_t caValue,
+			uint8_t aValue,
 			uint8_t bValue,
+			uint8_t cValue,
 			Word PC,
 			Byte lowOrderOperand = 0,
 			Byte highOrderOperand = 0

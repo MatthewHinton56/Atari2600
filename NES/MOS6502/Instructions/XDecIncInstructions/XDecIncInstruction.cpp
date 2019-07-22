@@ -6,13 +6,14 @@ using namespace mos6502;
 
 XDecIncInstruction::XDecIncInstruction
 (
-	uint8_t caValue,
+	uint8_t aValue,
 	uint8_t bValue,
+	uint8_t cValue,
 	Word PC,
 	Byte lowOrderOperand,
 	Byte highOrderOperand
 ) :
-	instruction(static_cast<XDecIncInstructions>(caValue)),
+	instruction(static_cast<XDecIncInstructions>(generateCA(aValue, cValue))),
 	decodeMode(static_cast<InstructionAddressingMode>(bValue)),
 	PC(PC),
 	lowOrderOperand(lowOrderOperand),
