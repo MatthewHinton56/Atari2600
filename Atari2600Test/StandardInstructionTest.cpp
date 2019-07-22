@@ -418,4 +418,41 @@ namespace {
 
 		ASSERT_EQ(PC, 3);
 	}
+
+	TEST_F(StandardInstructionTest, absXRor)
+	{
+		registerMap["SR"] = 0x1;
+		memory[0x23F] = 0xAC;
+		registerMap["X"] = 0xFF;
+		
+		StandardInstruction si
+		(
+			static_cast<uint8_t>(StandardInstructions::iRor),
+			static_cast<uint8_t>(InstructionAddressingMode::absoluteX),
+			PC,
+			0x40,
+			0x1
+		);
+
+		ASSERT_EQ(si.getInstructionSize(), 3);
+
+		ASSERT_EQ(si.getCycles(), 7);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0x23F);
+		ASSERT_EQ(si.getDecodeVal(), 0xAC);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xD6);
+		ASSERT_EQ(registerMap["SR"], 0x80);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(memory[0x1FFF], 0x81);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 3);
+	}
 }

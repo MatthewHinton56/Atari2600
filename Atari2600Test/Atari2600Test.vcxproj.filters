@@ -14,6 +14,7 @@
     <ClCompile Include="MemoryAccessorTest.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
+    <ClCompile Include="XDecIncInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

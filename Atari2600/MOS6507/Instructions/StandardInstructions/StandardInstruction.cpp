@@ -67,7 +67,7 @@ void StandardInstruction::decode
 		case InstructionAddressingMode::absoluteX:
 			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
 			address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
-			cycles += (crossedPage) ? 1 : 0;
+			cycles += (crossedPage && instruction < static_cast<StandardInstructions>(020)) ? 1 : 0;
 			break;
 
 		case InstructionAddressingMode::xZeroPage:

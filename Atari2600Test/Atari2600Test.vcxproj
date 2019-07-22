@@ -49,6 +49,7 @@
     </ClCompile>
     <ClCompile Include="OperationTests.cpp" />
     <ClCompile Include="StandardInstructionTest.cpp" />
+    <ClCompile Include="XDecIncInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atari2600\Atari2600.vcxproj">
@@ -76,7 +77,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)Atari2600\Debug\MemoryAccessor.obj;$(SolutionDir)Atari2600\Debug\StandardInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)Atari2600\Debug\MemoryAccessor.obj;$(SolutionDir)Atari2600\Debug\StandardInstruction.obj;$(SolutionDir)Atari2600\Debug\XDecIncInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

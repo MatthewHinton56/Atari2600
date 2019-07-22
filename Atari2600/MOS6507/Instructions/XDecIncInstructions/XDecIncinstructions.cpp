@@ -50,7 +50,26 @@ XDecIncInstruction::XDecIncInstruction
 
 	}
 
-	decodeMode = (decodeMode == InstructionAddressingMode::xIndirect) ? InstructionAddressingMode::immediate : decodeMode;
+	switch (instruction)
+	{
+		case XDecIncInstructions::iDec:
+		case XDecIncInstructions::iInc:
+			cycles = incDecCycleTimes[decodeMode];
+			break;
+
+		case XDecIncInstructions::iLdx:
+			cycles = ldxCycleTimes[decodeMode];
+			break;
+
+		case XDecIncInstructions::iStx:
+			cycles = stxCycleTimes[decodeMode];
+			break;
+
+		default:
+			cycles = 2;
+			break;
+	}
+
 }
 
 void XDecIncInstruction::decode
@@ -107,7 +126,7 @@ void XDecIncInstruction::decode
 	case InstructionAddressingMode::absoluteX:
 		registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
 		address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
-		cycles += (crossedPage) ? 1 : 0;
+		cycles += (crossedPage && instruction == XDecIncInstructions::iLdx) ? 1 : 0;
 		break;
 
 	case InstructionAddressingMode::yZeroPage:
