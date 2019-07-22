@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Atari2600", "Atari2600\Atari2600.vcxproj", "{8BA68608-79B6-4793-BC46-30B55BFD9FF0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NES", "NES\NES.vcxproj", "{8BA68608-79B6-4793-BC46-30B55BFD9FF0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Atari2600Test", "Atari2600Test\Atari2600Test.vcxproj", "{933F06E6-4724-4930-981E-AF18BFD50175}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NESTest", "NESTest\NESTest.vcxproj", "{933F06E6-4724-4930-981E-AF18BFD50175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

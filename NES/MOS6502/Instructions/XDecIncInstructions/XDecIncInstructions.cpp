@@ -1,7 +1,7 @@
 #include "XDecIncIntructions.h"
 #include "../DecodeHelper.h"
 
-using namespace mos6507;
+using namespace mos6502;
 
 
 XDecIncInstruction::XDecIncInstruction
@@ -88,6 +88,7 @@ void XDecIncInstruction::decode
 	if (decodeMode == InstructionAddressingMode::immediate)
 	{
 		decodeVal = lowOrderOperand;
+		address = 0;
 		return;
 	}
 
@@ -168,7 +169,7 @@ void XDecIncInstruction::decode
 
 }
 
-void mos6507::XDecIncInstruction::execute(RegisterMap& registerMap)
+void mos6502::XDecIncInstruction::execute(RegisterMap& registerMap)
 {
 	switch (instruction)
 	{
@@ -194,7 +195,7 @@ void mos6507::XDecIncInstruction::execute(RegisterMap& registerMap)
 	}
 }
 
-void mos6507::XDecIncInstruction::writeBack(RegisterMap& registerMap, MemoryAccessor& memory)
+void mos6502::XDecIncInstruction::writeBack(RegisterMap& registerMap, MemoryAccessor& memory)
 {
 	switch (instruction)
 	{

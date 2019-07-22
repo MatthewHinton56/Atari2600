@@ -3,7 +3,7 @@
 #include "../InstructionConstants.h"
 #include <array>
 
-namespace mos6507
+namespace mos6502
 {
 	enum class XDecIncInstructions
 	{

@@ -33,7 +33,7 @@
 #define clearNegativeFlag(x) x = (x & ~0x80)
 
 
-namespace mos6507
+namespace mos6502
 {
 	typedef uint16_t Word;
 	typedef uint8_t Byte;

@@ -1,8 +1,8 @@
 #pragma once
 #include "../MemoryAccessor.h"
-#include "../MOS6507Constants.h"
+#include "../mos6502Constants.h"
 
-namespace mos6507
+namespace mos6502
 {
 	class Instruction
 	{

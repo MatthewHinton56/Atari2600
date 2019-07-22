@@ -5,10 +5,10 @@
 #include <cmath>
 #include <stdexcept>
 #include <iostream>
-#include "MOS6507Constants.h"
+#include "mos6502Constants.h"
 #include "Memory.h"
 
-namespace mos6507
+namespace mos6502
 {
 	class MemoryAccessor
 	{

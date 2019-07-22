@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 
-namespace mos6507
+namespace mos6502
 {
 	template<size_t pageSize, size_t numPages>
 	class Memory

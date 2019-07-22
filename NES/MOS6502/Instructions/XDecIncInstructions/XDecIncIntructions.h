@@ -1,11 +1,11 @@
 #pragma once
 #pragma once
 #include "../../MemoryAccessor.h"
-#include "../../MOS6507Constants.h"
+#include "../../mos6502Constants.h"
 #include "../Instruction.h"
 #include "XDecIncInstructionConstants.h"
 
-namespace mos6507
+namespace mos6502
 {
 	class XDecIncInstruction : Instruction
 	{

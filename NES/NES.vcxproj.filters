@@ -15,51 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MOS6507\Memory.h">
+    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\MOS6507Constants.h">
+    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\MemoryAccessor.h">
+    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\Instruction.h">
+    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncIntructions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\Binary.h">
+    <ClInclude Include="MOS6502\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstructionConstants.h">
+    <ClInclude Include="MOS6502\Instructions\DecodeHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.h">
+    <ClInclude Include="MOS6502\Instructions\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\DecodeHelper.h">
+    <ClInclude Include="MOS6502\Instructions\InstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\InstructionConstants.h">
+    <ClInclude Include="MOS6502\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h">
+    <ClInclude Include="MOS6502\MemoryAccessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6507\Instructions\XDecIncInstructions\XDecIncIntructions.h">
+    <ClInclude Include="MOS6502\MOS6507Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MOS6507\MemoryAccessor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp">
+    <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncInstructions.cpp">
+    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\MemoryAccessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

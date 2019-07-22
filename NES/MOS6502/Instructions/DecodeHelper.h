@@ -1,8 +1,8 @@
 #pragma once
-#include "../MOS6507Constants.h"
+#include "../mos6502Constants.h"
 #include "../MemoryAccessor.h"
 
-namespace mos6507
+namespace mos6502
 {
 	static bool crossed = false;
 	inline Word absolute

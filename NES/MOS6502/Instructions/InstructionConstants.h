@@ -1,6 +1,6 @@
 #pragma once
 
-namespace mos6507
+namespace mos6502
 {
 	enum class InstructionAddressingMode
 	{

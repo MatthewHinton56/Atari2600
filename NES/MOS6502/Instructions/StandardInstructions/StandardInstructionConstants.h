@@ -10,7 +10,7 @@
 #include <iostream>
 #include <map>
 
-namespace mos6507
+namespace mos6502
 {
 
 	static const uint8_t A = 2;

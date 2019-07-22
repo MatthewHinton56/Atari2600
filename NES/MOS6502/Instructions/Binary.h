@@ -1,7 +1,7 @@
 #pragma once
-#include "../MOS6507Constants.h"
+#include "../mos6502Constants.h"
 
-namespace mos6507
+namespace mos6502
 {
 	inline Byte addWithCarry
 	(

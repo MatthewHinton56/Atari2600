@@ -5,7 +5,7 @@
 
 #define COMMA ,
 
-using namespace mos6507;
+using namespace mos6502;
 
 namespace {
 

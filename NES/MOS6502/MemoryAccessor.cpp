@@ -1,6 +1,6 @@
 #include "MemoryAccessor.h"
 
-using namespace mos6507;
+using namespace mos6502;
 
 MemoryAccessor::MemoryAccessor
 (
