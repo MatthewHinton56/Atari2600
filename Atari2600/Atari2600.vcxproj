@@ -138,7 +138,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
     <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp" />
-    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncinstructions.cpp" />
+    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncInstructions.cpp" />
     <ClCompile Include="MOS6507\MemoryAccessor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

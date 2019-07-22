@@ -442,6 +442,8 @@ namespace {
 		ASSERT_EQ(si.getAddress(), 0x23F);
 		ASSERT_EQ(si.getDecodeVal(), 0xAC);
 
+		ASSERT_EQ(si.getCycles(), 7);
+
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xD6);
@@ -449,7 +451,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(memory[0x1FFF], 0x81);
+		ASSERT_EQ(memory[0x23F], 0xD6);
 
 		PC = si.pc();
 

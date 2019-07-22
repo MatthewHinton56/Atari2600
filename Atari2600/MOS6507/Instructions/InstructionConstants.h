@@ -25,6 +25,8 @@ namespace mos6507
 		{InstructionAddressingMode::yIndirect, 2},
 		{InstructionAddressingMode::xZeroPage, 2},
 		{InstructionAddressingMode::absoluteY, 3},
-		{InstructionAddressingMode::absoluteX, 3}
+		{InstructionAddressingMode::absoluteX, 3},
+		{InstructionAddressingMode::implied, 1},
+		{InstructionAddressingMode::yZeroPage, 2}
 	};
 }

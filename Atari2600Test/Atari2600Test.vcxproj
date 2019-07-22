@@ -77,7 +77,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)Atari2600\Debug\MemoryAccessor.obj;$(SolutionDir)Atari2600\Debug\StandardInstruction.obj;$(SolutionDir)Atari2600\Debug\XDecIncInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)Atari2600\Debug\MemoryAccessor.obj;$(SolutionDir)Atari2600\Debug\StandardInstruction.obj;$(SolutionDir)Atari2600\Debug\XDecIncInstructions.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

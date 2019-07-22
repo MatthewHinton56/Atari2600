@@ -59,7 +59,7 @@
     <ClCompile Include="MOS6507\Instructions\StandardInstructions\StandardInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncinstructions.cpp">
+    <ClCompile Include="MOS6507\Instructions\XDecIncInstructions\XDecIncInstructions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
