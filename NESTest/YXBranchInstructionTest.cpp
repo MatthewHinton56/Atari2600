@@ -514,9 +514,10 @@ namespace {
 		ASSERT_EQ(si.getExceuteVal(), 0x5A);
 
 		ASSERT_EQ(registerMap["SR"], 0x00);
-		ASSERT_EQ(memory[0x7F], 0x5A);
 
 		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(memory[0x7F], 0x5A);
 
 		PC = si.pc();
 

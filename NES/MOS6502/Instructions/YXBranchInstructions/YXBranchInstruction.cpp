@@ -97,7 +97,7 @@ void YXBranchInstruction::decode
 	if (instruction != YXBranchInstructions::iSty)
 		decodeVal = memory[address];
 	else
-		decodeVal = registerMap["A"];
+		decodeVal = registerMap["Y"];
 }
 
 void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
