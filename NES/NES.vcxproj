@@ -126,6 +126,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
+    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.h" />
+    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\DecodeHelper.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.h" />
@@ -140,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
+    <ClCompile Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp" />
