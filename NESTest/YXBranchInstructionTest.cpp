@@ -526,4 +526,133 @@ namespace {
 		ASSERT_EQ(PC, 2);
 	}
 
+	TEST_F(YXBranchInstructionTest, LdyAbsXTest)
+	{
+		memory[0x127F] = 0xCA;
+		registerMap["X"] = 0xF;
+		registerMap["Y"] = 0xBB;
+		YXBranchInstruction si
+		(
+			5,
+			7,
+			0,
+			PC,
+			0x70,
+			0x12
+		);
+
+		ASSERT_EQ(si.getInstruction(), YXBranchInstructions::iLdy);
+		ASSERT_EQ(si.getDecodeMode(), YXBranchInstructionAddressingMode::absoluteX);
+
+		ASSERT_EQ(si.getInstructionSize(), 3);
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		si.decode(registerMap, memory);
+
+		ASSERT_EQ(si.getAddress(), 0x127F);
+		ASSERT_EQ(si.getDecodeVal(), 0xCA);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xCA);
+
+		ASSERT_EQ(registerMap["SR"], 0x80);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["Y"], 0xCA);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		ASSERT_EQ(PC, 3);
+	}
+
+	TEST_F(YXBranchInstructionTest, CpxAbsTest)
+	{
+		memory[0x1270] = 0xD;
+		registerMap["X"] = 0xF;
+		YXBranchInstruction si
+		(
+			7,
+			3,
+			0,
+			PC,
+			0x70,
+			0x12
+		);
+
+		ASSERT_EQ(si.getInstruction(), YXBranchInstructions::iCpx);
+		ASSERT_EQ(si.getDecodeMode(), YXBranchInstructionAddressingMode::absolute);
+
+		ASSERT_EQ(si.getInstructionSize(), 3);
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		si.decode(registerMap, memory);
+
+		ASSERT_EQ(si.getAddress(), 0x1270);
+		ASSERT_EQ(si.getDecodeVal(), 0xD);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xF);
+
+		ASSERT_EQ(registerMap["SR"], 0x01);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["X"], 0xF);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		ASSERT_EQ(PC, 3);
+	}
+
+	TEST_F(YXBranchInstructionTest, CpyImmTest)
+	{
+		registerMap["Y"] = 0x80;
+		YXBranchInstruction si
+		(
+			6,
+			0,
+			0,
+			PC,
+			0x81
+		);
+
+		ASSERT_EQ(si.getInstruction(), YXBranchInstructions::iCpy);
+		ASSERT_EQ(si.getDecodeMode(), YXBranchInstructionAddressingMode::immediate);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x81);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x80);
+
+		ASSERT_EQ(registerMap["SR"], 0x80);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["Y"], 0x80);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		ASSERT_EQ(PC, 2);
+	}
+
+
 }

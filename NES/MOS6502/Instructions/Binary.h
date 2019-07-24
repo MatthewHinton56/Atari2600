@@ -262,6 +262,9 @@ namespace mos6502
 
 		case ArithmeticOperator::CMP:
 			return compare(operand1, operand2, statusRegister);
+
+		default:
+			return Byte();
 		}
 
 	}
