@@ -23,7 +23,6 @@ namespace mos6502
 		address += registerVal;
 		newPage = memory.getMemory().getPageMask() & address;
 		crossedPage = (page != newPage);
-		std::cout << crossedPage << std::endl;
 		return address;
 	}
 

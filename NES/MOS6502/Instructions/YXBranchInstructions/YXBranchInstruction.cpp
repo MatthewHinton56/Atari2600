@@ -47,10 +47,7 @@ void YXBranchInstruction::decode
 
 	if (decodeMode == YXBranchInstructionAddressingMode::immediate || decodeMode == YXBranchInstructionAddressingMode::relative)
 	{
-		std::cout << "Here" << std::endl;
 		decodeVal = lowOrderOperand;
-
-		printf("%x \n %x \n", lowOrderOperand, decodeVal);
 
 		return;
 	}
@@ -166,11 +163,11 @@ void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
 
 	if (decodeMode == YXBranchInstructionAddressingMode::relative)
 	{
-		if (decodeVal != 0)
+		if (executeVal != 0)
 		{
 			Word oldPage = (PC + instructionSize) & 0xFF00;
 
-			Word newPage = (PC + instructionSize + (int8_t)newPage) & 0xFF00;
+			Word newPage = (PC + instructionSize + (int8_t)executeVal) & 0xFF00;
 
 			cycles += (newPage != oldPage) ? 2 : 1;
 		}
