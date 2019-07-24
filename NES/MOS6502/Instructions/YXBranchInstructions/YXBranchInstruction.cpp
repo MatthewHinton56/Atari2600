@@ -34,7 +34,7 @@ YXBranchInstruction::YXBranchInstruction
 
 	instructionSize = (YXBInstructionSizes[decodeMode]);
 	cycles = (YXBcycleTimes[decodeMode]);
-}
+} 
 
 void YXBranchInstruction::decode
 (
@@ -47,7 +47,11 @@ void YXBranchInstruction::decode
 
 	if (decodeMode == YXBranchInstructionAddressingMode::immediate || decodeMode == YXBranchInstructionAddressingMode::relative)
 	{
+		std::cout << "Here" << std::endl;
 		decodeVal = lowOrderOperand;
+
+		printf("%x \n %x \n", lowOrderOperand, decodeVal);
+
 		return;
 	}
 
@@ -160,6 +164,17 @@ void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
 			break;
 	}
 
+	if (decodeMode == YXBranchInstructionAddressingMode::relative)
+	{
+		if (decodeVal != 0)
+		{
+			Word oldPage = (PC + instructionSize) & 0xFF00;
+
+			Word newPage = (PC + instructionSize + (int8_t)newPage) & 0xFF00;
+
+			cycles += (newPage != oldPage) ? 2 : 1;
+		}
+	}
 
 
 }
@@ -194,14 +209,6 @@ void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAcc
 	case YXBranchInstructions::iBeq:
 	case YXBranchInstructions::iBne:
 		branch = executeVal;
-		if (branch != 0)
-		{
-			Word oldPage = (PC + instructionSize) & memory.getMemory().getPageMask();
-
-			Word newPage = (PC + instructionSize + (int8_t)branch) & memory.getMemory().getPageMask();
-
-			cycles += (newPage != oldPage) ? 2 : 1;
-		}
 		break;
 	}
 }

@@ -328,4 +328,81 @@ namespace {
 
 		ASSERT_EQ(PC, 1);
 	}
+	
+	TEST_F(YXBranchInstructionTest, BeqTest)
+	{
+		registerMap["SR"] = 0x02;
+		PC = 0x100;
+		YXBranchInstruction si
+		(
+			7,
+			4,
+			0,
+			PC,
+			0x80
+		);
+
+		ASSERT_EQ(si.getInstruction(), YXBranchInstructions::iBeq);
+		ASSERT_EQ(si.getDecodeMode(), YXBranchInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x80);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x80);
+		ASSERT_EQ(registerMap["SR"], 0x02);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		ASSERT_EQ(PC, 0x82);
+	}
+
+	TEST_F(YXBranchInstructionTest, BneTest)
+	{
+		registerMap["SR"] = 0x02;
+		PC = 0x100;
+		YXBranchInstruction si
+		(
+			6,
+			4,
+			0,
+			PC,
+			0x80
+		);
+
+		ASSERT_EQ(si.getInstruction(), YXBranchInstructions::iBne);
+		ASSERT_EQ(si.getDecodeMode(), YXBranchInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x80);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0);
+		ASSERT_EQ(registerMap["SR"], 0x02);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		ASSERT_EQ(PC, 0x102);
+	}
+
 }
