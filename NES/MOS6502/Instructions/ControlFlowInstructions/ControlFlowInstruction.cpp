@@ -109,7 +109,27 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 {
 	switch (instruction)
 	{
-	
+		case ControlFlowInstructions::iBit:
+			(decodeVal & 0x80) ? setNegativeFlag(registerMap["SR"]) : clearNegativeFlag(registerMap["SR"]);
+			(decodeVal & 0x40) ? setOverflowFlag(registerMap["SR"]) : clearOverflowFlag(registerMap["SR"]);
+			(decodeVal & registerMap["A"]) ? clearZeroFlag(registerMap["SR"]) : setZeroFlag(registerMap["SR"]);
+			break;
+
+		case ControlFlowInstructions::iBmi:
+			executeVal = (getNegativeFlag(registerMap["SR"])) ? decodeVal : 0;
+			break;
+
+		case ControlFlowInstructions::iBpl:
+			executeVal = (getNegativeFlag(registerMap["SR"])) ?  0 : decodeVal;
+			break;
+
+		case ControlFlowInstructions::iBrk:
+			executeVal = decodeVal;
+			break;
+
+		case ControlFlowInstructions::iBvc:
+			executeVal = decodeVal;
+			break;
 	}
 
 	if (decodeMode == ControlFlowInstructionAddressingMode::relative)
