@@ -26,6 +26,18 @@ namespace mos6502
 		return address;
 	}
 
+	inline Word indirect
+	(
+		MemoryAccessor& memory,
+		Byte lowOrderOperand,
+		Byte highOrderOperand
+	)
+	{
+		Word address;
+		address = highOrderOperand << 8 | lowOrderOperand;
+		return memory.indirect(address);
+	}
+
 	inline Byte zeroPage
 	(
 		Byte lowOrderOperand,

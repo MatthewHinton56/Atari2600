@@ -49,4 +49,12 @@ namespace mos6502
 	static const unsigned int aMask = 0xE0;
 	static const unsigned int bMask = 0x1C;
 	static const unsigned int cMask = 0x02;
+
+	static const Word IRQ_VECTOR = 0xFFFE;
+
+	static const Word NMI_VECTOR = 0xFFFA;
+
+	static const Word RESET_VECTOR = 0xFFFC;
+
 }
+
