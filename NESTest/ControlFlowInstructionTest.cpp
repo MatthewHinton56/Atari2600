@@ -218,4 +218,45 @@ namespace {
 
 		ASSERT_EQ(PC, 0x1234);
 	}
+
+	TEST_F(ControlFlowInstructionTest, JsrTest)
+	{
+		PC = 0xBC45;
+
+		registerMap["SP"] = 0xFF;
+
+		ControlFlowInstruction si
+		(
+			1,
+			0,
+			0,
+			PC,
+			0x55,
+			0x66
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iJsr);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::absolute);
+
+		ASSERT_EQ(si.getInstructionSize(), 3);
+
+		ASSERT_EQ(si.getCycles(), 6);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0x6655);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xFF - 2);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xBC47); //PUSH PC + 1
+		ASSERT_EQ(registerMap["SP"], 0xFF - 2); // Implied 1
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 0x6655);
+	}
 }

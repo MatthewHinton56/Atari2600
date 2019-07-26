@@ -94,7 +94,7 @@ void ControlFlowInstruction::decode
 	if (instruction != ControlFlowInstructions::iJmp && instruction != ControlFlowInstructions::iJsr)
 		decodeVal = memory[address];
 	else
-		newPC = memory.readWord(address);
+		newPC = address;
 
 }
 
