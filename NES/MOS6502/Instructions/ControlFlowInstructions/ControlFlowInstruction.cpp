@@ -64,7 +64,7 @@ void ControlFlowInstruction::decode
 
 			case ControlFlowInstructions::iPla:
 			case ControlFlowInstructions::iPlp:
-				decodeVal = memory[registerMap["SP"]];
+				decodeVal = memory[0x100 | registerMap["SP"]];
 				break;
 
 			case ControlFlowInstructions::iPha:
@@ -142,23 +142,29 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 
 		case ControlFlowInstructions::iBrk:
 			executeVal = registerMap["SP"] - 3;
+			break;
 
 		case ControlFlowInstructions::iPha:
 		case ControlFlowInstructions::iPhp:
 			executeVal = registerMap["SP"] - 1;
+			break;
 
 		case ControlFlowInstructions::iPla:
 		case ControlFlowInstructions::iPlp:
 			executeVal = registerMap["SP"] + 1;
+			break;
 
 		case ControlFlowInstructions::iRti:
 			executeVal = registerMap["SP"] + 3;
+			break;
 
 		case ControlFlowInstructions::iRts:
 			executeVal = registerMap["SP"] + 2;
+			break;
 
 		case ControlFlowInstructions::iJsr:
 			executeVal = registerMap["SP"] - 2;
+			break;
 	}
 
 	if (decodeMode == ControlFlowInstructionAddressingMode::relative)
@@ -188,13 +194,13 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			break;
 
 		case ControlFlowInstructions::iBrk:
-			memory.writeWord(executeVal + 1, PC + instructionSize);
-			memory[executeVal] = registerMap["SR"];
+			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize);
+			memory[0x100 | executeVal] = registerMap["SR"];
 			registerMap["SP"] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iJsr:
-			memory.writeWord(executeVal, PC + instructionSize - 1);
+			memory.writeWord(0x100 | executeVal, PC + instructionSize - 1);
 			registerMap["SP"] = executeVal;
 			break;
 
@@ -215,13 +221,13 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			break;
 
 		case ControlFlowInstructions::iRti:
-			newPC = memory.readWord(executeVal - 2) + 1;
-			registerMap["SR"] = memory[executeVal - 3];
+			newPC = memory.readWord(0x100 | (executeVal - 2)) + 1;
+			registerMap["SR"] = memory[0x100 | (executeVal - 3)];
 			registerMap["SP"] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iRts:
-			newPC = memory.readWord(executeVal - 2) + 1;
+			newPC = memory.readWord(0x100 | executeVal - 2) + 1;
 			registerMap["SP"] = executeVal;
 			break;
 

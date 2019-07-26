@@ -174,4 +174,48 @@ namespace {
 
 		ASSERT_EQ(PC, 1);
 	}
+
+	TEST_F(ControlFlowInstructionTest, BrkTest)
+	{
+		PC = 0xABCD;
+		registerMap["SR"] = 0xDF;
+
+		registerMap["SP"] = 0xFF;
+
+		memory.writeWord(IRQ_VECTOR, 0x1234);
+
+		ControlFlowInstruction si
+		(
+			0,
+			0,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iBrk);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 7);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xFF - 3);
+		ASSERT_EQ(registerMap["SR"], 0xDF);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
+		ASSERT_EQ(memory[0x1FF - 3], 0xDF); // PUSH SR
+		ASSERT_EQ(registerMap["SP"], 0xFF - 3); // Implied 1
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 0x1234);
+	}
 }
