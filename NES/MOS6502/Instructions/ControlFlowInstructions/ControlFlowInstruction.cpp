@@ -122,13 +122,63 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 		case ControlFlowInstructions::iBpl:
 			executeVal = (getNegativeFlag(registerMap["SR"])) ?  0 : decodeVal;
 			break;
-
+		
 		case ControlFlowInstructions::iBrk:
+			address -= 3;
+			executeVal = decodeVal;
+			break;
+		case ControlFlowInstructions::iJsr:
+			address -= 2;
+			executeVal = decodeVal;
+			break;
+		
+		case ControlFlowInstructions::iPha:
+		case ControlFlowInstructions::iPhp:
+			address -= 1;
+			executeVal = decodeVal;
+			break;
+
+		case ControlFlowInstructions::iJmp:
 			executeVal = decodeVal;
 			break;
 
 		case ControlFlowInstructions::iBvc:
+			executeVal = (getOverflowFlag(registerMap["SR"])) ? 0 : decodeVal;;
+			break;
+
+		case ControlFlowInstructions::iBvs:
+			executeVal = (getOverflowFlag(registerMap["SR"])) ? decodeVal : 0;
+			break;
+
+		case ControlFlowInstructions::iClc:
+			clearCarryFlag(registerMap["SR"]);
+			break;
+
+		case ControlFlowInstructions::iCli:
+			clearInterruptFlag(registerMap["SR"]);
+			break;
+
+		case ControlFlowInstructions::iRti:
+			address += 3;
 			executeVal = decodeVal;
+			break;
+		case ControlFlowInstructions::iRts:
+			address += 2;
+			executeVal = decodeVal;
+			break;
+
+		case ControlFlowInstructions::iPlp:
+		case ControlFlowInstructions::iPla:
+			address += 1;
+			executeVal = decodeVal;
+			break;
+		
+		case ControlFlowInstructions::iSec:
+			setCarryFlag(registerMap["SR"]);
+			break;
+
+		case ControlFlowInstructions::iSei:
+			setInterruptFlag(registerMap["SR"]);
 			break;
 	}
 
