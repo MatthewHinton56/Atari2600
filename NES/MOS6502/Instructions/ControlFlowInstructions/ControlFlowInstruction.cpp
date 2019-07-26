@@ -12,13 +12,13 @@ ControlFlowInstruction::ControlFlowInstruction
 	uint8_t bValue,
 	uint8_t cValue,
 	Word PC,
-	Word newPC,
 	Byte lowOrderOperand,
 	Byte highOrderOperand
 ) :
 	instruction(CFHexToInstructions[generateABC(aValue, bValue, cValue)]),
 	decodeMode(static_cast<ControlFlowInstructionAddressingMode>(bValue)),
 	PC(PC),
+	newPC(),
 	lowOrderOperand(lowOrderOperand),
 	highOrderOperand(highOrderOperand),
 	decodeVal(0),
@@ -147,6 +147,26 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 		case ControlFlowInstructions::iSei:
 			setInterruptFlag(registerMap["SR"]);
 			break;
+
+		case ControlFlowInstructions::iBrk:
+			executeVal = registerMap["SP"] - 3;
+
+		case ControlFlowInstructions::iPha:
+		case ControlFlowInstructions::iPhp:
+			executeVal = registerMap["SP"] - 1;
+
+		case ControlFlowInstructions::iPla:
+		case ControlFlowInstructions::iPlp:
+			executeVal = registerMap["SP"] + 1;
+
+		case ControlFlowInstructions::iRti:
+			executeVal = registerMap["SP"] + 3;
+
+		case ControlFlowInstructions::iRts:
+			executeVal = registerMap["SP"] + 2;
+
+		case ControlFlowInstructions::iJsr:
+			executeVal = registerMap["SP"] - 2;
 	}
 
 	if (decodeMode == ControlFlowInstructionAddressingMode::relative)
