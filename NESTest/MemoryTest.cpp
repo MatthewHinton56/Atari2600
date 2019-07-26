@@ -85,13 +85,13 @@ namespace {
 	TEST_F(MemoryTest, MemoryClear)
 	{
 		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
-			mem[i] = 0x11;
+			mem[(unsigned int)i] = 0x11;
 		}
 
 		mem.clearMemory();
 
 		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
-			EXPECT_EQ(mem[i], 0x00);
+			EXPECT_EQ(mem[(unsigned int)i], 0x00);
 		}
 	}
 } 

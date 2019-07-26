@@ -27,7 +27,7 @@ namespace mos6502
 				Word address
 			);
 
-			virtual Word writeWord
+			virtual void writeWord
 			(
 				Word address,
 				Word data

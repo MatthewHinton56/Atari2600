@@ -16,7 +16,7 @@ ControlFlowInstruction::ControlFlowInstruction
 	Byte highOrderOperand
 ) :
 	instruction(CFHexToInstructions[generateABC(aValue, bValue, cValue)]),
-	decodeMode(static_cast<ControlFlowInstructionAddressingMode>(bValue)),
+	decodeMode(CFHexToDecodeMode[generateABC(aValue, bValue, cValue)]),
 	PC(PC),
 	newPC(),
 	lowOrderOperand(lowOrderOperand),

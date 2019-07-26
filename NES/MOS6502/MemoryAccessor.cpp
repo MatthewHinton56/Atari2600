@@ -33,7 +33,7 @@ Word MemoryAccessor::readWordNoCarry(Word address)
 }
 
 
-Word mos6502::MemoryAccessor::writeWord
+void mos6502::MemoryAccessor::writeWord
 (
 	Word address, 
 	Word data

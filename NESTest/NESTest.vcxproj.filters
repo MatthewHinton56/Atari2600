@@ -16,6 +16,7 @@
     </ClCompile>
     <ClCompile Include="XDecIncInstructionTest.cpp" />
     <ClCompile Include="YXBranchInstructionTest.cpp" />
+    <ClCompile Include="ControlFlowInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

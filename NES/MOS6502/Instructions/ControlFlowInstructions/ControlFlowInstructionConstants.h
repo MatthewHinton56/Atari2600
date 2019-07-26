@@ -40,7 +40,7 @@ namespace mos6502
 	static std::map<uint8_t, ControlFlowInstructions> CFHexToInstructions
 	{
 		{0x00, ControlFlowInstructions::iBrk},
-		{0x88, ControlFlowInstructions::iPhp},
+		{0x08, ControlFlowInstructions::iPhp},
 		{0x10, ControlFlowInstructions::iBpl},
 		{0x18, ControlFlowInstructions::iClc},
 
@@ -67,7 +67,7 @@ namespace mos6502
 	static std::map<uint8_t, ControlFlowInstructionAddressingMode> CFHexToDecodeMode
 	{
 		{0x00, ControlFlowInstructionAddressingMode::implied},
-		{0x88, ControlFlowInstructionAddressingMode::implied},
+		{0x08, ControlFlowInstructionAddressingMode::implied},
 		{0x10, ControlFlowInstructionAddressingMode::relative},
 		{0x18, ControlFlowInstructionAddressingMode::implied},
 
