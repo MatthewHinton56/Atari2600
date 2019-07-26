@@ -70,4 +70,108 @@ namespace {
 		ASSERT_EQ(PC, 1);
 	}
 
+	TEST_F(ControlFlowInstructionTest, SecTest)
+	{
+		registerMap["SR"] = 0x00;
+
+		ControlFlowInstruction si
+		(
+			1,
+			6,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iSec);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x00);
+		ASSERT_EQ(registerMap["SR"], 0x01);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, CliTest)
+	{
+		registerMap["SR"] = 0x04;
+
+		ControlFlowInstruction si
+		(
+			2,
+			6,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iCli);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x00);
+		ASSERT_EQ(registerMap["SR"], 0x00);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, SeiTest)
+	{
+		registerMap["SR"] = 0x00;
+
+		ControlFlowInstruction si
+		(
+			3,
+			6,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iSei);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x00);
+		ASSERT_EQ(registerMap["SR"], 0x04);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
 }
