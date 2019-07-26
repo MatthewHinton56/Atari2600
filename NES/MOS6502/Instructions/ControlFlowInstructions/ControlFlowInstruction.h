@@ -57,6 +57,7 @@ namespace mos6502
 		ControlFlowInstructions instruction;
 		ControlFlowInstructionAddressingMode decodeMode;
 
+		Word newPC;
 		Word PC;
 
 		Byte lowOrderOperand;

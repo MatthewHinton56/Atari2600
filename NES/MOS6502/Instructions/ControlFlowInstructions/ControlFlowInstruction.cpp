@@ -12,6 +12,7 @@ ControlFlowInstruction::ControlFlowInstruction
 	uint8_t bValue,
 	uint8_t cValue,
 	Word PC,
+	Word newPC,
 	Byte lowOrderOperand,
 	Byte highOrderOperand
 ) :
@@ -54,34 +55,29 @@ void ControlFlowInstruction::decode
 		switch (instruction)
 		{
 			case ControlFlowInstructions::iBrk:
-				address = IRQ_VECTOR;
-				PC = memory.readWord(address);
+				newPC = memory.readWord(IRQ_VECTOR);
 				break;
 
 			case ControlFlowInstructions::iPhp:
-				address = registerMap["SP"];
 				decodeVal = registerMap["SR"];
 				break;
 
+			case ControlFlowInstructions::iPla:
 			case ControlFlowInstructions::iPlp:
-				address = registerMap["SP"];
-				decodeVal = memory[address];
+				decodeVal = memory[registerMap["SP"]];
 				break;
 
 			case ControlFlowInstructions::iRti:
-				address = registerMap["SP"];
 				decodeVal = memory[address];
-				PC = memory.readWord(address + 2);
+				newPC = memory.readWord(address + 2);
 				break;
 
 			case ControlFlowInstructions::iPha:
-				address = registerMap["SP"];
 				decodeVal = registerMap["A"];
 				break;
 
 			case ControlFlowInstructions::iRts:
-				address = registerMap["SP"];
-				PC = memory.readWord(address);
+				newPC = memory.readWord(address);
 				break;
 
 		}
@@ -106,7 +102,7 @@ void ControlFlowInstruction::decode
 	if (instruction != ControlFlowInstructions::iJmp && instruction != ControlFlowInstructions::iJsr)
 		decodeVal = memory[address];
 	else
-		PC = memory.readWord(address);
+		newPC = memory.readWord(address);
 
 }
 
@@ -128,23 +124,6 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 			executeVal = (getNegativeFlag(registerMap["SR"])) ?  0 : decodeVal;
 			break;
 		
-		case ControlFlowInstructions::iBrk:
-			address -= 3;
-			break;
-
-		case ControlFlowInstructions::iJsr:
-			address -= 2;
-			break;
-		
-		case ControlFlowInstructions::iPha:
-		case ControlFlowInstructions::iPhp:
-			address -= 1;
-			executeVal = decodeVal;
-			break;
-
-		case ControlFlowInstructions::iJmp:
-			break;
-
 		case ControlFlowInstructions::iBvc:
 			executeVal = (getOverflowFlag(registerMap["SR"])) ? 0 : decodeVal;;
 			break;
@@ -161,19 +140,6 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 			clearInterruptFlag(registerMap["SR"]);
 			break;
 
-		case ControlFlowInstructions::iRti:
-			address += 3;
-			break;
-		case ControlFlowInstructions::iRts:
-			address += 2;
-			break;
-
-		case ControlFlowInstructions::iPlp:
-		case ControlFlowInstructions::iPla:
-			address += 1;
-			executeVal = decodeVal;
-			break;
-		
 		case ControlFlowInstructions::iSec:
 			setCarryFlag(registerMap["SR"]);
 			break;
@@ -209,8 +175,6 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 		branch = executeVal;
 		break;
 
-		case ControlFlowInstructions::iBrk:
-			break;
 	}
 }
 
