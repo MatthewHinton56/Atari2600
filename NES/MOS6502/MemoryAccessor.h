@@ -22,6 +22,11 @@ namespace mos6502
 				Word address
 			);
 
+			virtual Word readWordNoCarry
+			(
+				Word address
+			);
+
 			virtual Word writeWord
 			(
 				Word address,

@@ -19,6 +19,20 @@ Word MemoryAccessor::readWord(Word address)
 	return lowOrder | (highOrder << 8);
 }
 
+Word MemoryAccessor::readWordNoCarry(Word address)
+{
+	Word maskAddress = address & memory.getAddressMask();
+	Word lowOrder = memory[address];
+
+	Byte highOrderNo = ((Byte)address & 0x00FF) + 1;
+
+	Word highOrderAddress = (0xFF00 & address) | highOrderNo;
+
+	Word highOrder = memory[highOrderAddress];
+	return lowOrder | (highOrder << 8);
+}
+
+
 Word mos6502::MemoryAccessor::writeWord
 (
 	Word address, 
@@ -36,7 +50,7 @@ Word MemoryAccessor::indirect
 	Word address
 )
 {
-	return readWord(address);
+	return readWordNoCarry(address);
 }
 
 Word MemoryAccessor::xIndexIndirect

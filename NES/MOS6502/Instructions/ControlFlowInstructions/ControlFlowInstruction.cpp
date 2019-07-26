@@ -67,18 +67,10 @@ void ControlFlowInstruction::decode
 				decodeVal = memory[registerMap["SP"]];
 				break;
 
-			case ControlFlowInstructions::iRti:
-				decodeVal = memory[address];
-				newPC = memory.readWord(address + 2);
-				break;
-
 			case ControlFlowInstructions::iPha:
 				decodeVal = registerMap["A"];
 				break;
 
-			case ControlFlowInstructions::iRts:
-				newPC = memory.readWord(address);
-				break;
 
 		}
 		return;
@@ -192,15 +184,64 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 		case ControlFlowInstructions::iBvs:
 		case ControlFlowInstructions::iBmi:
 		case ControlFlowInstructions::iBpl:
-		branch = executeVal;
-		break;
+			branch = executeVal;
+			break;
+
+		case ControlFlowInstructions::iBrk:
+			memory.writeWord(executeVal + 1, PC + instructionSize);
+			memory[executeVal] = registerMap["SR"];
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iJsr:
+			memory.writeWord(executeVal, PC + instructionSize - 1);
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iPhp:
+		case ControlFlowInstructions::iPha:
+			memory[executeVal] = decodeVal;
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iPlp:
+			registerMap["SR"] = decodeVal;
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iPla:
+			registerMap["A"] = decodeVal;
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iRti:
+			newPC = memory.readWord(executeVal - 2) + 1;
+			registerMap["SR"] = memory[executeVal - 3];
+			registerMap["SP"] = executeVal;
+			break;
+
+		case ControlFlowInstructions::iRts:
+			newPC = memory.readWord(executeVal - 2) + 1;
+			registerMap["SP"] = executeVal;
+			break;
 
 	}
 }
 
 Word ControlFlowInstruction::pc()
 {
-	return PC + instructionSize + (int8_t)branch;
+	switch (instruction)
+	{
+		case ControlFlowInstructions::iRts:
+		case ControlFlowInstructions::iRti:
+		case ControlFlowInstructions::iJsr:
+		case ControlFlowInstructions::iBrk:
+		case ControlFlowInstructions::iJmp:
+			return newPC;
+
+		default:
+			return PC + instructionSize + (int8_t)branch;
+	}
 }
 
 Byte ControlFlowInstruction::getDecodeVal() const

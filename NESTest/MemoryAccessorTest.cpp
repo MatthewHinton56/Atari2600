@@ -68,4 +68,13 @@ namespace {
 		ASSERT_EQ(crossed, true);
 	}
 
+	TEST_F(MemoryAccessorTest, MemoryIndirect)
+	{
+		memory.getMemory()[0x1FF] = 0xCD;
+		memory.getMemory()[0x200] = 0xAB;
+		memory.getMemory()[0x100] = 0xEF;
+
+		ASSERT_EQ(memory.indirect(0x1FF), 0xEFCD);
+	}
+
 }
