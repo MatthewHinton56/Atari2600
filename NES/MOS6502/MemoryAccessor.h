@@ -22,6 +22,12 @@ namespace mos6502
 				Word address
 			);
 
+			virtual Word writeWord
+			(
+				Word address,
+				Word data
+			);
+
 			virtual Word indirect
 			(
 				Word address

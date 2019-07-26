@@ -40,6 +40,15 @@ namespace {
 		ASSERT_EQ(memory.readWord(0xB1), 0xABCD);
 	}
 
+	TEST_F(MemoryAccessorTest, MemoryWriteWord)
+	{
+		memory.writeWord(0xB1, 0xABCD);
+
+
+		ASSERT_EQ(memory[0xB1], 0xCD);
+		ASSERT_EQ(memory[0xB2], 0xAB);
+	}
+
 	TEST_F(MemoryAccessorTest, MemoryXIndexIndirect)
 	{
 		memory.getMemory()[0x00] = 0xCD;

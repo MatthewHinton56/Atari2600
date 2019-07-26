@@ -19,6 +19,18 @@ Word MemoryAccessor::readWord(Word address)
 	return lowOrder | (highOrder << 8);
 }
 
+Word mos6502::MemoryAccessor::writeWord
+(
+	Word address, 
+	Word data
+)
+{
+	Byte lowOrder = data & 0x00FF;
+	Byte highOrder = ((data & 0xFF00) >> 8);
+	memory[address] = lowOrder;
+	memory[address + 1] = highOrder;
+}
+
 Word MemoryAccessor::indirect
 (
 	Word address

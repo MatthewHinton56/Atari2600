@@ -70,7 +70,7 @@ namespace mos6502
 			return addressSize;
 		}
 
-		inline unsigned int getTotalBytes() const
+		inline size_t getTotalBytes() const
 		{
 			return memory.size();
 		}

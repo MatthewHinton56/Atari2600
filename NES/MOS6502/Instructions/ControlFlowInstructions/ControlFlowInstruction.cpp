@@ -55,7 +55,7 @@ void ControlFlowInstruction::decode
 		{
 			case ControlFlowInstructions::iBrk:
 				address = IRQ_VECTOR;
-				decodeVal = memory.readWord(address);
+				PC = memory.readWord(address);
 				break;
 
 			case ControlFlowInstructions::iPhp:
@@ -103,6 +103,11 @@ void ControlFlowInstruction::decode
 		address = indirect(memory, lowOrderOperand, highOrderOperand);
 	}
 
+	if (instruction != ControlFlowInstructions::iJmp && instruction != ControlFlowInstructions::iJsr)
+		decodeVal = memory[address];
+	else
+		PC = memory.readWord(address);
+
 }
 
 void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
@@ -125,11 +130,10 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 		
 		case ControlFlowInstructions::iBrk:
 			address -= 3;
-			executeVal = decodeVal;
 			break;
+
 		case ControlFlowInstructions::iJsr:
 			address -= 2;
-			executeVal = decodeVal;
 			break;
 		
 		case ControlFlowInstructions::iPha:
@@ -139,7 +143,6 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 			break;
 
 		case ControlFlowInstructions::iJmp:
-			executeVal = decodeVal;
 			break;
 
 		case ControlFlowInstructions::iBvc:
@@ -160,11 +163,9 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 
 		case ControlFlowInstructions::iRti:
 			address += 3;
-			executeVal = decodeVal;
 			break;
 		case ControlFlowInstructions::iRts:
 			address += 2;
-			executeVal = decodeVal;
 			break;
 
 		case ControlFlowInstructions::iPlp:
@@ -201,6 +202,15 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 {
 	switch (instruction)
 	{
+		case ControlFlowInstructions::iBvc:
+		case ControlFlowInstructions::iBvs:
+		case ControlFlowInstructions::iBmi:
+		case ControlFlowInstructions::iBpl:
+		branch = executeVal;
+		break;
+
+		case ControlFlowInstructions::iBrk:
+			break;
 	}
 }
 
