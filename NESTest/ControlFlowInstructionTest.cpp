@@ -259,4 +259,87 @@ namespace {
 
 		ASSERT_EQ(PC, 0x6655);
 	}
+
+	TEST_F(ControlFlowInstructionTest, RtiTest)
+	{
+		memory.writeWord(0x1FF - 2, 0x7865);
+		memory[0x1FF - 3] = 0x54;
+
+		registerMap["SP"] = 0xFC;
+
+		PC = 0x3232;
+
+		ControlFlowInstruction si
+		(
+			2,
+			0,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iRti);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 6);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0x0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xFF);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["SR"], 0x54);
+		ASSERT_EQ(registerMap["SP"], 0xFF); 
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 0x7865 + 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, RtsTest)
+	{
+		memory.writeWord(0x1FF - 2, 0x7864);
+
+		registerMap["SP"] = 0xFD;
+
+		PC = 0x3123;
+
+		ControlFlowInstruction si
+		(
+			3,
+			0,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iRts);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 6);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0x0);
+		ASSERT_EQ(si.getDecodeVal(), 0x0);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0xFF);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["SP"], 0xFF);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 0x7864 + 1);
+	}
+
 }

@@ -70,8 +70,6 @@ void ControlFlowInstruction::decode
 			case ControlFlowInstructions::iPha:
 				decodeVal = registerMap["A"];
 				break;
-
-
 		}
 		return;
 	}
