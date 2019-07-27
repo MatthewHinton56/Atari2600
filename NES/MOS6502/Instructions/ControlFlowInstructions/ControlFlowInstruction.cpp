@@ -204,7 +204,7 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 
 		case ControlFlowInstructions::iPhp:
 		case ControlFlowInstructions::iPha:
-			memory[executeVal] = decodeVal;
+			memory[0x100 | executeVal] = decodeVal;
 			registerMap["SP"] = executeVal;
 			break;
 

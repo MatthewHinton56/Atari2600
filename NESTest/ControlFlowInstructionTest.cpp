@@ -516,8 +516,83 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		memory[0x65] = 0x43;
-		registerMap["SP"] = 0x65;
+		ASSERT_EQ(memory[0x165], 0x43);
+		ASSERT_EQ(registerMap["SP"], 0x65);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, PhaTest)
+	{
+		registerMap["A"] = 0xEE;
+		registerMap["SP"] = 0x23;
+		ControlFlowInstruction si
+		(
+			2,
+			2,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iPha);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 3);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0xEE);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x22);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(memory[0x122], 0xEE);
+		ASSERT_EQ(registerMap["SP"], 0x22);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, PlaTest)
+	{
+		registerMap["A"] = 0xEE;
+		registerMap["SP"] = 0x23;
+		memory[0x123] = 0x76;
+		ControlFlowInstruction si
+		(
+			3,
+			2,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iPla);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x76);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x24);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["A"], 0x76);
+		ASSERT_EQ(registerMap["SP"], 0x24);
 
 		PC = si.pc();
 
