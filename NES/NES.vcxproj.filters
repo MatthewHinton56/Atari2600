@@ -36,9 +36,6 @@
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Memory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\MemoryAccessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -55,6 +52,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstructionConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

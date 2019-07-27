@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <iostream>
 #include "mos6502Constants.h"
-#include "Memory.h"
+#include "../Memory.h"
 
 namespace mos6502
 {

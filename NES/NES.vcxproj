@@ -136,7 +136,7 @@
     <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.h" />
     <ClInclude Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.h" />
-    <ClInclude Include="MOS6502\Memory.h" />
+    <ClInclude Include="Memory.h" />
     <ClInclude Include="MOS6502\MemoryAccessor.h" />
     <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
