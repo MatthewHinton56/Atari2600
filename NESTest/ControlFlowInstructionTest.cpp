@@ -599,4 +599,195 @@ namespace {
 		ASSERT_EQ(PC, 1);
 	}
 
+	TEST_F(ControlFlowInstructionTest, PlpTest)
+	{
+		registerMap["A"] = 0xEE;
+		registerMap["SP"] = 0x23;
+		memory[0x123] = 0x76;
+		ControlFlowInstruction si
+		(
+			1,
+			2,
+			0,
+			PC
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iPlp);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::implied);
+
+		ASSERT_EQ(si.getInstructionSize(), 1);
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x76);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x24);
+
+		si.writeBack(registerMap, memory);
+
+		ASSERT_EQ(registerMap["SR"], 0x76);
+		ASSERT_EQ(registerMap["SP"], 0x24);
+
+		PC = si.pc();
+
+		ASSERT_EQ(PC, 1);
+	}
+
+	TEST_F(ControlFlowInstructionTest, BplTest)
+	{
+		registerMap["SR"] = 0x00;
+		PC = 0x100;
+		ControlFlowInstruction si
+		(
+			0,
+			4,
+			0,
+			PC,
+			0x80
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iBpl);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x80);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x80);
+		ASSERT_EQ(registerMap["SR"], 0x00);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		ASSERT_EQ(PC, 0x82);
+	}
+
+	TEST_F(ControlFlowInstructionTest, BmiTest)
+	{
+		registerMap["SR"] = 0x00;
+		PC = 0x100;
+		ControlFlowInstruction si
+		(
+			1,
+			4,
+			0,
+			PC,
+			0x80
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iBmi);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x80);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0);
+		ASSERT_EQ(registerMap["SR"], 0x00);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		ASSERT_EQ(PC, 0x102);
+	}
+
+	TEST_F(ControlFlowInstructionTest, BvcTest)
+	{
+		registerMap["SR"] = 0x00;
+		PC = 0x100;
+		ControlFlowInstruction si
+		(
+			2,
+			4,
+			0,
+			PC,
+			0x10
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iBvc);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x10);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x10);
+		ASSERT_EQ(registerMap["SR"], 0x00);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 3);
+
+		ASSERT_EQ(PC, 0x112);
+	}
+
+	TEST_F(ControlFlowInstructionTest, BvsTest)
+	{
+		registerMap["SR"] = 0x40;
+		PC = 0x1FD;
+		ControlFlowInstruction si
+		(
+			3,
+			4,
+			0,
+			PC,
+			0x7F
+		);
+
+		ASSERT_EQ(si.getInstruction(), ControlFlowInstructions::iBvs);
+		ASSERT_EQ(si.getDecodeMode(), ControlFlowInstructionAddressingMode::relative);
+
+		ASSERT_EQ(si.getInstructionSize(), 2);
+
+		ASSERT_EQ(si.getCycles(), 2);
+
+		si.decode(registerMap, memory);
+
+		ASSERT_EQ(si.getAddress(), 0);
+		ASSERT_EQ(si.getDecodeVal(), 0x7F);
+
+		si.execute(registerMap);
+
+		ASSERT_EQ(si.getExceuteVal(), 0x7F);
+		ASSERT_EQ(registerMap["SR"], 0x40);
+
+		si.writeBack(registerMap, memory);
+
+		PC = si.pc();
+
+		ASSERT_EQ(si.getCycles(), 4);
+
+		ASSERT_EQ(PC, 0x27E);
+	}
+
 }
