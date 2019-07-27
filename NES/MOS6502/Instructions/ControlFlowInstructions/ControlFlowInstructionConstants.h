@@ -94,7 +94,7 @@ namespace mos6502
 	static std::map<uint8_t, uint8_t> CFHexToCycleTime
 	{
 		{0x00, 7},
-		{0x88, 3},
+		{0x08, 3},
 		{0x10, 2},
 		{0x18, 2},
 
