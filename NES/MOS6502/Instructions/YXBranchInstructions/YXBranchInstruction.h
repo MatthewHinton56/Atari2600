@@ -21,6 +21,7 @@ namespace mos6502
 			Byte highOrderOperand = 0
 		);
 
+		virtual ~YXBranchInstruction() = default;
 
 		virtual void decode
 		(

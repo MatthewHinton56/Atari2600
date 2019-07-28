@@ -20,6 +20,7 @@ namespace mos6502
 			Byte highOrderOperand = 0
 		);
 
+		virtual ~StandardInstruction() = default;
 
 		virtual void decode
 		(

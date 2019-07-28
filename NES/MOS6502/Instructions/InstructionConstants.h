@@ -30,7 +30,7 @@ namespace mos6502
 		{InstructionAddressingMode::yZeroPage, 2}
 	};
 
-	enum class Instructions
+	enum class Instructions : uint8_t
 	{
 		controlFlowInstructions,
 		yxBranchInstructions,

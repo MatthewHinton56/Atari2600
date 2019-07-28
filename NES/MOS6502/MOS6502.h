@@ -23,7 +23,7 @@ namespace mos6502
 
 			virtual MemoryAccessor& getMemoryAccessor();
 
-			virtual Instruction& getInstruction();
+			virtual Instruction* getInstruction();
 
 			virtual RegisterMap& getRegisterMap();
 
@@ -37,12 +37,12 @@ namespace mos6502
 
 			virtual bool getRes();
 
+			virtual Instruction* fetch();
+
 		private:
 
-			virtual  Instruction& fetch();
-
 			MemoryAccessor memory;
-			Instruction& instruction;
+			Instruction* instruction;
 			RegisterMap registerMap;
 			Word PC;
 			

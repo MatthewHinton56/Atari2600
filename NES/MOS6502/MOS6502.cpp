@@ -7,15 +7,13 @@
 
 using namespace mos6502;
 
-static StandardInstruction dummy(0, 0, 0, 0, 0, 0);
-
 MOS6502::MOS6502
 (
 	Memory<PAGE_SIZE, NUM_PAGES>& mem
 ) :
 	memory(mem),
 	registerMap(),
-	instruction(dummy),
+	instruction(),
 	cycles(0),
 	PC(0),
 	nmi(false),
@@ -44,7 +42,7 @@ MemoryAccessor& MOS6502::getMemoryAccessor()
 	return memory;
 }
 
-Instruction& MOS6502::getInstruction()
+Instruction* MOS6502::getInstruction()
 {
 	return instruction;
 }
@@ -81,7 +79,7 @@ bool MOS6502::getRes()
 
 
 
-Instruction& MOS6502::fetch()
+Instruction* MOS6502::fetch()
 {
 	Byte instructionByte = memory[PC];
 	Byte lowOrder = memory[PC + 1];
@@ -95,23 +93,19 @@ Instruction& MOS6502::fetch()
 
 	if (instructionCA < 004)
 	{
-		ControlFlowInstruction cf  = ControlFlowInstruction(a, b, c, PC, lowOrder, highOrder);
-		return cf;
+		return new ControlFlowInstruction(a, b, c, PC, lowOrder, highOrder);
 	}
 	else if (instructionCA < 010)
 	{
-		YXBranchInstruction yxb = YXBranchInstruction(a, b, c, PC, lowOrder, highOrder);
-		return yxb;
+		return new YXBranchInstruction(a, b, c, PC, lowOrder, highOrder);
 	}
 	else if (instructionCA < 024)
 	{
-		StandardInstruction s = StandardInstruction(a, b, c, PC, lowOrder, highOrder);
-		return s;
+		return new StandardInstruction(a, b, c, PC, lowOrder, highOrder);
 	}
 	else
 	{
-		XDecIncInstruction xdi = XDecIncInstruction(a, b, c, PC, lowOrder, highOrder);
-		return xdi;
+		return new XDecIncInstruction(a, b, c, PC, lowOrder, highOrder);
 	}
 }
 

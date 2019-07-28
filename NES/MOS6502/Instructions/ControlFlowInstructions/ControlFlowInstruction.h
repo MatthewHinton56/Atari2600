@@ -21,6 +21,7 @@ namespace mos6502
 			Byte highOrderOperand = 0
 		);
 
+		virtual ~ControlFlowInstruction() = default;
 
 		virtual void decode
 		(
