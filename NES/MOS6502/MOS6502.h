@@ -8,11 +8,34 @@ namespace mos6502
 {
 	class MOS6502
 	{
-		virtual void cycle(bool irq, bool nmi);
+		public:
 
+			MOS6502
+			(
+				Memory<PAGE_SIZE, NUM_PAGES>& mem
+			);
 
-		virtual void reset();
+			virtual ~MOS6502() = default;
 
+			virtual void cycle(bool irq, bool nmi);
+
+			virtual void reset();
+
+			virtual MemoryAccessor& getMemoryAccessor();
+
+			virtual Instruction& getInstruction();
+
+			virtual RegisterMap& getRegisterMap();
+
+			virtual Word getPC();
+
+			virtual unsigned int getCycles();
+
+			virtual bool getNmi();
+
+			virtual bool getIrq();
+
+			virtual bool getRes();
 
 		private:
 
@@ -26,5 +49,6 @@ namespace mos6502
 			unsigned int cycles;
 			bool nmi;
 			bool irq;
+			bool res;
 	};
 }

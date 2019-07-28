@@ -278,5 +278,5 @@ InstructionAddressingMode XDecIncInstruction::getDecodeMode() const
 
 Instructions mos6502::XDecIncInstruction::getInstructionType() const
 {
-	return Instructions::xDecIncInstructions
+	return Instructions::xDecIncInstructions;
 }

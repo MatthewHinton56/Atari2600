@@ -17,6 +17,7 @@
     <ClCompile Include="XDecIncInstructionTest.cpp" />
     <ClCompile Include="YXBranchInstructionTest.cpp" />
     <ClCompile Include="ControlFlowInstructionTest.cpp" />
+    <ClCompile Include="MOS6502Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

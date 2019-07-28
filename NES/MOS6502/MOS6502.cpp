@@ -7,14 +7,79 @@
 
 using namespace mos6502;
 
+static StandardInstruction dummy(0, 0, 0, 0, 0, 0);
+
+MOS6502::MOS6502
+(
+	Memory<PAGE_SIZE, NUM_PAGES>& mem
+) :
+	memory(mem),
+	registerMap(),
+	instruction(dummy),
+	cycles(0),
+	PC(0),
+	nmi(false),
+	irq(false),
+	res(false)
+{
+	registerMap[AC] = 0;
+	registerMap[X] = 0;
+	registerMap[Y] = 0;
+	registerMap[SR] = 0;
+	registerMap[SP] = 0;
+}
+
 void MOS6502::cycle(bool irq, bool nmi)
 {
+
 }
 
 void MOS6502::reset()
 {
 
 }
+
+MemoryAccessor& MOS6502::getMemoryAccessor()
+{
+	return memory;
+}
+
+Instruction& MOS6502::getInstruction()
+{
+	return instruction;
+}
+
+RegisterMap& MOS6502::getRegisterMap()
+{
+	return registerMap;
+}
+
+Word mos6502::MOS6502::getPC()
+{
+	return PC;
+}
+
+unsigned int MOS6502::getCycles()
+{
+	return cycles;
+}
+
+bool MOS6502::getNmi()
+{
+	return nmi;
+}
+
+bool MOS6502::getIrq()
+{
+	return irq;
+}
+
+bool MOS6502::getRes()
+{
+	return res;
+}
+
+
 
 Instruction& MOS6502::fetch()
 {
