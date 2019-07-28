@@ -25,7 +25,7 @@ MOS6502::MOS6502
 	registerMap[X] = 0;
 	registerMap[Y] = 0;
 	registerMap[SR] = 0;
-	registerMap[SP] = 0;
+	registerMap[SP] = 0xFF;
 }
 
 void MOS6502::cycle(bool irq, bool nmi)

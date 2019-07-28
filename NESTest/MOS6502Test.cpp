@@ -89,6 +89,84 @@ namespace {
 		ASSERT_EQ(mos.getCycles(), 0);
 	}
 
+	TEST_F(MOS6502Test, MultiInstructionTest)
+	{
+		//LDX #0x80
+		mem[0] = 0xA2;
+		mem[1] = 0x80;
+
+		//LDA #0x3E
+		mem[2] = 0xA9;
+		mem[3] = 0x3E;
+
+		//STA 0x1111
+		mem[4] = 0x8D;
+		mem[5] = 0x11;
+		mem[6] = 0x11;
+
+		//INC 0x1091 X
+		mem[7] = 0xFE;
+		mem[8] = 0x91;
+		mem[9] = 0x10;
+
+		//LDY 0x1091 X
+		mem[10] = 0xBC;
+		mem[11] = 0x91;
+		mem[12] = 0x10;
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[X], 0x80);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x80);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 2);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x3E);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x00);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 4);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 4);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mem[0x1111], 0x3E);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 7);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 7);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mem[0x1111], 0x3F);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 10);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 5);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::yxBranchInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[Y], 0x3F);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 13);
+
+	}
 
 
 }
