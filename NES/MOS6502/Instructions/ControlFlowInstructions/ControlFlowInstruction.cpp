@@ -75,17 +75,17 @@ void ControlFlowInstruction::decode
 
 	switch (decodeMode)
 	{
-	case ControlFlowInstructionAddressingMode::absolute:
-		address = absolute(memory, lowOrderOperand, highOrderOperand);
-		break;
+		case ControlFlowInstructionAddressingMode::absolute:
+			address = absolute(memory, lowOrderOperand, highOrderOperand);
+			break;
 
-	case ControlFlowInstructionAddressingMode::zeroPage:
-		registerVal = (decodeMode == ControlFlowInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
-		address = zeroPage(lowOrderOperand, registerVal);
-		break;
+		case ControlFlowInstructionAddressingMode::zeroPage:
+			registerVal = (decodeMode == ControlFlowInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
+			address = zeroPage(lowOrderOperand, registerVal);
+			break;
 
-	case ControlFlowInstructionAddressingMode::indirect:
-		address = indirect(memory, lowOrderOperand, highOrderOperand);
+		case ControlFlowInstructionAddressingMode::indirect:
+			address = indirect(memory, lowOrderOperand, highOrderOperand);
 	}
 
 	if (instruction != ControlFlowInstructions::iJmp && instruction != ControlFlowInstructions::iJsr)

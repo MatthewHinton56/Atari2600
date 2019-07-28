@@ -76,21 +76,21 @@ void YXBranchInstruction::decode
 
 	switch (decodeMode)
 	{
-	case YXBranchInstructionAddressingMode::absolute:
-		address = absolute(memory, lowOrderOperand, highOrderOperand);
-		break;
+		case YXBranchInstructionAddressingMode::absolute:
+			address = absolute(memory, lowOrderOperand, highOrderOperand);
+			break;
 
-	case YXBranchInstructionAddressingMode::absoluteX:
-		registerVal = (decodeMode == YXBranchInstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
-		address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
-		cycles += (crossedPage) ? 1 : 0;
-		break;
+		case YXBranchInstructionAddressingMode::absoluteX:
+			registerVal = (decodeMode == YXBranchInstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
+			address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
+			cycles += (crossedPage) ? 1 : 0;
+			break;
 
-	case YXBranchInstructionAddressingMode::xZeroPage:
-	case YXBranchInstructionAddressingMode::zeroPage:
-		registerVal = (decodeMode == YXBranchInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
-		address = zeroPage(lowOrderOperand, registerVal);
-		break;
+		case YXBranchInstructionAddressingMode::xZeroPage:
+		case YXBranchInstructionAddressingMode::zeroPage:
+			registerVal = (decodeMode == YXBranchInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
+			address = zeroPage(lowOrderOperand, registerVal);
+			break;
 	}
 
 	if (instruction != YXBranchInstructions::iSty)
@@ -179,33 +179,33 @@ void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAcc
 {
 	switch (instruction)
 	{
-	case YXBranchInstructions::iIny:
-	case YXBranchInstructions::iDey:
-	case YXBranchInstructions::iTay:
-	case YXBranchInstructions::iLdy:
-	case YXBranchInstructions::iCpy:
-		registerMap[Y] = executeVal;
-		break;
+		case YXBranchInstructions::iIny:
+		case YXBranchInstructions::iDey:
+		case YXBranchInstructions::iTay:
+		case YXBranchInstructions::iLdy:
+		case YXBranchInstructions::iCpy:
+			registerMap[Y] = executeVal;
+			break;
 
-	case YXBranchInstructions::iTya:
-		registerMap[AC] = executeVal;
-		break;
+		case YXBranchInstructions::iTya:
+			registerMap[AC] = executeVal;
+			break;
 
-	case YXBranchInstructions::iInx:
-	case YXBranchInstructions::iCpx:
-		registerMap[X] = executeVal;
-		break;
+		case YXBranchInstructions::iInx:
+		case YXBranchInstructions::iCpx:
+			registerMap[X] = executeVal;
+			break;
 
-	case YXBranchInstructions::iSty:
-		memory[address] = executeVal;
-		break;
+		case YXBranchInstructions::iSty:
+			memory[address] = executeVal;
+			break;
 
-	case YXBranchInstructions::iBcc:
-	case YXBranchInstructions::iBcs:
-	case YXBranchInstructions::iBeq:
-	case YXBranchInstructions::iBne:
-		branch = executeVal;
-		break;
+		case YXBranchInstructions::iBcc:
+		case YXBranchInstructions::iBcs:
+		case YXBranchInstructions::iBeq:
+		case YXBranchInstructions::iBne:
+			branch = executeVal;
+			break;
 	}
 }
 

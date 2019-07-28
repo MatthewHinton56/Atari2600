@@ -3,6 +3,7 @@
 #include "MemoryAccessor.h"
 #include "../Memory.h"
 #include "Instructions/Instruction.h"
+#include <memory.h>
 
 namespace mos6502
 {
@@ -23,7 +24,7 @@ namespace mos6502
 
 			virtual MemoryAccessor& getMemoryAccessor();
 
-			virtual Instruction* getInstruction();
+			virtual Instruction& getInstruction();
 
 			virtual RegisterMap& getRegisterMap();
 
@@ -33,16 +34,19 @@ namespace mos6502
 
 			virtual bool getNmi();
 
+			virtual void setNmi();
+
 			virtual bool getIrq();
 
-			virtual bool getRes();
+			virtual void setIrq();
 
-			virtual Instruction* fetch();
+			virtual std::unique_ptr<Instruction> fetch();
+
 
 		private:
 
 			MemoryAccessor memory;
-			Instruction* instruction;
+			std::unique_ptr<Instruction> instruction;
 			RegisterMap registerMap;
 			Word PC;
 			

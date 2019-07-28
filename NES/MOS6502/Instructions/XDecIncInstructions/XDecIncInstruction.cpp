@@ -128,38 +128,38 @@ void XDecIncInstruction::decode
 
 	switch (decodeMode)
 	{
-	case InstructionAddressingMode::absolute:
-		address = absolute(memory, lowOrderOperand, highOrderOperand);
-		break;
+		case InstructionAddressingMode::absolute:
+			address = absolute(memory, lowOrderOperand, highOrderOperand);
+			break;
 
-	case InstructionAddressingMode::absoluteY:
-	case InstructionAddressingMode::absoluteX:
-		registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
-		address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
-		cycles += (crossedPage && instruction == XDecIncInstructions::iLdx) ? 1 : 0;
-		break;
+		case InstructionAddressingMode::absoluteY:
+		case InstructionAddressingMode::absoluteX:
+			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
+			address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
+			cycles += (crossedPage && instruction == XDecIncInstructions::iLdx) ? 1 : 0;
+			break;
 
-	case InstructionAddressingMode::yZeroPage:
-	case InstructionAddressingMode::xZeroPage:
-	case InstructionAddressingMode::zeroPage:
-		registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
-		registerVal = (decodeMode == InstructionAddressingMode::yZeroPage) ? registerMap[Y] : registerVal;
-		address = zeroPage(lowOrderOperand, registerVal);
-		break;
+		case InstructionAddressingMode::yZeroPage:
+		case InstructionAddressingMode::xZeroPage:
+		case InstructionAddressingMode::zeroPage:
+			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
+			registerVal = (decodeMode == InstructionAddressingMode::yZeroPage) ? registerMap[Y] : registerVal;
+			address = zeroPage(lowOrderOperand, registerVal);
+			break;
 
-	case InstructionAddressingMode::xIndirect:
-		registerVal = registerMap[X];
-		address = xIndirect(memory, lowOrderOperand, registerVal);
-		break;
+		case InstructionAddressingMode::xIndirect:
+			registerVal = registerMap[X];
+			address = xIndirect(memory, lowOrderOperand, registerVal);
+			break;
 
-	case InstructionAddressingMode::yIndirect:
-		registerVal = registerMap[Y];
-		address = yIndirect(memory, lowOrderOperand, registerVal, crossedPage);
-		cycles += (crossedPage) ? 1 : 0;
-		break;
+		case InstructionAddressingMode::yIndirect:
+			registerVal = registerMap[Y];
+			address = yIndirect(memory, lowOrderOperand, registerVal, crossedPage);
+			cycles += (crossedPage) ? 1 : 0;
+			break;
 
-	default:
-		throw std::invalid_argument("Address Mode not Supported");
+		default:
+			throw std::invalid_argument("Address Mode not Supported");
 
 	}
 
@@ -174,25 +174,25 @@ void mos6502::XDecIncInstruction::execute(RegisterMap& registerMap)
 {
 	switch (instruction)
 	{
-	case XDecIncInstructions::iDex:
-	case XDecIncInstructions::iDec:
-		executeVal = dec(decodeVal, registerMap[SR]);
-		break;
+		case XDecIncInstructions::iDex:
+		case XDecIncInstructions::iDec:
+			executeVal = dec(decodeVal, registerMap[SR]);
+			break;
 
-	case XDecIncInstructions::iInc:
-		executeVal = inc(decodeVal, registerMap[SR]);
-		break;
+		case XDecIncInstructions::iInc:
+			executeVal = inc(decodeVal, registerMap[SR]);
+			break;
 
-	case XDecIncInstructions::iTxa:
-	case XDecIncInstructions::iLdx:
-	case XDecIncInstructions::iTax:
-	case XDecIncInstructions::iTsx:
-		examine(decodeVal, registerMap[SR]);
-	case XDecIncInstructions::iNop:
-	case XDecIncInstructions::iTxs:
-	case XDecIncInstructions::iStx:
-		executeVal = decodeVal;
-		break;
+		case XDecIncInstructions::iTxa:
+		case XDecIncInstructions::iLdx:
+		case XDecIncInstructions::iTax:
+		case XDecIncInstructions::iTsx:
+			examine(decodeVal, registerMap[SR]);
+		case XDecIncInstructions::iNop:
+		case XDecIncInstructions::iTxs:
+		case XDecIncInstructions::iStx:
+			executeVal = decodeVal;
+			break;
 	}
 }
 
@@ -201,28 +201,28 @@ void mos6502::XDecIncInstruction::writeBack(RegisterMap& registerMap, MemoryAcce
 	switch (instruction)
 	{
 
-	case XDecIncInstructions::iTax:
-	case XDecIncInstructions::iLdx:
-	case XDecIncInstructions::iTsx:
-	case XDecIncInstructions::iDex:
-		registerMap[X] = executeVal;
-		break;
+		case XDecIncInstructions::iTax:
+		case XDecIncInstructions::iLdx:
+		case XDecIncInstructions::iTsx:
+		case XDecIncInstructions::iDex:
+			registerMap[X] = executeVal;
+			break;
 
-	case XDecIncInstructions::iStx:
-	case XDecIncInstructions::iInc:
-	case XDecIncInstructions::iDec:
-		memory[address] = executeVal;
-		break;
+		case XDecIncInstructions::iStx:
+		case XDecIncInstructions::iInc:
+		case XDecIncInstructions::iDec:
+			memory[address] = executeVal;
+			break;
 
-	case XDecIncInstructions::iTxs:
-		registerMap[SP] = executeVal;
-		break;
-	case XDecIncInstructions::iTxa:
-		registerMap[AC] = executeVal;
-		break;
+		case XDecIncInstructions::iTxs:
+			registerMap[SP] = executeVal;
+			break;
+		case XDecIncInstructions::iTxa:
+			registerMap[AC] = executeVal;
+			break;
 
-	case XDecIncInstructions::iNop:
-		break;
+		case XDecIncInstructions::iNop:
+			break;
 	}
 }
 

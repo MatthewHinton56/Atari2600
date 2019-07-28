@@ -46,6 +46,14 @@ namespace {
 		mos.getMemoryAccessor()[0] = 0xA2;
 
 		ASSERT_EQ(mos.fetch()->getInstructionType(), Instructions::xDecIncInstructions);
+
+		mos.setIrq();
+
+		ASSERT_EQ(mos.fetch()->getInstructionType(), Instructions::specialInstructions);
+
+		mos.setNmi();
+
+		ASSERT_EQ(mos.fetch()->getInstructionType(), Instructions::specialInstructions);
 	}
 
 }

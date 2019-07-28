@@ -1,7 +1,8 @@
-#include"Instructions/XDecIncInstructions/XDecIncInstruction.h"
-#include"Instructions/StandardInstructions/StandardInstruction.h"
-#include"Instructions/ControlFlowInstructions/ControlFlowInstruction.h"
-#include"Instructions/YXBranchInstructions/YXBranchInstruction.h"
+#include "Instructions/XDecIncInstructions/XDecIncInstruction.h"
+#include "Instructions/StandardInstructions/StandardInstruction.h"
+#include "Instructions/ControlFlowInstructions/ControlFlowInstruction.h"
+#include "Instructions/YXBranchInstructions/YXBranchInstruction.h"
+#include "Instructions/SpecialInstructions/SpecialInstruction.h"
 #include "Instructions/InstructionConstants.h"
 #include "MOS6502.h"
 
@@ -29,12 +30,47 @@ MOS6502::MOS6502
 
 void MOS6502::cycle(bool irq, bool nmi)
 {
+	this->irq = (this->irq) ? this->irq : irq;
+	this->nmi = (this->nmi) ? this->nmi : nmi;
 
+	if (cycles == 0)
+	{
+		instruction = fetch();
+		instruction->decode(registerMap, memory);
+		instruction->execute(registerMap);
+		cycles++;
+		return;
+	}
+
+	cycles++;
+
+	if (cycles < instruction->getCycles())
+	{
+		return;
+	}
+
+	if (cycles == instruction->getCycles())
+	{
+		instruction->writeBack(registerMap, memory);
+		PC = instruction->pc();
+		instruction.reset();
+		cycles = 0;
+	}
 }
 
 void MOS6502::reset()
 {
-
+	instruction.reset();
+	memory.getMemory().clearMemory();
+	registerMap[AC] = 0;
+	registerMap[X] = 0;
+	registerMap[Y] = 0;
+	registerMap[SR] = 0;
+	registerMap[SP] = 0;
+	cycles = 0;
+	res = true;
+	irq = false;
+	nmi = false;
 }
 
 MemoryAccessor& MOS6502::getMemoryAccessor()
@@ -42,9 +78,9 @@ MemoryAccessor& MOS6502::getMemoryAccessor()
 	return memory;
 }
 
-Instruction* MOS6502::getInstruction()
+Instruction& mos6502::MOS6502::getInstruction()
 {
-	return instruction;
+	return (*instruction);
 }
 
 RegisterMap& MOS6502::getRegisterMap()
@@ -67,20 +103,39 @@ bool MOS6502::getNmi()
 	return nmi;
 }
 
+void mos6502::MOS6502::setIrq()
+{
+	irq = true;
+}
+
+void mos6502::MOS6502::setNmi()
+{
+	nmi = true;
+}
+
 bool MOS6502::getIrq()
 {
 	return irq;
 }
 
-bool MOS6502::getRes()
+std::unique_ptr<Instruction> MOS6502::fetch()
 {
-	return res;
-}
+	if (res)
+	{
+		PC = memory.readWord(RESET_VECTOR);
+		res = false;
+	}
+	else if (nmi)
+	{
+		nmi = false;
+		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkNmi, PC);
+	}
+	else if (irq && !getInterruptFlag(registerMap[SR]))
+	{
+		irq = false;
+		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkIrq, PC);
+	}
 
-
-
-Instruction* MOS6502::fetch()
-{
 	Byte instructionByte = memory[PC];
 	Byte lowOrder = memory[PC + 1];
 	Byte highOrder = memory[PC + 2];
@@ -93,19 +148,19 @@ Instruction* MOS6502::fetch()
 
 	if (instructionCA < 004)
 	{
-		return new ControlFlowInstruction(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique <ControlFlowInstruction>(a, b, c, PC, lowOrder, highOrder);
 	}
 	else if (instructionCA < 010)
 	{
-		return new YXBranchInstruction(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique <YXBranchInstruction>(a, b, c, PC, lowOrder, highOrder);
 	}
 	else if (instructionCA < 024)
 	{
-		return new StandardInstruction(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique <StandardInstruction>(a, b, c, PC, lowOrder, highOrder);
 	}
 	else
 	{
-		return new XDecIncInstruction(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique <XDecIncInstruction>(a, b, c, PC, lowOrder, highOrder);
 	}
 }
 
