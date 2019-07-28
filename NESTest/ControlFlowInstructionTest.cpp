@@ -179,7 +179,7 @@ namespace {
 	TEST_F(ControlFlowInstructionTest, BrkTest)
 	{
 		PC = 0xABCD;
-		registerMap[SR] = 0xDF;
+		registerMap[SR] = 0x81;
 
 		registerMap[SP] = 0xFF;
 
@@ -207,13 +207,15 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xFF - 3);
-		ASSERT_EQ(registerMap[SR], 0xDF);
+		ASSERT_EQ(registerMap[SR], 0x81);
 
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
-		ASSERT_EQ(memory[0x1FF - 3], 0xDF); // PUSH SR
+		ASSERT_EQ(memory[0x1FF - 3], 0x81); // PUSH SR
 		ASSERT_EQ(registerMap[SP], 0xFF - 3); // Implied 1
+
+		ASSERT_EQ(registerMap[SR], 0x95); // Implied 1
 
 		PC = si.pc();
 

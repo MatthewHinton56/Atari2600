@@ -35,7 +35,8 @@ namespace mos6502
 		controlFlowInstructions,
 		yxBranchInstructions,
 		standardInstructions,
-		xDecIncInstructions
+		xDecIncInstructions,
+		specialInstructions
 	};
 
 

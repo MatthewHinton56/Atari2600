@@ -194,6 +194,8 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize);
 			memory[0x100 | executeVal] = registerMap[SR];
 			registerMap[SP] = executeVal;
+			setInterruptFlag(registerMap[SR]);
+			setBreakFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iJsr:
