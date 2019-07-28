@@ -194,3 +194,8 @@ InstructionAddressingMode StandardInstruction::getDecodeMode() const
 {
 	return decodeMode;
 }
+
+Instructions mos6502::StandardInstruction::getInstructionType() const
+{
+	return Instructions::standardInstructions;
+}

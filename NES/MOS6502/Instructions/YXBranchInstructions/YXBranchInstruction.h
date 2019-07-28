@@ -52,6 +52,8 @@ namespace mos6502
 
 		virtual YXBranchInstructionAddressingMode getDecodeMode() const;
 
+		virtual Instructions getInstructionType() const;
+
 	protected:
 
 		YXBranchInstructions instruction;

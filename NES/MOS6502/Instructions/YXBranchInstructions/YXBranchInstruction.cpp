@@ -258,3 +258,8 @@ YXBranchInstructionAddressingMode YXBranchInstruction::getDecodeMode() const
 {
 	return decodeMode;
 }
+
+Instructions mos6502::YXBranchInstruction::getInstructionType() const
+{
+	return Instructions::yxBranchInstructions;
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "../MemoryAccessor.h"
 #include "../mos6502Constants.h"
+#include "../InstructionConstants.h"
 
 namespace mos6502
 {
@@ -21,6 +22,9 @@ namespace mos6502
 			virtual Word pc() = 0;
 
 			virtual unsigned int getCycles() const = 0;
+
+			virtual Instructions getInstructionType() const = 0;
+
 
 		protected: 
 			unsigned int cycles;

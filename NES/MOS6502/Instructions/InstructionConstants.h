@@ -29,4 +29,14 @@ namespace mos6502
 		{InstructionAddressingMode::implied, 1},
 		{InstructionAddressingMode::yZeroPage, 2}
 	};
+
+	enum class Instructions
+	{
+		controlFlowInstructions,
+		yxBranchInstructions,
+		standardInstructions,
+		xDecIncInstructions
+	};
+
+
 }

@@ -51,6 +51,8 @@ namespace mos6502
 
 		virtual InstructionAddressingMode getDecodeMode() const;
 
+		virtual Instructions getInstructionType() const;
+
 	protected:
 
 		StandardInstructions instruction;

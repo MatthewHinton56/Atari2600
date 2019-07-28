@@ -291,3 +291,8 @@ ControlFlowInstructionAddressingMode ControlFlowInstruction::getDecodeMode() con
 {
 	return decodeMode;
 }
+
+Instructions mos6502::ControlFlowInstruction::getInstructionType() const
+{
+	return Instructions::controlFlowInstructions;
+}

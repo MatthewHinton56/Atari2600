@@ -52,6 +52,8 @@ namespace mos6502
 
 		virtual ControlFlowInstructionAddressingMode getDecodeMode() const;
 
+		virtual Instructions getInstructionType() const;
+
 	protected:
 
 		ControlFlowInstructions instruction;
