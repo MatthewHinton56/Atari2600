@@ -56,4 +56,39 @@ namespace {
 		ASSERT_EQ(mos.fetch()->getInstructionType(), Instructions::specialInstructions);
 	}
 
+	TEST_F(MOS6502Test, ResetTest)
+	{
+		mos.getMemoryAccessor().writeWord(RESET_VECTOR, 0x5555);
+		mem[0x5555] = 0xCA;
+		mem[0] = 0xC8;
+
+		mos.getRegisterMap()[SR] = 0x45;
+		mos.getRegisterMap()[AC] = 0x54;
+		mos.getRegisterMap()[SP] = 0x55;
+
+		mos.cycle(false, false);
+
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::yxBranchInstructions);
+
+		mos.reset();
+		
+		ASSERT_EQ(mos.getRegisterMap()[SP], 0xFF);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x0);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x00);
+
+		mos.cycle(false, false);
+
+		ASSERT_EQ(mos.getPC(), 0x5555);
+
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
+
+		mos.cycle(false, false);
+
+		ASSERT_EQ(mos.getRegisterMap()[X], 0xFF);
+		ASSERT_EQ(mos.getPC(), 0x5556);
+		ASSERT_EQ(mos.getCycles(), 0);
+	}
+
+
+
 }

@@ -61,12 +61,11 @@ void MOS6502::cycle(bool irq, bool nmi)
 void MOS6502::reset()
 {
 	instruction.reset();
-	memory.getMemory().clearMemory();
 	registerMap[AC] = 0;
 	registerMap[X] = 0;
 	registerMap[Y] = 0;
 	registerMap[SR] = 0;
-	registerMap[SP] = 0;
+	registerMap[SP] = 0xFF;
 	cycles = 0;
 	res = true;
 	irq = false;
