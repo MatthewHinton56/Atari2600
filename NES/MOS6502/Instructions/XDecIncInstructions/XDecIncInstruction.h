@@ -7,7 +7,7 @@
 
 namespace mos6502
 {
-	class XDecIncInstruction : Instruction
+	class XDecIncInstruction : public Instruction
 	{
 	public:
 
@@ -66,6 +66,5 @@ namespace mos6502
 		Byte memoryVal;
 		Word PC;
 		unsigned int instructionSize;
-		unsigned int cycles;
 	};
 }

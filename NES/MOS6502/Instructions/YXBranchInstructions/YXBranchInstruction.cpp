@@ -25,7 +25,6 @@ YXBranchInstruction::YXBranchInstruction
 	executeVal(0),
 	memoryVal(0),
 	instructionSize(0),
-	cycles(0),
 	branch(0)
 {
 	decodeMode = (decodeMode == YXBranchInstructionAddressingMode::impl_two) ?

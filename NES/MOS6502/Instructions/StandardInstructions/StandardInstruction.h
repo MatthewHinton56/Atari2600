@@ -6,7 +6,7 @@
 
 namespace mos6502
 {
-	class StandardInstruction : Instruction
+	class StandardInstruction : public Instruction
 	{
 	public:
 
@@ -65,6 +65,5 @@ namespace mos6502
 		Byte memoryVal;
 		Word PC;
 		unsigned int instructionSize;
-		unsigned int cycles;
 	};
 }

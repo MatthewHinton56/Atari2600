@@ -144,7 +144,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
     <ClCompile Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\Instruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp" />

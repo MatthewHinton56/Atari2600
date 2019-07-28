@@ -7,7 +7,7 @@
 
 namespace mos6502
 {
-	class YXBranchInstruction : Instruction
+	class YXBranchInstruction : public Instruction
 	{
 	public:
 
@@ -68,7 +68,6 @@ namespace mos6502
 		Byte memoryVal;
 
 		unsigned int instructionSize;
-		unsigned int cycles;
 
 		Byte branch;
 	};

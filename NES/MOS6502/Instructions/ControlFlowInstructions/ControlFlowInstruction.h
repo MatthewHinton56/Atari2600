@@ -7,7 +7,7 @@
 
 namespace mos6502
 {
-	class ControlFlowInstruction : Instruction
+	class ControlFlowInstruction : public Instruction
 	{
 	public:
 
@@ -69,7 +69,6 @@ namespace mos6502
 		Byte memoryVal;
 
 		unsigned int instructionSize;
-		unsigned int cycles;
 
 		Byte branch;
 	};

@@ -6,18 +6,23 @@ namespace mos6502
 {
 	class Instruction
 	{
-	public:
+		public:
 
-		virtual void decode
-		(
-			RegisterMap& registerMap,
-			MemoryAccessor& memory
-		);
+			virtual void decode
+			(
+				RegisterMap& registerMap,
+				MemoryAccessor& memory
+			) = 0;
 
-		virtual void execute(RegisterMap& registerMap);
+			virtual void execute(RegisterMap& registerMap) = 0;
 
-		virtual void writeBack(RegisterMap& registerMap, MemoryAccessor& memory);
+			virtual void writeBack(RegisterMap& registerMap, MemoryAccessor& memory) = 0;
 
-		virtual Word pc();
+			virtual Word pc() = 0;
+
+			virtual unsigned int getCycles() const = 0;
+
+		protected: 
+			unsigned int cycles;
 	};
 }
