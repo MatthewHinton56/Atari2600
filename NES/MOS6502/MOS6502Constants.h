@@ -56,5 +56,11 @@ namespace mos6502
 
 	static const Word RESET_VECTOR = 0xFFFC;
 
+	static const std::string AC = "AC";
+	static const std::string SR = "SR";
+	static const std::string Y = "Y";
+	static const std::string X = "X";
+	static const std::string SP = "SP";
+
 }
 

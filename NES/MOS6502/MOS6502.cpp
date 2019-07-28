@@ -1,0 +1,5 @@
+#include"Instructions/XDecIncInstructions/XDecIncInstruction.h"
+#include"Instructions/StandardInstructions/StandardInstruction.h"
+#include"Instructions/ControlFlowInstructions/ControlFlowInstruction.h"
+#include"Instructions/YXBranchInstructions/YXBranchInstruction.h"
+#include "Instructions/InstructionConstants.h"

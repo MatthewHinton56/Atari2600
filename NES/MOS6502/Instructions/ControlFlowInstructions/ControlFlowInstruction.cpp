@@ -59,16 +59,16 @@ void ControlFlowInstruction::decode
 				break;
 
 			case ControlFlowInstructions::iPhp:
-				decodeVal = registerMap["SR"];
+				decodeVal = registerMap[SR];
 				break;
 
 			case ControlFlowInstructions::iPla:
 			case ControlFlowInstructions::iPlp:
-				decodeVal = memory[0x100 | registerMap["SP"]];
+				decodeVal = memory[0x100 | registerMap[SP]];
 				break;
 
 			case ControlFlowInstructions::iPha:
-				decodeVal = registerMap["A"];
+				decodeVal = registerMap[AC];
 				break;
 		}
 		return;
@@ -81,7 +81,7 @@ void ControlFlowInstruction::decode
 		break;
 
 	case ControlFlowInstructionAddressingMode::zeroPage:
-		registerVal = (decodeMode == ControlFlowInstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
+		registerVal = (decodeMode == ControlFlowInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
 		address = zeroPage(lowOrderOperand, registerVal);
 		break;
 
@@ -101,67 +101,67 @@ void mos6502::ControlFlowInstruction::execute(RegisterMap& registerMap)
 	switch (instruction)
 	{
 		case ControlFlowInstructions::iBit:
-			(decodeVal & 0x80) ? setNegativeFlag(registerMap["SR"]) : clearNegativeFlag(registerMap["SR"]);
-			(decodeVal & 0x40) ? setOverflowFlag(registerMap["SR"]) : clearOverflowFlag(registerMap["SR"]);
-			(decodeVal & registerMap["A"]) ? clearZeroFlag(registerMap["SR"]) : setZeroFlag(registerMap["SR"]);
+			(decodeVal & 0x80) ? setNegativeFlag(registerMap[SR]) : clearNegativeFlag(registerMap[SR]);
+			(decodeVal & 0x40) ? setOverflowFlag(registerMap[SR]) : clearOverflowFlag(registerMap[SR]);
+			(decodeVal & registerMap[AC]) ? clearZeroFlag(registerMap[SR]) : setZeroFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iBmi:
-			executeVal = (getNegativeFlag(registerMap["SR"])) ? decodeVal : 0;
+			executeVal = (getNegativeFlag(registerMap[SR])) ? decodeVal : 0;
 			break;
 
 		case ControlFlowInstructions::iBpl:
-			executeVal = (getNegativeFlag(registerMap["SR"])) ?  0 : decodeVal;
+			executeVal = (getNegativeFlag(registerMap[SR])) ?  0 : decodeVal;
 			break;
 		
 		case ControlFlowInstructions::iBvc:
-			executeVal = (getOverflowFlag(registerMap["SR"])) ? 0 : decodeVal;;
+			executeVal = (getOverflowFlag(registerMap[SR])) ? 0 : decodeVal;;
 			break;
 
 		case ControlFlowInstructions::iBvs:
-			executeVal = (getOverflowFlag(registerMap["SR"])) ? decodeVal : 0;
+			executeVal = (getOverflowFlag(registerMap[SR])) ? decodeVal : 0;
 			break;
 
 		case ControlFlowInstructions::iClc:
-			clearCarryFlag(registerMap["SR"]);
+			clearCarryFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iCli:
-			clearInterruptFlag(registerMap["SR"]);
+			clearInterruptFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iSec:
-			setCarryFlag(registerMap["SR"]);
+			setCarryFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iSei:
-			setInterruptFlag(registerMap["SR"]);
+			setInterruptFlag(registerMap[SR]);
 			break;
 
 		case ControlFlowInstructions::iBrk:
-			executeVal = registerMap["SP"] - 3;
+			executeVal = registerMap[SP] - 3;
 			break;
 
 		case ControlFlowInstructions::iPha:
 		case ControlFlowInstructions::iPhp:
-			executeVal = registerMap["SP"] - 1;
+			executeVal = registerMap[SP] - 1;
 			break;
 
 		case ControlFlowInstructions::iPla:
 		case ControlFlowInstructions::iPlp:
-			executeVal = registerMap["SP"] + 1;
+			executeVal = registerMap[SP] + 1;
 			break;
 
 		case ControlFlowInstructions::iRti:
-			executeVal = registerMap["SP"] + 3;
+			executeVal = registerMap[SP] + 3;
 			break;
 
 		case ControlFlowInstructions::iRts:
-			executeVal = registerMap["SP"] + 2;
+			executeVal = registerMap[SP] + 2;
 			break;
 
 		case ControlFlowInstructions::iJsr:
-			executeVal = registerMap["SP"] - 2;
+			executeVal = registerMap[SP] - 2;
 			break;
 	}
 
@@ -193,40 +193,40 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 
 		case ControlFlowInstructions::iBrk:
 			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize);
-			memory[0x100 | executeVal] = registerMap["SR"];
-			registerMap["SP"] = executeVal;
+			memory[0x100 | executeVal] = registerMap[SR];
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iJsr:
 			memory.writeWord(0x100 | executeVal, PC + instructionSize - 1);
-			registerMap["SP"] = executeVal;
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iPhp:
 		case ControlFlowInstructions::iPha:
 			memory[0x100 | executeVal] = decodeVal;
-			registerMap["SP"] = executeVal;
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iPlp:
-			registerMap["SR"] = decodeVal;
-			registerMap["SP"] = executeVal;
+			registerMap[SR] = decodeVal;
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iPla:
-			registerMap["A"] = decodeVal;
-			registerMap["SP"] = executeVal;
+			registerMap[AC] = decodeVal;
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iRti:
 			newPC = memory.readWord(0x100 | (executeVal - 2)) + 1;
-			registerMap["SR"] = memory[0x100 | (executeVal - 3)];
-			registerMap["SP"] = executeVal;
+			registerMap[SR] = memory[0x100 | (executeVal - 3)];
+			registerMap[SP] = executeVal;
 			break;
 
 		case ControlFlowInstructions::iRts:
 			newPC = memory.readWord(0x100 | executeVal - 2) + 1;
-			registerMap["SP"] = executeVal;
+			registerMap[SP] = executeVal;
 			break;
 
 	}

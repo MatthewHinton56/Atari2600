@@ -22,11 +22,11 @@ namespace {
 
 		void SetUp() override
 		{
-			registerMap["A"] = 0;
-			registerMap["X"] = 0;
-			registerMap["Y"] = 0;
-			registerMap["SR"] = 0;
-			registerMap["SP"] = 0;
+			registerMap[AC] = 0;
+			registerMap[X] = 0;
+			registerMap[Y] = 0;
+			registerMap[SR] = 0;
+			registerMap[SP] = 0;
 		}
 		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
@@ -38,8 +38,8 @@ namespace {
 	//AND - xIndirect SR = 0
 	TEST_F(XDecIncInstructionTest, TXATest)
 	{
-		registerMap["X"] = 0x80;
-		registerMap["A"] = 0xFF;
+		registerMap[X] = 0x80;
+		registerMap[AC] = 0xFF;
 
 		XDecIncInstruction si
 		(
@@ -63,11 +63,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x80);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x80);
+		ASSERT_EQ(registerMap[AC], 0x80);
 
 		PC = si.pc();
 
@@ -76,8 +76,8 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, TXSTest)
 	{
-		registerMap["X"] = 0x71;
-		registerMap["SP"] = 0xFF;
+		registerMap[X] = 0x71;
+		registerMap[SP] = 0xFF;
 
 		XDecIncInstruction si
 		(
@@ -101,11 +101,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x71);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SP"], 0x71);
+		ASSERT_EQ(registerMap[SP], 0x71);
 
 		PC = si.pc();
 
@@ -114,8 +114,8 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, TAXTest)
 	{
-		registerMap["X"] = 0x80;
-		registerMap["A"] = 0x00;
+		registerMap[X] = 0x80;
+		registerMap[AC] = 0x00;
 
 		XDecIncInstruction si
 		(
@@ -139,11 +139,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0x00);
+		ASSERT_EQ(registerMap[X], 0x00);
 
 		PC = si.pc();
 
@@ -152,8 +152,8 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, TSXTest)
 	{
-		registerMap["X"] = 0x71;
-		registerMap["SP"] = 0xAC;
+		registerMap[X] = 0x71;
+		registerMap[SP] = 0xAC;
 
 		XDecIncInstruction si
 		(
@@ -177,11 +177,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xAc);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0xAC);
+		ASSERT_EQ(registerMap[X], 0xAC);
 
 		PC = si.pc();
 
@@ -190,7 +190,7 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, DEXTest)
 	{
-		registerMap["X"] = 0x01;
+		registerMap[X] = 0x01;
 
 		XDecIncInstruction si
 		(
@@ -214,11 +214,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0x00);
+		ASSERT_EQ(registerMap[X], 0x00);
 
 		PC = si.pc();
 
@@ -249,11 +249,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x0);
+		ASSERT_EQ(registerMap[SR], 0x0);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0x0);
+		ASSERT_EQ(registerMap[X], 0x0);
 
 		PC = si.pc();
 
@@ -262,7 +262,7 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, absYLDX)
 	{
-		registerMap["Y"] = 0xAA;
+		registerMap[Y] = 0xAA;
 
 		memory[0x10A] = 0x85;
 
@@ -291,11 +291,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x85);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0x85);
+		ASSERT_EQ(registerMap[X], 0x85);
 
 		PC = si.pc();
 
@@ -304,8 +304,8 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, zpgYSTX)
 	{
-		registerMap["Y"] = 0x40;
-		registerMap["X"] = 0x65;
+		registerMap[Y] = 0x40;
+		registerMap[X] = 0x65;
 
 		memory[0x40] = 0xFF;
 
@@ -332,7 +332,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x65);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -345,7 +345,7 @@ namespace {
 
 	TEST_F(XDecIncInstructionTest, immLDX)
 	{
-		registerMap["X"] = 0xFF;
+		registerMap[X] = 0xFF;
 
 		XDecIncInstruction si
 		(
@@ -370,11 +370,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xCA);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0xCA);
+		ASSERT_EQ(registerMap[X], 0xCA);
 
 		PC = si.pc();
 
@@ -408,7 +408,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x0);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
@@ -447,7 +447,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x80);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 

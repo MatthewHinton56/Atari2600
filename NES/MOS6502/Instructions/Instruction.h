@@ -12,12 +12,12 @@ namespace mos6502
 		(
 			RegisterMap& registerMap,
 			MemoryAccessor& memory
-		) = 0;
+		);
 
-		virtual void execute(RegisterMap& registerMap) = 0;
+		virtual void execute(RegisterMap& registerMap);
 
-		virtual void writeBack(RegisterMap& registerMap, MemoryAccessor& memory) = 0;
+		virtual void writeBack(RegisterMap& registerMap, MemoryAccessor& memory);
 
-		virtual Word pc() = 0;
+		virtual Word pc();
 	};
 }

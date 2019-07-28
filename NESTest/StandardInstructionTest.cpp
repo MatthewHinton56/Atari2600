@@ -22,11 +22,11 @@ namespace {
 
 		void SetUp() override
 		{
-			registerMap["A"] = 0;
-			registerMap["X"] = 0;
-			registerMap["Y"] = 0;
-			registerMap["SR"] = 0;
-			registerMap["SP"] = 0;
+			registerMap[AC] = 0;
+			registerMap[X] = 0;
+			registerMap[Y] = 0;
+			registerMap[SR] = 0;
+			registerMap[SP] = 0;
 		}
 		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
@@ -41,8 +41,8 @@ namespace {
 		memory[0x00] = 0x01;
 		memory[0x01] = 0x02;
 		memory[0x201] = 0xCA;
-		registerMap["X"] = 0x80;
-		registerMap["A"] = 0xFF;
+		registerMap[X] = 0x80;
+		registerMap[AC] = 0xFF;
 		
 		StandardInstruction si
 		(
@@ -67,11 +67,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xCA);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0xCA);
+		ASSERT_EQ(registerMap[AC], 0xCA);
 
 		PC = si.pc();
 
@@ -81,7 +81,7 @@ namespace {
 	TEST_F(StandardInstructionTest, zpgADD)
 	{
 		memory[0x80] = 0x24;
-		registerMap["A"] = 0x23;
+		registerMap[AC] = 0x23;
 
 		StandardInstruction si
 		(
@@ -106,11 +106,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x47);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x47);
+		ASSERT_EQ(registerMap[AC], 0x47);
 
 		PC = si.pc();
 
@@ -143,11 +143,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xF7);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0xF7);
+		ASSERT_EQ(registerMap[AC], 0xF7);
 
 		PC = si.pc();
 
@@ -156,7 +156,7 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absSTA)
 	{
-		registerMap["A"] = 0x56;
+		registerMap[AC] = 0x56;
 		memory[0x1F7] = 0xFF;
 
 		StandardInstruction si
@@ -183,11 +183,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x56);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x56);
+		ASSERT_EQ(registerMap[AC], 0x56);
 		ASSERT_EQ(memory[0x1F7], 0x56);
 
 		PC = si.pc();
@@ -197,8 +197,8 @@ namespace {
 
 	TEST_F(StandardInstructionTest, indirectYxor)
 	{
-		registerMap["A"] = 0x4A;
-		registerMap["Y"] = 0xFF;
+		registerMap[AC] = 0x4A;
+		registerMap[Y] = 0xFF;
 
 		memory[0xBB] = 0x01;
 		memory[0xBC] = 0x03;
@@ -231,11 +231,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xAC ^ 0x4A);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0xAC ^ 0x4A);
+		ASSERT_EQ(registerMap[AC], 0xAC ^ 0x4A);
 
 		PC = si.pc();
 
@@ -244,9 +244,9 @@ namespace {
 
 	TEST_F(StandardInstructionTest, xZPGSUB)
 	{
-		registerMap["SR"] = 0x9;
-		registerMap["A"] = 0x74;
-		registerMap["X"] = 0xAA;
+		registerMap[SR] = 0x9;
+		registerMap[AC] = 0x74;
+		registerMap[X] = 0xAA;
 
 		memory[0xE] = 0x99;
 
@@ -275,11 +275,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x75);
-		ASSERT_EQ(registerMap["SR"], 0x48);
+		ASSERT_EQ(registerMap[SR], 0x48);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x75);
+		ASSERT_EQ(registerMap[AC], 0x75);
 
 		PC = si.pc();
 
@@ -288,9 +288,9 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absYADD)
 	{
-		registerMap["SR"] = 0x8;
-		registerMap["A"] = 0x1;
-		registerMap["Y"] = 0x36;
+		registerMap[SR] = 0x8;
+		registerMap[AC] = 0x1;
+		registerMap[Y] = 0x36;
 
 		memory[0x57A] = 0x99;
 
@@ -323,11 +323,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x4B);
+		ASSERT_EQ(registerMap[SR], 0x4B);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x00);
+		ASSERT_EQ(registerMap[AC], 0x00);
 
 		PC = si.pc();
 
@@ -336,9 +336,9 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absXCMP)
 	{
-		registerMap["SR"] = 0x0;
-		registerMap["A"] = 0x1;
-		registerMap["X"] = 0xBC;
+		registerMap[SR] = 0x0;
+		registerMap[AC] = 0x1;
+		registerMap[X] = 0xBC;
 
 		memory[0x600] = 0x1;
 
@@ -370,11 +370,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x01);
-		ASSERT_EQ(registerMap["SR"], 0x03);
+		ASSERT_EQ(registerMap[SR], 0x03);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x01);
+		ASSERT_EQ(registerMap[AC], 0x01);
 
 		PC = si.pc();
 
@@ -383,8 +383,8 @@ namespace {
 
 	TEST_F(StandardInstructionTest, aASL)
 	{
-		registerMap["SR"] = 0x0;
-		registerMap["A"] = 0x80;
+		registerMap[SR] = 0x0;
+		registerMap[AC] = 0x80;
 
 
 		StandardInstruction si
@@ -409,11 +409,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x03);
+		ASSERT_EQ(registerMap[SR], 0x03);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x00);
+		ASSERT_EQ(registerMap[AC], 0x00);
 
 		PC = si.pc();
 
@@ -422,7 +422,7 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absRol)
 	{
-		registerMap["SR"] = 0x1;
+		registerMap[SR] = 0x1;
 		memory[0x1FFF] = 0x40;
 
 
@@ -450,7 +450,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x81);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
@@ -463,9 +463,9 @@ namespace {
 
 	TEST_F(StandardInstructionTest, absXRor)
 	{
-		registerMap["SR"] = 0x1;
+		registerMap[SR] = 0x1;
 		memory[0x23F] = 0xAC;
-		registerMap["X"] = 0xFF;
+		registerMap[X] = 0xFF;
 		
 		StandardInstruction si
 		(
@@ -493,7 +493,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xD6);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 

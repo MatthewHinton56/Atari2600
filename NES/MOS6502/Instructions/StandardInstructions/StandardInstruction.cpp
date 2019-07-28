@@ -52,7 +52,7 @@ void StandardInstruction::decode
 
 	if (decodeMode == InstructionAddressingMode::implied)
 	{
-		decodeVal = registerMap["A"];
+		decodeVal = registerMap[AC];
 		return;
 	}
 
@@ -66,24 +66,24 @@ void StandardInstruction::decode
 
 		case InstructionAddressingMode::absoluteY:
 		case InstructionAddressingMode::absoluteX:
-			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
+			registerVal = (decodeMode == InstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
 			address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
 			cycles += (crossedPage && instruction < static_cast<StandardInstructions>(020)) ? 1 : 0;
 			break;
 
 		case InstructionAddressingMode::xZeroPage:
 		case InstructionAddressingMode::zeroPage:
-			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
+			registerVal = (decodeMode == InstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
 			address = zeroPage(lowOrderOperand, registerVal);
 			break;
 
 		case InstructionAddressingMode::xIndirect:
-			registerVal = registerMap["X"];
+			registerVal = registerMap[X];
 			address = xIndirect(memory, lowOrderOperand, registerVal);
 			break;
 
 		case InstructionAddressingMode::yIndirect:
-			registerVal = registerMap["Y"];
+			registerVal = registerMap[Y];
 			address = yIndirect(memory, lowOrderOperand, registerVal, crossedPage);
 			cycles += (crossedPage) ? 1 : 0;
 			break;
@@ -92,35 +92,35 @@ void StandardInstruction::decode
 	if (instruction != StandardInstructions::iSta)
 		decodeVal = memory[address];
 	else
-		decodeVal = registerMap["A"];
+		decodeVal = registerMap[AC];
 }
 
 void StandardInstruction::execute(RegisterMap& registerMap)
 {
-	//Byte statusRegister = registerMap["SR"];
+	//Byte statusRegister = registerMap[SR];
 	switch (instruction)
 	{
 		case StandardInstructions::iSbc:
 		case StandardInstructions::iCmp:
 		case StandardInstructions::iAdc:
-			executeVal = arithmetic(arithmeticFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
+			executeVal = arithmetic(arithmeticFunctions[instruction], registerMap[AC], decodeVal, registerMap[SR]);
 			break;
 
 		case StandardInstructions::iOra:
 		case StandardInstructions::iEor:
 		case StandardInstructions::iAnd:
-			executeVal = logic(logicFunctions[instruction], registerMap["A"], decodeVal, registerMap["SR"]);
+			executeVal = logic(logicFunctions[instruction], registerMap[AC], decodeVal, registerMap[SR]);
 			break;
 
 		case StandardInstructions::iRor:
 		case StandardInstructions::iRol:
 		case StandardInstructions::iLsr:
 		case StandardInstructions::iAsl:
-			executeVal = shift(shiftFunctions[instruction], decodeVal, registerMap["SR"]);
+			executeVal = shift(shiftFunctions[instruction], decodeVal, registerMap[SR]);
 			break;
 
 		case StandardInstructions::iLda:
-			examine(decodeVal, registerMap["SR"]);
+			examine(decodeVal, registerMap[SR]);
 		case StandardInstructions::iSta:
 			executeVal = decodeVal;
 			break;
@@ -140,7 +140,7 @@ void StandardInstruction::writeBack
 	}
 	else
 	{
-		registerMap["A"] = executeVal;
+		registerMap[AC] = executeVal;
 	}
 
 }

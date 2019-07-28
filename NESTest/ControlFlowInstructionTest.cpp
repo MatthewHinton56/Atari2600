@@ -24,11 +24,11 @@ namespace {
 
 		void SetUp() override
 		{
-			registerMap["A"] = 0;
-			registerMap["X"] = 0;
-			registerMap["Y"] = 0;
-			registerMap["SR"] = 0;
-			registerMap["SP"] = 0;
+			registerMap[AC] = 0;
+			registerMap[X] = 0;
+			registerMap[Y] = 0;
+			registerMap[SR] = 0;
+			registerMap[SP] = 0;
 		}
 		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
@@ -38,7 +38,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, ClcTest)
 	{
-		registerMap["SR"] = 0x01;
+		registerMap[SR] = 0x01;
 
 		ControlFlowInstruction si
 		(
@@ -62,7 +62,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x0);
+		ASSERT_EQ(registerMap[SR], 0x0);
 
 		si.writeBack(registerMap, memory);
 
@@ -73,7 +73,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, SecTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 
 		ControlFlowInstruction si
 		(
@@ -97,7 +97,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x01);
+		ASSERT_EQ(registerMap[SR], 0x01);
 
 		si.writeBack(registerMap, memory);
 
@@ -108,7 +108,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, CliTest)
 	{
-		registerMap["SR"] = 0x04;
+		registerMap[SR] = 0x04;
 
 		ControlFlowInstruction si
 		(
@@ -132,7 +132,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -143,7 +143,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, SeiTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 
 		ControlFlowInstruction si
 		(
@@ -167,7 +167,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x04);
+		ASSERT_EQ(registerMap[SR], 0x04);
 
 		si.writeBack(registerMap, memory);
 
@@ -179,9 +179,9 @@ namespace {
 	TEST_F(ControlFlowInstructionTest, BrkTest)
 	{
 		PC = 0xABCD;
-		registerMap["SR"] = 0xDF;
+		registerMap[SR] = 0xDF;
 
-		registerMap["SP"] = 0xFF;
+		registerMap[SP] = 0xFF;
 
 		memory.writeWord(IRQ_VECTOR, 0x1234);
 
@@ -207,13 +207,13 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xFF - 3);
-		ASSERT_EQ(registerMap["SR"], 0xDF);
+		ASSERT_EQ(registerMap[SR], 0xDF);
 
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
 		ASSERT_EQ(memory[0x1FF - 3], 0xDF); // PUSH SR
-		ASSERT_EQ(registerMap["SP"], 0xFF - 3); // Implied 1
+		ASSERT_EQ(registerMap[SP], 0xFF - 3); // Implied 1
 
 		PC = si.pc();
 
@@ -224,7 +224,7 @@ namespace {
 	{
 		PC = 0xBC45;
 
-		registerMap["SP"] = 0xFF;
+		registerMap[SP] = 0xFF;
 
 		ControlFlowInstruction si
 		(
@@ -254,7 +254,7 @@ namespace {
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xBC47); //PUSH PC + 1
-		ASSERT_EQ(registerMap["SP"], 0xFF - 2); // Implied 1
+		ASSERT_EQ(registerMap[SP], 0xFF - 2); // Implied 1
 
 		PC = si.pc();
 
@@ -266,7 +266,7 @@ namespace {
 		memory.writeWord(0x1FF - 2, 0x7865);
 		memory[0x1FF - 3] = 0x54;
 
-		registerMap["SP"] = 0xFC;
+		registerMap[SP] = 0xFC;
 
 		PC = 0x3232;
 
@@ -295,8 +295,8 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SR"], 0x54);
-		ASSERT_EQ(registerMap["SP"], 0xFF); 
+		ASSERT_EQ(registerMap[SR], 0x54);
+		ASSERT_EQ(registerMap[SP], 0xFF); 
 
 		PC = si.pc();
 
@@ -307,7 +307,7 @@ namespace {
 	{
 		memory.writeWord(0x1FF - 2, 0x7864);
 
-		registerMap["SP"] = 0xFD;
+		registerMap[SP] = 0xFD;
 
 		PC = 0x3123;
 
@@ -336,7 +336,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SP"], 0xFF);
+		ASSERT_EQ(registerMap[SP], 0xFF);
 
 		PC = si.pc();
 
@@ -374,7 +374,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SR"], 0x42);
+		ASSERT_EQ(registerMap[SR], 0x42);
 
 		PC = si.pc();
 
@@ -384,7 +384,7 @@ namespace {
 	TEST_F(ControlFlowInstructionTest, BitZpgTest)
 	{
 		memory[0x34] = 0x80;
-		registerMap["A"] = 0x80;
+		registerMap[AC] = 0x80;
 		ControlFlowInstruction si
 		(
 			1,
@@ -411,7 +411,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		PC = si.pc();
 
@@ -490,8 +490,8 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, PhpTest)
 	{
-		registerMap["SR"] = 0x43;
-		registerMap["SP"] = 0x66;
+		registerMap[SR] = 0x43;
+		registerMap[SP] = 0x66;
  		ControlFlowInstruction si
 		(
 			0,
@@ -518,7 +518,7 @@ namespace {
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(memory[0x165], 0x43);
-		ASSERT_EQ(registerMap["SP"], 0x65);
+		ASSERT_EQ(registerMap[SP], 0x65);
 
 		PC = si.pc();
 
@@ -527,8 +527,8 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, PhaTest)
 	{
-		registerMap["A"] = 0xEE;
-		registerMap["SP"] = 0x23;
+		registerMap[AC] = 0xEE;
+		registerMap[SP] = 0x23;
 		ControlFlowInstruction si
 		(
 			2,
@@ -555,7 +555,7 @@ namespace {
 		si.writeBack(registerMap, memory);
 
 		ASSERT_EQ(memory[0x122], 0xEE);
-		ASSERT_EQ(registerMap["SP"], 0x22);
+		ASSERT_EQ(registerMap[SP], 0x22);
 
 		PC = si.pc();
 
@@ -564,8 +564,8 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, PlaTest)
 	{
-		registerMap["A"] = 0xEE;
-		registerMap["SP"] = 0x23;
+		registerMap[AC] = 0xEE;
+		registerMap[SP] = 0x23;
 		memory[0x123] = 0x76;
 		ControlFlowInstruction si
 		(
@@ -592,8 +592,8 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x76);
-		ASSERT_EQ(registerMap["SP"], 0x24);
+		ASSERT_EQ(registerMap[AC], 0x76);
+		ASSERT_EQ(registerMap[SP], 0x24);
 
 		PC = si.pc();
 
@@ -602,8 +602,8 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, PlpTest)
 	{
-		registerMap["A"] = 0xEE;
-		registerMap["SP"] = 0x23;
+		registerMap[AC] = 0xEE;
+		registerMap[SP] = 0x23;
 		memory[0x123] = 0x76;
 		ControlFlowInstruction si
 		(
@@ -630,8 +630,8 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["SR"], 0x76);
-		ASSERT_EQ(registerMap["SP"], 0x24);
+		ASSERT_EQ(registerMap[SR], 0x76);
+		ASSERT_EQ(registerMap[SP], 0x24);
 
 		PC = si.pc();
 
@@ -640,7 +640,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, BplTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 		PC = 0x100;
 		ControlFlowInstruction si
 		(
@@ -665,7 +665,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x80);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -678,7 +678,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, BmiTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 		PC = 0x100;
 		ControlFlowInstruction si
 		(
@@ -703,7 +703,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -716,7 +716,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, BvcTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 		PC = 0x100;
 		ControlFlowInstruction si
 		(
@@ -741,7 +741,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x10);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -754,7 +754,7 @@ namespace {
 
 	TEST_F(ControlFlowInstructionTest, BvsTest)
 	{
-		registerMap["SR"] = 0x40;
+		registerMap[SR] = 0x40;
 		PC = 0x1FD;
 		ControlFlowInstruction si
 		(
@@ -780,7 +780,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x7F);
-		ASSERT_EQ(registerMap["SR"], 0x40);
+		ASSERT_EQ(registerMap[SR], 0x40);
 
 		si.writeBack(registerMap, memory);
 

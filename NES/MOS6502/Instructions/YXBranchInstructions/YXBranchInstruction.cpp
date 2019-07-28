@@ -59,15 +59,15 @@ void YXBranchInstruction::decode
 			case YXBranchInstructions::iIny:
 			case YXBranchInstructions::iDey:
 			case YXBranchInstructions::iTya:
-				decodeVal = registerMap["Y"];
+				decodeVal = registerMap[Y];
 				break;
 
 			case YXBranchInstructions::iTay:
-				decodeVal = registerMap["A"];
+				decodeVal = registerMap[AC];
 				break;
 
 			case YXBranchInstructions::iInx:
-				decodeVal = registerMap["X"];
+				decodeVal = registerMap[X];
 				break;
 		}
 		return;
@@ -82,14 +82,14 @@ void YXBranchInstruction::decode
 		break;
 
 	case YXBranchInstructionAddressingMode::absoluteX:
-		registerVal = (decodeMode == YXBranchInstructionAddressingMode::absoluteX) ? registerMap["X"] : registerMap["Y"];
+		registerVal = (decodeMode == YXBranchInstructionAddressingMode::absoluteX) ? registerMap[X] : registerMap[Y];
 		address = absolute(memory, lowOrderOperand, highOrderOperand, registerVal, crossedPage);
 		cycles += (crossedPage) ? 1 : 0;
 		break;
 
 	case YXBranchInstructionAddressingMode::xZeroPage:
 	case YXBranchInstructionAddressingMode::zeroPage:
-		registerVal = (decodeMode == YXBranchInstructionAddressingMode::zeroPage) ? 0 : registerMap["X"];
+		registerVal = (decodeMode == YXBranchInstructionAddressingMode::zeroPage) ? 0 : registerMap[X];
 		address = zeroPage(lowOrderOperand, registerVal);
 		break;
 	}
@@ -97,7 +97,7 @@ void YXBranchInstruction::decode
 	if (instruction != YXBranchInstructions::iSty)
 		decodeVal = memory[address];
 	else
-		decodeVal = registerMap["Y"];
+		decodeVal = registerMap[Y];
 }
 
 void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
@@ -105,57 +105,57 @@ void mos6502::YXBranchInstruction::execute(RegisterMap& registerMap)
 	switch (instruction)
 	{
 		case YXBranchInstructions::iBcc:
-			executeVal = (getCarryFlag(registerMap["SR"])) ? 0 : decodeVal;
+			executeVal = (getCarryFlag(registerMap[SR])) ? 0 : decodeVal;
 			break;
 		
 		case YXBranchInstructions::iBcs:
-			executeVal = (getCarryFlag(registerMap["SR"])) ? decodeVal : 0;
+			executeVal = (getCarryFlag(registerMap[SR])) ? decodeVal : 0;
 			break;
 
 		case YXBranchInstructions::iBeq:
-			executeVal = (getZeroFlag(registerMap["SR"])) ? decodeVal : 0;
+			executeVal = (getZeroFlag(registerMap[SR])) ? decodeVal : 0;
 			break;
 
 		case YXBranchInstructions::iBne:
-			executeVal = (getZeroFlag(registerMap["SR"])) ? 0 : decodeVal;
+			executeVal = (getZeroFlag(registerMap[SR])) ? 0 : decodeVal;
 			break;
 		
 		case YXBranchInstructions::iCld:
-			clearDecimalFlag(registerMap["SR"]);
+			clearDecimalFlag(registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iClv:
-			clearOverflowFlag(registerMap["SR"]);
+			clearOverflowFlag(registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iCpx:
-			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap["X"], decodeVal, registerMap["SR"]);
+			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap[X], decodeVal, registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iCpy:
-			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap["Y"], decodeVal, registerMap["SR"]);
+			executeVal = arithmetic(ArithmeticOperator::CMP, registerMap[Y], decodeVal, registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iDey:
-			executeVal = dec(registerMap["Y"], registerMap["SR"]);
+			executeVal = dec(registerMap[Y], registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iInx:
-			executeVal = inc(registerMap["X"], registerMap["SR"]);
+			executeVal = inc(registerMap[X], registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iIny:
-			executeVal = inc(registerMap["Y"], registerMap["SR"]);
+			executeVal = inc(registerMap[Y], registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iSed:
-			setDecimalFlag(registerMap["SR"]);
+			setDecimalFlag(registerMap[SR]);
 			break;
 
 		case YXBranchInstructions::iLdy:
 		case YXBranchInstructions::iTay:
 		case YXBranchInstructions::iTya:
-			examine(decodeVal, registerMap["SR"]);
+			examine(decodeVal, registerMap[SR]);
 		case YXBranchInstructions::iSty:
 			executeVal = decodeVal;
 			break;
@@ -185,16 +185,16 @@ void mos6502::YXBranchInstruction::writeBack(RegisterMap& registerMap, MemoryAcc
 	case YXBranchInstructions::iTay:
 	case YXBranchInstructions::iLdy:
 	case YXBranchInstructions::iCpy:
-		registerMap["Y"] = executeVal;
+		registerMap[Y] = executeVal;
 		break;
 
 	case YXBranchInstructions::iTya:
-		registerMap["A"] = executeVal;
+		registerMap[AC] = executeVal;
 		break;
 
 	case YXBranchInstructions::iInx:
 	case YXBranchInstructions::iCpx:
-		registerMap["X"] = executeVal;
+		registerMap[X] = executeVal;
 		break;
 
 	case YXBranchInstructions::iSty:

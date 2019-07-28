@@ -24,11 +24,11 @@ namespace {
 
 		void SetUp() override
 		{
-			registerMap["A"] = 0;
-			registerMap["X"] = 0;
-			registerMap["Y"] = 0;
-			registerMap["SR"] = 0;
-			registerMap["SP"] = 0;
+			registerMap[AC] = 0;
+			registerMap[X] = 0;
+			registerMap[Y] = 0;
+			registerMap[SR] = 0;
+			registerMap[SP] = 0;
 		}
 		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
@@ -38,7 +38,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, DeyTest)
 	{
-		registerMap["Y"] = 0x01;
+		registerMap[Y] = 0x01;
 
 		YXBranchInstruction si
 		(
@@ -62,11 +62,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0x00);
+		ASSERT_EQ(registerMap[Y], 0x00);
 
 		PC = si.pc();
 
@@ -75,8 +75,8 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, TayTest)
 	{
-		registerMap["A"] = 0xBC;
-		registerMap["Y"] = 0xCA;
+		registerMap[AC] = 0xBC;
+		registerMap[Y] = 0xCA;
 
 		YXBranchInstruction si
 		(
@@ -100,11 +100,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0xBC);
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0xBC);
+		ASSERT_EQ(registerMap[Y], 0xBC);
 
 		PC = si.pc();
 
@@ -113,7 +113,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, InyTest)
 	{
-		registerMap["Y"] = 0xFF;
+		registerMap[Y] = 0xFF;
 
 		YXBranchInstruction si
 		(
@@ -137,11 +137,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0x00);
+		ASSERT_EQ(registerMap[Y], 0x00);
 
 		PC = si.pc();
 
@@ -150,7 +150,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, InxTest)
 	{
-		registerMap["X"] = 0x01;
+		registerMap[X] = 0x01;
 
 		YXBranchInstruction si
 		(
@@ -174,11 +174,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x2);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0x02);
+		ASSERT_EQ(registerMap[X], 0x02);
 
 		PC = si.pc();
 
@@ -187,8 +187,8 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, TyaTest)
 	{
-		registerMap["Y"] = 0x01;
-		registerMap["A"] = 0xFE;
+		registerMap[Y] = 0x01;
+		registerMap[AC] = 0xFE;
 
 		YXBranchInstruction si
 		(
@@ -212,11 +212,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x01);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["A"], 0x01);
+		ASSERT_EQ(registerMap[AC], 0x01);
 
 		PC = si.pc();
 
@@ -225,7 +225,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, ClvTest)
 	{
-		registerMap["SR"] = 0x40;
+		registerMap[SR] = 0x40;
 
 		YXBranchInstruction si
 		(
@@ -249,11 +249,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0);
-		ASSERT_EQ(registerMap["SR"], 0);
+		ASSERT_EQ(registerMap[SR], 0);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0);
+		ASSERT_EQ(registerMap[Y], 0);
 
 		PC = si.pc();
 
@@ -262,7 +262,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, CldTest)
 	{
-		registerMap["SR"] = 0x08;
+		registerMap[SR] = 0x08;
 
 		YXBranchInstruction si
 		(
@@ -286,11 +286,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x0);
+		ASSERT_EQ(registerMap[SR], 0x0);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0x00);
+		ASSERT_EQ(registerMap[Y], 0x00);
 
 		PC = si.pc();
 
@@ -321,11 +321,11 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x00);
-		ASSERT_EQ(registerMap["SR"], 0x8);
+		ASSERT_EQ(registerMap[SR], 0x8);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0x00);
+		ASSERT_EQ(registerMap[Y], 0x00);
 
 		PC = si.pc();
 
@@ -334,7 +334,7 @@ namespace {
 	
 	TEST_F(YXBranchInstructionTest, BeqTest)
 	{
-		registerMap["SR"] = 0x02;
+		registerMap[SR] = 0x02;
 		PC = 0x100;
 		YXBranchInstruction si
 		(
@@ -359,7 +359,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x80);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
@@ -372,7 +372,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, BneTest)
 	{
-		registerMap["SR"] = 0x02;
+		registerMap[SR] = 0x02;
 		PC = 0x100;
 		YXBranchInstruction si
 		(
@@ -397,7 +397,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0);
-		ASSERT_EQ(registerMap["SR"], 0x02);
+		ASSERT_EQ(registerMap[SR], 0x02);
 
 		si.writeBack(registerMap, memory);
 
@@ -410,7 +410,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, BccTest)
 	{
-		registerMap["SR"] = 0x00;
+		registerMap[SR] = 0x00;
 		PC = 0x100;
 		YXBranchInstruction si
 		(
@@ -435,7 +435,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x10);
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -448,7 +448,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, BcsTest)
 	{
-		registerMap["SR"] = 0x01;
+		registerMap[SR] = 0x01;
 		PC = 0x1FD;
 		YXBranchInstruction si
 		(
@@ -474,7 +474,7 @@ namespace {
 		si.execute(registerMap);
 
 		ASSERT_EQ(si.getExceuteVal(), 0x7F);
-		ASSERT_EQ(registerMap["SR"], 0x01);
+		ASSERT_EQ(registerMap[SR], 0x01);
 
 		si.writeBack(registerMap, memory);
 
@@ -488,7 +488,7 @@ namespace {
 	TEST_F(YXBranchInstructionTest, StyZpgTest)
 	{
 		memory[0x7F] = 0xFF;
-		registerMap["Y"] = 0x5A;
+		registerMap[Y] = 0x5A;
 		YXBranchInstruction si
 		(
 			4,
@@ -514,7 +514,7 @@ namespace {
 
 		ASSERT_EQ(si.getExceuteVal(), 0x5A);
 
-		ASSERT_EQ(registerMap["SR"], 0x00);
+		ASSERT_EQ(registerMap[SR], 0x00);
 
 		si.writeBack(registerMap, memory);
 
@@ -530,8 +530,8 @@ namespace {
 	TEST_F(YXBranchInstructionTest, LdyAbsXTest)
 	{
 		memory[0x127F] = 0xCA;
-		registerMap["X"] = 0xF;
-		registerMap["Y"] = 0xBB;
+		registerMap[X] = 0xF;
+		registerMap[Y] = 0xBB;
 		YXBranchInstruction si
 		(
 			5,
@@ -558,11 +558,11 @@ namespace {
 
 		ASSERT_EQ(si.getExceuteVal(), 0xCA);
 
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0xCA);
+		ASSERT_EQ(registerMap[Y], 0xCA);
 
 		PC = si.pc();
 
@@ -574,7 +574,7 @@ namespace {
 	TEST_F(YXBranchInstructionTest, CpxAbsTest)
 	{
 		memory[0x1270] = 0xD;
-		registerMap["X"] = 0xF;
+		registerMap[X] = 0xF;
 		YXBranchInstruction si
 		(
 			7,
@@ -601,11 +601,11 @@ namespace {
 
 		ASSERT_EQ(si.getExceuteVal(), 0xF);
 
-		ASSERT_EQ(registerMap["SR"], 0x01);
+		ASSERT_EQ(registerMap[SR], 0x01);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["X"], 0xF);
+		ASSERT_EQ(registerMap[X], 0xF);
 
 		PC = si.pc();
 
@@ -616,7 +616,7 @@ namespace {
 
 	TEST_F(YXBranchInstructionTest, CpyImmTest)
 	{
-		registerMap["Y"] = 0x80;
+		registerMap[Y] = 0x80;
 		YXBranchInstruction si
 		(
 			6,
@@ -642,11 +642,11 @@ namespace {
 
 		ASSERT_EQ(si.getExceuteVal(), 0x80);
 
-		ASSERT_EQ(registerMap["SR"], 0x80);
+		ASSERT_EQ(registerMap[SR], 0x80);
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(registerMap["Y"], 0x80);
+		ASSERT_EQ(registerMap[Y], 0x80);
 
 		PC = si.pc();
 
