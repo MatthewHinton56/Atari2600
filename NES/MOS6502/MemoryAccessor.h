@@ -13,7 +13,10 @@ namespace mos6502
 	class MemoryAccessor
 	{
 		public:
-			MemoryAccessor();
+			MemoryAccessor
+			(
+				Memory<PAGE_SIZE, NUM_PAGES>& memory
+			);
 
 			virtual ~MemoryAccessor() = default;
 
@@ -60,7 +63,7 @@ namespace mos6502
 			virtual Memory<PAGE_SIZE, NUM_PAGES>& getMemory();
 
 		private:
-			Memory<PAGE_SIZE, NUM_PAGES> memory;
+			Memory<PAGE_SIZE, NUM_PAGES>& memory;
 
 	};
 }

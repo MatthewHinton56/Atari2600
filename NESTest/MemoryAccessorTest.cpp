@@ -12,14 +12,15 @@ namespace {
 	protected:
 
 		MemoryAccessorTest() :
-			memory()
+			mem(),
+			memory(mem)
 		{}
 
 		void SetUp() override
 		{
 			memory.getMemory().clearMemory();
 		}
-
+		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
 	};
 

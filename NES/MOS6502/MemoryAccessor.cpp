@@ -4,9 +4,9 @@ using namespace mos6502;
 
 MemoryAccessor::MemoryAccessor
 (
-
+	Memory<PAGE_SIZE, NUM_PAGES>& memory
 ) :
-	memory()
+	memory(memory)
 {
 
 }

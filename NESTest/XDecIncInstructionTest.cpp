@@ -13,7 +13,8 @@ namespace {
 	protected:
 
 		XDecIncInstructionTest() :
-			memory(),
+			mem(),
+			memory(mem),
 			registerMap(),
 			PC(0)
 		{}
@@ -27,7 +28,7 @@ namespace {
 			registerMap["SR"] = 0;
 			registerMap["SP"] = 0;
 		}
-
+		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MemoryAccessor memory;
 		RegisterMap registerMap;
 		Word PC;
