@@ -24,13 +24,13 @@ MOS6502::MOS6502
 	registerMap[AC] = 0;
 	registerMap[X] = 0;
 	registerMap[Y] = 0;
-	registerMap[SR] = 0;
+	registerMap[SR] = 0x04;
 	registerMap[SP] = 0xFF;
 }
 
 void MOS6502::cycle(bool irq, bool nmi)
 {
-	this->irq = (this->irq) ? this->irq : irq;
+	this->irq = (this->irq) ? this->irq : (irq && !getInterruptFlag(registerMap[SR]));
 	this->nmi = (this->nmi) ? this->nmi : nmi;
 
 	if (cycles == 0)
@@ -129,7 +129,7 @@ std::unique_ptr<Instruction> MOS6502::fetch()
 		nmi = false;
 		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkNmi, PC);
 	}
-	else if (irq && !getInterruptFlag(registerMap[SR]))
+	else if (irq)
 	{
 		irq = false;
 		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkIrq, PC);
