@@ -14,3 +14,4 @@
 #include "mos6502\Instructions\XDecIncInstructions\XDecIncInstruction.h"
 #include "mos6502\Instructions\YXBranchInstructions\YXBranchInstruction.h"
 #include "mos6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.h"
+#include "mos6502\Instructions\SpecialInstructions\SpecialInstruction.h"

@@ -57,6 +57,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="OperationTests.cpp" />
+    <ClCompile Include="SpecialInstructionTest.cpp" />
     <ClCompile Include="StandardInstructionTest.cpp" />
     <ClCompile Include="XDecIncInstructionTest.cpp" />
     <ClCompile Include="YXBranchInstructionTest.cpp" />
@@ -136,7 +137,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MemoryAccessor.obj;$(SolutionDir)NES\x64\Release\MOS6502.obj;$(SolutionDir)NES\x64\Release\StandardInstruction.obj;$(SolutionDir)NES\x64\Release\XDecIncInstruction.obj;$(SolutionDir)NES\x64\Release\YXBranchInstruction.obj;$(SolutionDir)NES\x64\Release\ControlFlowInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MemoryAccessor.obj;$(SolutionDir)NES\x64\Release\MOS6502.obj;$(SolutionDir)NES\x64\Release\StandardInstruction.obj;$(SolutionDir)NES\x64\Release\XDecIncInstruction.obj;$(SolutionDir)NES\x64\Release\YXBranchInstruction.obj;$(SolutionDir)NES\x64\Release\ControlFlowInstruction.obj;$(SolutionDir)NES\x64\Release\SpecialInstruction.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

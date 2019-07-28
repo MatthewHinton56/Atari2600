@@ -63,7 +63,6 @@ void mos6502::SpecialInstruction::execute(RegisterMap& registerMap)
 		case SpecialInstructions::iBrkIrq:
 		case SpecialInstructions::iBrkNmi:
 			executeVal = registerMap[SP] - 3;
-			setInterruptFlag(registerMap[SR]);
 			break;
 
 	}
@@ -79,6 +78,7 @@ void mos6502::SpecialInstruction::writeBack(RegisterMap& registerMap, MemoryAcce
 			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize);
 			memory[0x100 | executeVal] = registerMap[SR];
 			registerMap[SP] = executeVal;
+			setInterruptFlag(registerMap[SR]);
 			break;
 	}
 }

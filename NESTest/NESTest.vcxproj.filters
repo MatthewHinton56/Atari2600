@@ -14,10 +14,17 @@
     <ClCompile Include="MemoryAccessorTest.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
-    <ClCompile Include="XDecIncInstructionTest.cpp" />
-    <ClCompile Include="YXBranchInstructionTest.cpp" />
-    <ClCompile Include="ControlFlowInstructionTest.cpp" />
     <ClCompile Include="MOS6502Test.cpp" />
+    <ClCompile Include="ControlFlowInstructionTest.cpp">
+      <Filter>InstructionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="XDecIncInstructionTest.cpp">
+      <Filter>InstructionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="YXBranchInstructionTest.cpp">
+      <Filter>InstructionTests</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecialInstructionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
