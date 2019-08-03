@@ -35,8 +35,6 @@ void SpecialInstruction::decode
 	MemoryAccessor& memory
 )
 {
-	//Special Mode - A mode and different cycles
-	Byte registerVal;
 
 	if (decodeMode == SpecialInstructionAddressingMode::implied)
 	{

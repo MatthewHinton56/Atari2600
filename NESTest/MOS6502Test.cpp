@@ -119,7 +119,7 @@ namespace {
 		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getRegisterMap()[X], 0x80);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x80);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x84);
 		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 2);
 
@@ -128,7 +128,7 @@ namespace {
 		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getRegisterMap()[AC], 0x3E);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x00);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x04);
 		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 4);
 
@@ -209,7 +209,7 @@ namespace {
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 0x81);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x01);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x05);
 
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getInstruction().getCycles(), 4);
@@ -226,6 +226,6 @@ namespace {
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 0x101);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x09);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x0D);
 	}
 }

@@ -112,11 +112,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +145,6 @@
     <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\temp\Test.cpp" />
     <ClCompile Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\SpecialInstructions\SpecialInstruction.cpp" />
     <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp" />
@@ -152,6 +152,7 @@
     <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp" />
     <ClCompile Include="MOS6502\MemoryAccessor.cpp" />
     <ClCompile Include="MOS6502\MOS6502.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

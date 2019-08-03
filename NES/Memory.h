@@ -13,7 +13,6 @@ namespace mos6502
 	{
 	public:
 
-		
 		Memory
 		(
 

@@ -27,6 +27,6 @@ namespace mos6502
 
 
 		protected: 
-			unsigned int cycles;
+			unsigned int cycles = 0;
 	};
 }
