@@ -54,7 +54,7 @@ namespace {
 		ASSERT_EQ(si.getInstruction(), SpecialInstructions::iBrkNmi);
 		ASSERT_EQ(si.getDecodeMode(), SpecialInstructionAddressingMode::implied);
 
-		ASSERT_EQ(si.getInstructionSize(), 1);
+		ASSERT_EQ(si.getInstructionSize(), 0);
 
 		ASSERT_EQ(si.getCycles(), 7);
 
@@ -69,7 +69,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
+		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCD); //PUSH PC
 		ASSERT_EQ(memory[0x1FF - 3], 0x81); // PUSH SR
 		ASSERT_EQ(registerMap[SP], 0xFF - 3); // Implied 1
 
@@ -99,7 +99,7 @@ namespace {
 		ASSERT_EQ(si.getInstruction(), SpecialInstructions::iBrkIrq);
 		ASSERT_EQ(si.getDecodeMode(), SpecialInstructionAddressingMode::implied);
 
-		ASSERT_EQ(si.getInstructionSize(), 1);
+		ASSERT_EQ(si.getInstructionSize(), 0);
 
 		ASSERT_EQ(si.getCycles(), 7);
 
@@ -114,7 +114,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
+		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCD); //PUSH PC
 		ASSERT_EQ(memory[0x1FF - 3], 0x81); // PUSH SR
 		ASSERT_EQ(registerMap[SP], 0xFF - 3); // Implied 1
 

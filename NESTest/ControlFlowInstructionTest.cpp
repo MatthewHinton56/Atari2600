@@ -211,7 +211,7 @@ namespace {
 
 		si.writeBack(registerMap, memory);
 
-		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCE); //PUSH PC + 1
+		ASSERT_EQ(memory.readWord(0x1FF - 2), 0xABCF); //PUSH PC + 1
 		ASSERT_EQ(memory[0x1FF - 3], 0x81); // PUSH SR
 		ASSERT_EQ(registerMap[SP], 0xFF - 3); // Implied 1
 
@@ -302,7 +302,7 @@ namespace {
 
 		PC = si.pc();
 
-		ASSERT_EQ(PC, 0x7865 + 1);
+		ASSERT_EQ(PC, 0x7865);
 	}
 
 	TEST_F(ControlFlowInstructionTest, RtsTest)

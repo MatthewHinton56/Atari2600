@@ -191,7 +191,7 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			break;
 
 		case ControlFlowInstructions::iBrk:
-			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize);
+			memory.writeWord(0x100 | (executeVal + 1), PC + instructionSize + 1);
 			memory[0x100 | executeVal] = registerMap[SR];
 			registerMap[SP] = executeVal;
 			setInterruptFlag(registerMap[SR]);
@@ -220,7 +220,7 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			break;
 
 		case ControlFlowInstructions::iRti:
-			newPC = memory.readWord(0x100 | (executeVal - 2)) + 1;
+			newPC = memory.readWord(0x100 | (executeVal - 2));
 			registerMap[SR] = memory[0x100 | (executeVal - 3)];
 			registerMap[SP] = executeVal;
 			break;

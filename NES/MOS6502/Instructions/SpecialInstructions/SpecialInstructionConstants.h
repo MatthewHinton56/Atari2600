@@ -27,8 +27,8 @@ namespace mos6502
 
 	static std::map<SpecialInstructions, uint8_t> SInstructionSizes
 	{
-		{SpecialInstructions::iBrkIrq, 1},
-		{SpecialInstructions::iBrkNmi, 1}
+		{SpecialInstructions::iBrkIrq, 0},
+		{SpecialInstructions::iBrkNmi, 0}
 	};
 
 }
