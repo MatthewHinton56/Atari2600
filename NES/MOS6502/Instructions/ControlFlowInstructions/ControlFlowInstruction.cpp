@@ -226,7 +226,7 @@ void mos6502::ControlFlowInstruction::writeBack(RegisterMap& registerMap, Memory
 			break;
 
 		case ControlFlowInstructions::iRts:
-			newPC = memory.readWord(0x100 | executeVal - 2) + 1;
+			newPC = memory.readWord(0x100 | (executeVal - 2)) + 1;
 			registerMap[SP] = executeVal;
 			break;
 

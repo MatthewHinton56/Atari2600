@@ -288,4 +288,221 @@ namespace {
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getPC(), 0x3);
 	}
+
+	TEST_F(MOS6502Test, IrqBrkTest)
+	{
+		mem[0x1234] = 0x55;
+		mos.getRegisterMap()[SR] = 0x0;
+		mos.getRegisterMap()[AC] = 0xAA;
+
+		//ASL
+		mem[0] = 0x0E;
+		mem[1] = 0x34;
+		mem[2] = 0x12;
+
+		mos.getMemoryAccessor().writeWord(IRQ_VECTOR, 0x5555);
+
+		mem[0x5555] = 0x4A;
+		mem[0x5556] = 0x40;
+
+		mem[3] = 0x38;
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		mos.cycle(true, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 3);
+		ASSERT_EQ(mem[0x1234], 0xAA);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 7);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::specialInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getPC(), 0x5555);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x5556);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x55);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getPC(), 0x3);
+	}
+
+	TEST_F(MOS6502Test, IrqMaskTest)
+	{
+		mem[0] = 0x38;
+		mem[1] = 0xF8;
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x5);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 1);
+
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::yxBranchInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0xD);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 2);
+	}
+
+
+	TEST_F(MOS6502Test, SubroutineTest)
+	{
+		//OR FF
+		mem[0] = 0x09;
+		mem[1] = 0xFF;
+
+		//JSR 1000
+		mem[2] = 0x20;
+		mem[3] = 0x00;
+		mem[4] = 0x10;
+
+		//AND 0xOF
+		mem[0x1000] = 0x29;
+		mem[0x1001] = 0x0F;
+
+		mem[0x1002] = 0x60;
+
+		mem[5] = 0x49;
+		mem[6] = 0x05;
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0xFF);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 2);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mem[0x1FF - 2] = 0x04;
+		mem[0x1FF - 1] = 0x00;
+		ASSERT_EQ(mos.getRegisterMap()[SP], 0xFF - 2);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x1000);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x0F);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x1002);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[SP], 0xFF);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x5);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x0A);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x7);
+	}
+
+	TEST_F(MOS6502Test, BrkTest)
+	{
+		mem[0x1234] = 0x55;
+		mos.getRegisterMap()[SR] = 0x0;
+		mos.getRegisterMap()[AC] = 0xAA;
+
+		//ASL
+		mem[0] = 0x0E;
+		mem[1] = 0x34;
+		mem[2] = 0x12;
+		mem[3] = 0x00;
+		mos.getMemoryAccessor().writeWord(IRQ_VECTOR, 0x5555);
+
+		mem[0x5555] = 0x4A;
+		mem[0x5556] = 0x40;
+
+		mem[5] = 0x38;
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 3);
+		ASSERT_EQ(mem[0x1234], 0xAA);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 7);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getPC(), 0x5555);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getCycles(), 0);
+		ASSERT_EQ(mos.getPC(), 0x5556);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x55);
+
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getInstruction().getCycles(), 6);
+		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::controlFlowInstructions);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getPC(), 0x5);
+	}
+
+
 }
