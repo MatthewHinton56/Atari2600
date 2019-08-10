@@ -10,6 +10,7 @@
     </ClCompile>
     <ClCompile Include="MOS6502Test.cpp" />
     <ClCompile Include="AbsoluteTest.cpp" />
+    <ClCompile Include="ZeropageTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

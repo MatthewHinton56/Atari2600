@@ -13,7 +13,7 @@ Absolute::Absolute
 	opcode(_opcode),
 	instruction(static_cast<InstructionOpcodeAbsolute>(opcode)),
 	type(InstructionToTypeAbsolute[instruction]),
-	group(InstructionToGroup[instruction]),
+	group(InstructionToGroupAbsolute[instruction]),
 	lowAddressByte(0),
 	highAddressByte(0),
 	address(0),

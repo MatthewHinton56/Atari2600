@@ -68,7 +68,7 @@ namespace mos6502
 		{InstructionOpcodeAbsolute::iInc, InstructionTypeAbsolute::rmw}
 	};
 
-	static std::unordered_map< InstructionOpcodeAbsolute, InstructionGroups> InstructionToGroup
+	static std::unordered_map< InstructionOpcodeAbsolute, InstructionGroups> InstructionToGroupAbsolute
 	{
 		{InstructionOpcodeAbsolute::iNop, InstructionGroups::iNop},
 		{InstructionOpcodeAbsolute::iBit, InstructionGroups::bit},
