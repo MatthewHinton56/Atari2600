@@ -1,6 +1,5 @@
 #pragma once
 #include "MOS6502Constants.h"
-#include "MemoryAccessor.h"
 #include "../Memory.h"
 #include "Instructions/Instruction.h"
 #include <memory.h>
@@ -21,8 +20,6 @@ namespace mos6502
 			virtual void cycle(bool irq, bool nmi);
 
 			virtual void reset();
-
-			virtual MemoryAccessor& getMemoryAccessor();
 
 			virtual Instruction& getInstruction();
 
@@ -45,7 +42,6 @@ namespace mos6502
 
 		private:
 
-			MemoryAccessor memory;
 			std::unique_ptr<Instruction> instruction;
 			RegisterMap registerMap;
 			Word PC;

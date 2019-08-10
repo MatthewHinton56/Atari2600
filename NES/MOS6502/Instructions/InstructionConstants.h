@@ -2,42 +2,60 @@
 
 namespace mos6502
 {
-	enum class InstructionAddressingMode : uint8_t
+	//And is key word, so n(nand) is used 
+	
+	enum class InstructionGroups
 	{
-		xIndirect,
-		zeroPage,
-		immediate,
-		absolute,
-		yIndirect,
-		xZeroPage,
-		absoluteY,
-		absoluteX,
-		implied,
-		yZeroPage
+		ibrk,
+		iPhp,
+		iBpl,
+		iClc,
+		iJsr,
+		bit,
+		iPlp,
+		iBmi,
+		iSec,
+		iRti,
+		iPha,
+		iJmp,
+		iBvc,
+		iCli,
+		iRts,
+		iPla,
+		iBvs,
+		iSei,
+		st,
+		iDey,
+		iBcc,
+		iTya,
+		iTay,
+		iBcs,
+		iClv,
+		iIny,
+		iBne,
+		iCld,
+		iInx,
+		iBeq,
+		iSed,
+		ora,
+		nnand, 
+		eor,
+		adc,
+		cmp,
+		sbc,
+		asl,
+		rol,
+		lsr,
+		ror,
+		iTxa,
+		iTxs,
+		ld,
+		iTax,
+		iTsx,
+		iDec,
+		iDex,
+		iInc,
+		iNop
 	};
-
-	static std::map<InstructionAddressingMode, uint8_t> InstructionSizes
-	{
-		{InstructionAddressingMode::xIndirect, 2},
-		{InstructionAddressingMode::zeroPage, 2},
-		{InstructionAddressingMode::immediate, 2},
-		{InstructionAddressingMode::absolute, 3},
-		{InstructionAddressingMode::yIndirect, 2},
-		{InstructionAddressingMode::xZeroPage, 2},
-		{InstructionAddressingMode::absoluteY, 3},
-		{InstructionAddressingMode::absoluteX, 3},
-		{InstructionAddressingMode::implied, 1},
-		{InstructionAddressingMode::yZeroPage, 2}
-	};
-
-	enum class Instructions : uint8_t
-	{
-		controlFlowInstructions,
-		yxBranchInstructions,
-		standardInstructions,
-		xDecIncInstructions,
-		specialInstructions
-	};
-
 
 }

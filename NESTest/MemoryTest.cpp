@@ -22,18 +22,18 @@ namespace {
 			page.fill(0);
 		}
 
-		Memory<256, 32> mem;
+		Memory<256, 256> mem;
 		std::array<uint8_t, 256> page;
 	};
 
 	TEST_F(MemoryTest, MemoryConstruction) 
 	{
 		ASSERT_EQ(mem.getPageSize(), 256);
-		ASSERT_EQ(mem.getNumPages(), 32);
-		ASSERT_EQ(mem.getAddressSize(), 13);
+		ASSERT_EQ(mem.getNumPages(), 256);
+		ASSERT_EQ(mem.getAddressSize(), 16);
 		ASSERT_EQ(mem.getOffsetAddressSize(), 8);
-		ASSERT_EQ(mem.getPageAddressSize(), 5);
-		ASSERT_EQ(mem.getTotalBytes(), 8192);
+		ASSERT_EQ(mem.getPageAddressSize(), 8);
+		ASSERT_EQ(mem.getTotalBytes(), 65535);
 	}
 
 	TEST_F(MemoryTest, MemoryConstructionBadParameters) 
@@ -44,8 +44,8 @@ namespace {
 	TEST_F(MemoryTest, MemoryMask) 
 	{
 		unsigned int offsetMask = 0xFF;
-		unsigned int pageMask = 0x1F00;
-		unsigned int addressMask = 0x1FFF;
+		unsigned int pageMask = 0xFF00;
+		unsigned int addressMask = 0xFFFF;
 		ASSERT_EQ(mem.getOffsetMask(), offsetMask);
 		ASSERT_EQ(mem.getPageMask(), pageMask);
 		ASSERT_EQ(mem.getAddressMask(), addressMask);
@@ -53,8 +53,8 @@ namespace {
 
 	TEST_F(MemoryTest, MemoryReadWrite) 
 	{
-		mem[0x1CBA] = 0xCA;
-		ASSERT_EQ(mem[0x1CBA], 0xCA);
+		mem.writeByte(0x1CBA, 0xCA);
+		ASSERT_EQ(mem.readByte(0x1CBA), 0xCA);
 	}
 
 	TEST_F(MemoryTest, MemoryPageReadWrite)
@@ -77,21 +77,27 @@ namespace {
 
 	TEST_F(MemoryTest, MemoryPageAccessErrors)
 	{
-		ASSERT_THROW(mem[0xFFDCB], std::invalid_argument);
-		ASSERT_THROW(mem.readPage(33), std::invalid_argument);
-		ASSERT_THROW(mem.writePage(35, page), std::invalid_argument);
+		ASSERT_THROW(mem.readPage(257), std::invalid_argument);
+		ASSERT_THROW(mem.writePage(358, page), std::invalid_argument);
+	}
+	static Word num = 0;
+
+	inline void changeNum(Word address, Byte data, bool write)
+	{
+		num = 5;
 	}
 
-	TEST_F(MemoryTest, MemoryClear)
+	TEST_F(MemoryTest, MemoryListenerTest)
 	{
-		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
-			mem[(unsigned int)i] = 0x11;
-		}
+		Word i = 0;
+		// Captures i by reference; increments it by one
 
-		mem.clearMemory();
+		mem.addMemoryListener(0x44, &changeNum);
 
-		for (size_t i = 0; i < mem.getTotalBytes(); ++i) {
-			EXPECT_EQ(mem[(unsigned int)i], 0x00);
-		}
+		ASSERT_EQ(num, 0);
+
+		mem.writeByte(0x44, 6);
+
+		ASSERT_EQ(num, 5);
 	}
 } 

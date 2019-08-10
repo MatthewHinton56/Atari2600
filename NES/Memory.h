@@ -3,11 +3,17 @@
 #include <vector>
 #include <array>
 #include <cmath>
+#include <map>
 #include <stdexcept>
 #include <iostream>
 
 namespace mos6502
 {
+
+	typedef uint16_t Word;
+	typedef uint8_t Byte;
+	typedef void (*MemoryListenerFunction)(Word, Byte, bool);
+
 	template<size_t pageSize, size_t numPages>
 	class Memory
 	{
@@ -20,7 +26,8 @@ namespace mos6502
 			pageAddressSize(static_cast<int>(log2(numPages))),
 			offsetAddressSize(static_cast<int>(log2(pageSize))),
 			addressSize(pageAddressSize + offsetAddressSize),
-			memory()
+			memory(),
+			memoryListeners()
 		{
 			if (!((pageSize & (pageSize - 1)) == 0))
 			{
@@ -35,13 +42,29 @@ namespace mos6502
 
 		virtual ~Memory() = default;
 
-		inline uint8_t& operator[](unsigned int i)
+		inline Byte readByte(Word address)
 		{
-			if ((~getAddressMask() & i))
+			if (memoryListeners.find(address) != memoryListeners.end())
 			{
-				throw std::invalid_argument("Invalid Address");
+				memoryListeners[address](address, 0, false);
 			}
-			return memory[i];
+
+			return memory[address];
+		}
+
+		inline void writeByte(Word address, Byte val)
+		{
+			if (memoryListeners.find(address) != memoryListeners.end())
+			{
+				memoryListeners[address](address, val, true);
+			}
+
+			memory[address] = val;
+		}
+
+		inline void addMemoryListener(Word address, MemoryListenerFunction function)
+		{
+			memoryListeners[address] = function;
 		}
 
 		inline unsigned int getPageSize() const
@@ -69,9 +92,9 @@ namespace mos6502
 			return addressSize;
 		}
 
-		inline size_t getTotalBytes() const
+		inline Word getTotalBytes() const
 		{
-			return memory.size();
+			return ((Word)getAddressMask());
 		}
 
 		inline unsigned int getPageMask() const
@@ -140,9 +163,8 @@ namespace mos6502
 		const unsigned int offsetAddressSize;
 		const unsigned int addressSize;
 
-		std::array<uint8_t, numPages * pageSize> memory;
+		std::array<Byte, numPages * pageSize> memory;
 
-
+		std::map<Word, MemoryListenerFunction> memoryListeners;
 	};
-
 }

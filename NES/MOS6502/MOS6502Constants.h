@@ -1,5 +1,6 @@
 #pragma once
 #pragma once
+#include "../Memory.h"
 #include <cstdint>
 #include <vector>
 #include <array>
@@ -38,10 +39,8 @@
 
 namespace mos6502
 {
-	typedef uint16_t Word;
-	typedef uint8_t Byte;
 
-	typedef std::map<std::string, Byte> RegisterMap;
+	typedef std::array<Byte, 5> RegisterMap;
 
 	static const unsigned int NUM_PAGES = 256;
 	static const unsigned int PAGE_SIZE = 256;
@@ -56,11 +55,11 @@ namespace mos6502
 
 	static const Word RESET_VECTOR = 0xFFFC;
 
-	static const std::string AC = "AC";
-	static const std::string SR = "SR";
-	static const std::string Y = "Y";
-	static const std::string X = "X";
-	static const std::string SP = "SP";
+	static const int8_t AC = 0;
+	static const int8_t  SR = 1;
+	static const int8_t  Y = 2;
+	static const int8_t  X = 3;
+	static const int8_t  SP = 4;
 
 }
 

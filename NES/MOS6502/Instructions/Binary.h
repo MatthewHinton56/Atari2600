@@ -1,6 +1,5 @@
 #pragma once
 #include "../mos6502Constants.h"
-
 namespace mos6502
 {
 	inline Byte addWithCarry
@@ -71,23 +70,9 @@ namespace mos6502
 		return operand1;
 	};
 
-	enum class ArithmeticOperator
-	{
-		ADD,
-		SUB,
-		CMP
-	};
-
-	enum class LogicOperator
-	{
-		AND,
-		OR,
-		XOR
-	};
-
 	inline Byte logic
 	(
-		LogicOperator op,
+		InstructionGroups op,
 		Byte operand1,
 		Byte operand2,
 		Byte& statusRegister
@@ -97,15 +82,17 @@ namespace mos6502
 
 		switch (op)
 		{
-		case LogicOperator::AND:
-				result = operand1 & operand2;
-				break;
-		case LogicOperator::OR:
-				result = operand1 | operand2;
-				break;
-		case LogicOperator::XOR:
-				result = operand1 ^ operand2;
-				break;
+			case InstructionGroups::nnand:
+					result = operand1 & operand2;
+					break;
+
+			case InstructionGroups::ora:
+					result = operand1 | operand2;
+					break;
+
+			case InstructionGroups::eor:
+					result = operand1 ^ operand2;
+					break;
 		}
 		
 		(!result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
@@ -115,17 +102,9 @@ namespace mos6502
 		return result;
 	};
 
-	enum class ShiftOperator
-	{
-		ASL,
-		LSR,
-		ROR,
-		ROL
-	};
-
 	inline Byte shift
 	(
-		ShiftOperator op,
+		InstructionGroups op,
 		Byte operand,
 		Byte& statusRegister
 	)
@@ -135,26 +114,29 @@ namespace mos6502
 		bool temp;
 		switch (op)
 		{
-		case ShiftOperator::ASL:
-			(0x80 & operand) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
-			result = operand << 1;
-			break;
-		case ShiftOperator::LSR:
-			(0x1 & operand) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
-			result = operand >> 1;
-			break;
-		case ShiftOperator::ROR:
-			temp = (0x1 & operand);
-			result = operand >> 1;
-			result |= (getCarryFlag(statusRegister)) << 7;
-			(temp) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
-			break;
-		case ShiftOperator::ROL:
-			temp = (0x80 & operand);
-			result = operand << 1;
-			result |= (getCarryFlag(statusRegister));
-			(temp) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
-			break;
+			case InstructionGroups::asl:
+				(0x80 & operand) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+				result = operand << 1;
+				break;
+
+			case InstructionGroups::lsr:
+				(0x1 & operand) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+				result = operand >> 1;
+				break;
+
+			case InstructionGroups::ror:
+				temp = (0x1 & operand);
+				result = operand >> 1;
+				result |= (getCarryFlag(statusRegister)) << 7;
+				(temp) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+				break;
+
+			case InstructionGroups::rol:
+				temp = (0x80 & operand);
+				result = operand << 1;
+				result |= (getCarryFlag(statusRegister));
+				(temp) ? setCarryFlag(statusRegister) : clearCarryFlag(statusRegister);
+				break;
 		}
 
 		(!result) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
@@ -241,7 +223,7 @@ namespace mos6502
 
 	inline Byte arithmetic
 	(
-		ArithmeticOperator op,
+		InstructionGroups op,
 		Byte operand1,
 		Byte operand2,
 		Byte& statusRegister
@@ -250,17 +232,17 @@ namespace mos6502
 		bool isDec = getDecimalFlag(statusRegister);
 		switch (op)
 		{
-		case ArithmeticOperator::ADD:
+		case InstructionGroups::adc:
 			return (isDec) ?
 				addWithCarryBCD(operand1, operand2, statusRegister) :
 				addWithCarry(operand1, operand2, statusRegister);
 
-		case ArithmeticOperator::SUB:
+		case InstructionGroups::sbc:
 			return (isDec) ?
 				subtractWithCarryBCD(operand1, operand2, statusRegister) :
 				subtractWithCarry(operand1, operand2, statusRegister);
 
-		case ArithmeticOperator::CMP:
+		case InstructionGroups::cmp:
 			return compare(operand1, operand2, statusRegister);
 
 		default:
