@@ -259,7 +259,7 @@ namespace mos6502
 		Byte& statusRegister
 	)
 	{
-		Byte result;
+		Byte result = 0;
 		switch (op)
 		{
 			case InstructionGroups::inc:
