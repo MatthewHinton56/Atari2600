@@ -19,7 +19,7 @@ namespace mos6502
 		iSec,
 		iRti,
 		iPha,
-		iJmp,
+		jmp,
 		iBvc,
 		iCli,
 		iRts,

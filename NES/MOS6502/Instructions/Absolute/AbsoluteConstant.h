@@ -72,7 +72,7 @@ namespace mos6502
 	{
 		{InstructionOpcodeAbsolute::iNop, InstructionGroups::iNop},
 		{InstructionOpcodeAbsolute::iBit, InstructionGroups::bit},
-		{InstructionOpcodeAbsolute::iJmp, InstructionGroups::iJmp},
+		{InstructionOpcodeAbsolute::iJmp, InstructionGroups::jmp},
 		{InstructionOpcodeAbsolute::iSty, InstructionGroups::st},
 		{InstructionOpcodeAbsolute::iLdy, InstructionGroups::ld},
 		{InstructionOpcodeAbsolute::iCpy, InstructionGroups::cmp},
