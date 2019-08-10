@@ -27,16 +27,14 @@ namespace mos6502
 		iBvs,
 		iSei,
 		st,
-		iDey,
 		iBcc,
 		iTya,
 		iTay,
 		iBcs,
 		iClv,
-		iIny,
+		inc,
 		iBne,
 		iCld,
-		iInx,
 		iBeq,
 		iSed,
 		ora,
@@ -54,9 +52,7 @@ namespace mos6502
 		ld,
 		iTax,
 		iTsx,
-		iDec,
-		iDex,
-		iInc,
+		dec,
 		iNop
 	};
 

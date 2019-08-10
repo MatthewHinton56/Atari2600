@@ -91,7 +91,7 @@ namespace mos6502
 		{InstructionOpcodeAbsolute::iRor, InstructionGroups::ror},
 		{InstructionOpcodeAbsolute::iStx, InstructionGroups::st},
 		{InstructionOpcodeAbsolute::iLdx, InstructionGroups::ld},
-		{InstructionOpcodeAbsolute::iDec, InstructionGroups::iDec},
-		{InstructionOpcodeAbsolute::iInc, InstructionGroups::iInc}
+		{InstructionOpcodeAbsolute::iDec, InstructionGroups::dec},
+		{InstructionOpcodeAbsolute::iInc, InstructionGroups::inc}
 	};
 }

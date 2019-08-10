@@ -252,25 +252,25 @@ namespace mos6502
 
 	}
 
-	inline Byte inc
+	inline Byte changeOne
 	(
+		InstructionGroups op,
 		Byte operand1,
 		Byte& statusRegister
 	)
 	{
-		Byte result = operand1 + 1;
-		(result == 0) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
-		(result & 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
-		return result;
-	}
+		Byte result;
+		switch (op)
+		{
+			case InstructionGroups::inc:
+				result = operand1 + 1;
+				break;
 
-	inline Byte dec
-	(
-		Byte operand1,
-		Byte& statusRegister
-	)
-	{
-		Byte result = operand1 - 1;
+			case InstructionGroups::dec:
+				result = operand1 - 1;
+				break;
+		}
+
 		(result == 0) ? setZeroFlag(statusRegister) : clearZeroFlag(statusRegister);
 		(result & 0x80) ? setNegativeFlag(statusRegister) : clearNegativeFlag(statusRegister);
 		return result;
