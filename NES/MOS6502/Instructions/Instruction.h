@@ -1,7 +1,5 @@
 #pragma once
-#include "../../Memory.h"
-#include "../mos6502Constants.h"
-#include "InstructionConstants.h"
+#include "InstructionGroup.h"
 
 namespace mos6502
 {

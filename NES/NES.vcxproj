@@ -130,7 +130,6 @@
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstant.h" />
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
-    <ClInclude Include="MOS6502\Instructions\DecodeHelper.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionGroup.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Instruction.h" />

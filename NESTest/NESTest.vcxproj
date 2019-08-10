@@ -46,6 +46,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbsoluteTest.cpp" />
     <ClCompile Include="MemoryTest.cpp" />
     <ClCompile Include="MOS6502Test.cpp" />
     <ClCompile Include="pch.cpp">
@@ -131,7 +132,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MOS6502.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MOS6502.obj;$(SolutionDir)NES\x64\Release\Absolute.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -9,3 +9,4 @@
 #include "Memory.h"
 #include "mos6502\MOS6502.h"
 #include "mos6502\Instructions\Binary.h"
+#include "mos6502\Instructions\Absolute\Absolute.h"

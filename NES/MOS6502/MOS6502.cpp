@@ -1,3 +1,4 @@
+#pragma once
 #include "Instructions/InstructionConstants.h"
 #include "MOS6502.h"
 

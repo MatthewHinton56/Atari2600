@@ -1,18 +1,19 @@
+#pragma once
+
 #include "Absolute.h"
-#include "../Binary.h"
-#include "../InstructionGroup.h"
 using namespace mos6502;
 
+static Byte UNUSED = 0;
 
 Absolute::Absolute
 (
 	Byte _opcode
 )	:
-	step_count(2),
+	stepCount(1),
 	opcode(_opcode),
 	instruction(static_cast<InstructionOpcodeAbsolute>(opcode)),
 	type(InstructionToTypeAbsolute[instruction]),
-	group(InstructionGroups(instruction)),
+	group(InstructionToGroup[instruction]),
 	lowAddressByte(0),
 	highAddressByte(0),
 	address(0),
@@ -44,9 +45,8 @@ int32_t Absolute::step
 	Memory<PAGE_SIZE, NUM_PAGES>& mem
 )
 {
-	int step_temp = step_count;
-	step_count++;
-	switch (step_temp)
+	stepCount++;
+	switch (stepCount)
 	{
 		case 2:
 			lowAddressByte = mem.readByte(PC);
@@ -80,7 +80,7 @@ int32_t Absolute::step
 						PC,
 						mem,
 						registerMap[SR],
-						0,
+						UNUSED,
 						registerMap[reg],
 						address
 					);
@@ -88,9 +88,6 @@ int32_t Absolute::step
 			}
 
 		case 5:
-		{
-			Byte& reference = (type == InstructionTypeAbsolute::rmw) ? data : registerMap[reg];
-			int32_t ret = (type == InstructionTypeAbsolute::rmw) ? 0 : 1;
 			if (type == InstructionTypeAbsolute::rmw) mem.writeByte(address, data);
 			groupStep
 			(
@@ -99,14 +96,16 @@ int32_t Absolute::step
 				mem,
 				registerMap[SR],
 				data,
-				reference
+				registerMap[reg]
 			);
 
-			return ret;
-		}
+			return (type == InstructionTypeAbsolute::rmw) ? 0 : 1;
+
 		case 6:
 			mem.writeByte(address, data);
 			return 1;
 	}
 }
+
+
 

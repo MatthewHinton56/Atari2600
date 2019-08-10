@@ -20,9 +20,20 @@ namespace mos6502
 			Memory<PAGE_SIZE, NUM_PAGES>& mem
 		);
 
+		int32_t getStepCount() const { return stepCount; }
+		Byte getOpcode() const { return opcode; }
+		InstructionOpcodeAbsolute getInstrucion() const { return instruction; }
+		InstructionTypeAbsolute getType() const { return type; }
+		InstructionGroups getGroup() const { return group; }
+		Byte getLowAddressByte() const { return lowAddressByte; }
+		Byte getHighAddressByte() const { return highAddressByte; }
+		Word getAddress() const { return address; }
+		Byte getData() const { return highAddressByte; }
+		Byte getReg() const { return reg; }
+
 	private:
 
-		int step_count;
+		int32_t stepCount;
 
 		Byte opcode;
 		InstructionOpcodeAbsolute instruction;

@@ -4,21 +4,21 @@
 
 static int8_t temp = 0;
 
-using namespace mos6502;
-
-inline void groupStep
-(
-	InstructionGroups group,
-	Word& PC,
-	Memory<PAGE_SIZE, NUM_PAGES>& mem,
-	Byte& statusRegister,
-	int8_t dataOp,
-	Byte& regOp,
-	Word address = 0
-)
+namespace mos6502
 {
-	switch (group)
+	inline void groupStep
+	(
+		InstructionGroups group,
+		Word& PC,
+		Memory<PAGE_SIZE, NUM_PAGES>& mem,
+		Byte& statusRegister,
+		Byte& dataOp,
+		Byte& regOp,
+		Word address = 0
+	)
 	{
+		switch (group)
+		{
 		case InstructionGroups::ld:
 			examine
 			(
@@ -44,7 +44,7 @@ inline void groupStep
 		case InstructionGroups::rol:
 		case InstructionGroups::lsr:
 		case InstructionGroups::asl:
-			regOp = shift
+			dataOp = shift
 			(
 				group,
 				dataOp,
@@ -72,5 +72,6 @@ inline void groupStep
 
 		case InstructionGroups::st:
 			mem.writeByte(address, regOp);
+		}
 	}
 }

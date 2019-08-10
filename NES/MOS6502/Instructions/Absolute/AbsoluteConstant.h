@@ -41,7 +41,7 @@ namespace mos6502
 		iInc = 0xEE
 	};
 
-	std::unordered_map< InstructionOpcodeAbsolute, InstructionTypeAbsolute> InstructionToTypeAbsolute
+	static std::unordered_map< InstructionOpcodeAbsolute, InstructionTypeAbsolute> InstructionToTypeAbsolute
 	{
 		{InstructionOpcodeAbsolute::iNop, InstructionTypeAbsolute::read},
 		{InstructionOpcodeAbsolute::iBit, InstructionTypeAbsolute::read},
@@ -68,7 +68,7 @@ namespace mos6502
 		{InstructionOpcodeAbsolute::iInc, InstructionTypeAbsolute::rmw}
 	};
 
-	std::unordered_map< InstructionOpcodeAbsolute, InstructionGroups> InstructionToInstructionGroup
+	static std::unordered_map< InstructionOpcodeAbsolute, InstructionGroups> InstructionToGroup
 	{
 		{InstructionOpcodeAbsolute::iNop, InstructionGroups::iNop},
 		{InstructionOpcodeAbsolute::iBit, InstructionGroups::bit},

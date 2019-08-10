@@ -1,10 +1,12 @@
 #pragma once
 
+#include <cstdint>
+
 namespace mos6502
 {
 	//And is key word, so n(nand) is used 
 	
-	enum class InstructionGroups
+	enum class InstructionGroups : int8_t
 	{
 		ibrk,
 		iPhp,

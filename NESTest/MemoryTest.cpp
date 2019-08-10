@@ -80,6 +80,7 @@ namespace {
 		ASSERT_THROW(mem.readPage(257), std::invalid_argument);
 		ASSERT_THROW(mem.writePage(358, page), std::invalid_argument);
 	}
+
 	static Word num = 0;
 
 	inline void changeNum(Word address, Byte data, bool write)
@@ -89,9 +90,6 @@ namespace {
 
 	TEST_F(MemoryTest, MemoryListenerTest)
 	{
-		Word i = 0;
-		// Captures i by reference; increments it by one
-
 		mem.addMemoryListener(0x44, &changeNum);
 
 		ASSERT_EQ(num, 0);

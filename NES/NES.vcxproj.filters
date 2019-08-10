@@ -18,9 +18,6 @@
     <ClInclude Include="MOS6502\Instructions\Binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\DecodeHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\Instructions\Instruction.h">
       <Filter>Header Files</Filter>
     </ClInclude>

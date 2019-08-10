@@ -1,5 +1,6 @@
 #pragma once
 #include "../mos6502Constants.h"
+#include "InstructionConstants.h"
 namespace mos6502
 {
 	inline Byte addWithCarry

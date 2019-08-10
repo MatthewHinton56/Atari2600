@@ -1,6 +1,5 @@
 #pragma once
 #include "MOS6502Constants.h"
-#include "../Memory.h"
 #include "Instructions/Instruction.h"
 #include <memory.h>
 

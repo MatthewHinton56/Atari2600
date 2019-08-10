@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "../Memory.h"
 #include <cstdint>
 #include <vector>
