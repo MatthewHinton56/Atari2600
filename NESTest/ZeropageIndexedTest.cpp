@@ -93,18 +93,19 @@ namespace {
 		ASSERT_EQ(registerMap[Y], 0x2F);
 		ASSERT_EQ(registerMap[SR], 0x7D);
 	}
-	/*
+
 	TEST_F(ZeropageIndexedTest, zpgIOra)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
-		ZeropageIndexed instr(0x0D);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0x15);
 		PC++;
 		mem.writeByte(0x1, 0x34);
 		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xAA);
+		mem.writeByte(0x39, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x0D);
+		ASSERT_EQ(instr.getOpcode(), 0x15);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iOra);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ora);
@@ -117,8 +118,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -129,18 +129,18 @@ namespace {
 		ASSERT_EQ(registerMap[AC], 0xFF);
 		ASSERT_EQ(registerMap[SR], 0x80);
 	}
-
+	
 	TEST_F(ZeropageIndexedTest, zpgIAnd)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
-		ZeropageIndexed instr(0x2D);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0x35);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xAA);
+		mem.writeByte(0x39, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x2D);
+		ASSERT_EQ(instr.getOpcode(), 0x35);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iAnd);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::nnand);
@@ -153,8 +153,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -165,18 +164,19 @@ namespace {
 		ASSERT_EQ(registerMap[AC], 0x00);
 		ASSERT_EQ(registerMap[SR], 0x02);
 	}
-
+	
 	TEST_F(ZeropageIndexedTest, zpgIEor)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
-		ZeropageIndexed instr(0x4D);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0x55);
 		PC++;
 		mem.writeByte(0x1, 0x34);
 		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x55);
+		mem.writeByte(0x39, 0x55);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x4D);
+		ASSERT_EQ(instr.getOpcode(), 0x55);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iEor);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::eor);
@@ -189,8 +189,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -201,18 +200,18 @@ namespace {
 		ASSERT_EQ(registerMap[AC], 0x00);
 		ASSERT_EQ(registerMap[SR], 0x02);
 	}
-
+	
 	TEST_F(ZeropageIndexedTest, zpgIAdc)
 	{
 		registerMap[SR] = 0x01;
 		registerMap[AC] = 0x01;
-		ZeropageIndexed instr(0x6D);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0x75);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x1);
+		mem.writeByte(0x39, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x6D);
+		ASSERT_EQ(instr.getOpcode(), 0x75);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iAdc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::adc);
@@ -225,8 +224,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -241,13 +239,13 @@ namespace {
 	TEST_F(ZeropageIndexedTest, zpgISta)
 	{
 		registerMap[AC] = 0xAC;
-		ZeropageIndexed instr(0x8D);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0x95);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xBF);
+		mem.writeByte(0x39, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x8D);
+		ASSERT_EQ(instr.getOpcode(), 0x95);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iSta);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
@@ -260,25 +258,24 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 4);
-		ASSERT_EQ(mem.readByte(0x1234), 0xAC);
+		ASSERT_EQ(mem.readByte(0x39), 0xAC);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgILda)
 	{
 		registerMap[SR] = 0xFF;
 		registerMap[AC] = 0xAC;
-		ZeropageIndexed instr(0xAD);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0xB5);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x2F);
+		mem.writeByte(0x39, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xAD);
+		ASSERT_EQ(instr.getOpcode(), 0xB5);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iLda);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
@@ -291,8 +288,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -308,13 +304,13 @@ namespace {
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0;
-		ZeropageIndexed instr(0xCD);
+		registerMap[X] = 0x5;
+		ZeropageIndexed instr(0xD5);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0);
+		mem.writeByte(0x39, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xCD);
+		ASSERT_EQ(instr.getOpcode(), 0xD5);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iCmp);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
@@ -327,8 +323,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -342,15 +337,15 @@ namespace {
 
 	TEST_F(ZeropageIndexedTest, zpgISbc)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
 		registerMap[AC] = 0x01;
-		ZeropageIndexed instr(0xED);
+		ZeropageIndexed instr(0xF5);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x1);
+		mem.writeByte(0x39, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xED);
+		ASSERT_EQ(instr.getOpcode(), 0xF5);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iSbc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::sbc);
@@ -363,8 +358,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -378,14 +372,14 @@ namespace {
 
 	TEST_F(ZeropageIndexedTest, zpgIAsl)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
-		ZeropageIndexed instr(0x0E);
+		ZeropageIndexed instr(0x16);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xC1);
+		mem.writeByte(0x39, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x0E);
+		ASSERT_EQ(instr.getOpcode(), 0x16);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iAsl);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::asl);
@@ -398,8 +392,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -412,19 +405,19 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0x82);
+		ASSERT_EQ(mem.readByte(0x39), 0x82);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgIRol)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
-		ZeropageIndexed instr(0x2E);
+		ZeropageIndexed instr(0x36);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xC1);
+		mem.writeByte(0x39, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x2E);
+		ASSERT_EQ(instr.getOpcode(), 0x36);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iRol);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::rol);
@@ -437,8 +430,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -451,19 +443,19 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0x83);
+		ASSERT_EQ(mem.readByte(0x39), 0x83);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgILsr)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
-		ZeropageIndexed instr(0x4E);
+		ZeropageIndexed instr(0x56);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xC1);
+		mem.writeByte(0x39, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x4E);
+		ASSERT_EQ(instr.getOpcode(), 0x56);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iLsr);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::lsr);
@@ -476,8 +468,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -490,19 +481,19 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0x60);
+		ASSERT_EQ(mem.readByte(0x39), 0x60);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgIRor)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
-		ZeropageIndexed instr(0x6E);
+		ZeropageIndexed instr(0x76);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xC1);
+		mem.writeByte(0x39, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x6E);
+		ASSERT_EQ(instr.getOpcode(), 0x76);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iRor);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ror);
@@ -515,8 +506,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -529,19 +519,19 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0xE0);
+		ASSERT_EQ(mem.readByte(0x39), 0xE0);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgIStx)
 	{
+		registerMap[Y] = 0x5;
 		registerMap[X] = 0xAC;
-		ZeropageIndexed instr(0x8E);
+		ZeropageIndexed instr(0x96);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xBF);
+		mem.writeByte(0x39, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x8E);
+		ASSERT_EQ(instr.getOpcode(), 0x96);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iStx);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
@@ -554,25 +544,24 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 4);
-		ASSERT_EQ(mem.readByte(0x1234), 0xAC);
+		ASSERT_EQ(mem.readByte(0x39), 0xAC);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgILdx)
 	{
 		registerMap[SR] = 0xFF;
 		registerMap[X] = 0xAC;
-		ZeropageIndexed instr(0xAE);
+		registerMap[Y] = 0x5;
+		ZeropageIndexed instr(0xB6);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x2F);
+		mem.writeByte(0x39, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xAE);
+		ASSERT_EQ(instr.getOpcode(), 0xB6);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iLdx);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
@@ -585,8 +574,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -600,14 +588,14 @@ namespace {
 
 	TEST_F(ZeropageIndexedTest, zpgIDec)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
-		ZeropageIndexed instr(0xCE);
+		ZeropageIndexed instr(0xD6);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0x0);
+		mem.writeByte(0x39, 0x0);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xCE);
+		ASSERT_EQ(instr.getOpcode(), 0xD6);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iDec);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::dec);
@@ -620,8 +608,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -634,19 +621,19 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0xFF);
+		ASSERT_EQ(mem.readByte(0x39), 0xFF);
 	}
 
 	TEST_F(ZeropageIndexedTest, zpgIInc)
 	{
+		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
-		ZeropageIndexed instr(0xEE);
+		ZeropageIndexed instr(0xF6);
 		PC++;
 		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1234, 0xFF);
+		mem.writeByte(0x39, 0xFF);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xEE);
+		ASSERT_EQ(instr.getOpcode(), 0xF6);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropageIndexed::iInc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropageIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::inc);
@@ -659,8 +646,7 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
-		ASSERT_EQ(instr.getAddress(), 0x1234);
+		ASSERT_EQ(instr.getAddress(), 0x39);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
@@ -673,6 +659,6 @@ namespace {
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
 		ASSERT_EQ(instr.getStepCount(), 6);
-		ASSERT_EQ(mem.readByte(0x1234), 0x00);
-	}*/
+		ASSERT_EQ(mem.readByte(0x39), 0x00);
+	}
 }
