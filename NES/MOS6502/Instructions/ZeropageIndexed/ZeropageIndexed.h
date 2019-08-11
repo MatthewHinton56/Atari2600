@@ -1,14 +1,14 @@
 #pragma once
 #include "../Instruction.h"
-#include "AbsoluteConstants.h"
+#include "ZeropageIndexedConstants.h"
 
 namespace mos6502
 {
-	class Absolute
+	class ZeropageIndexed
 	{
 	public:
 
-		Absolute
+		ZeropageIndexed
 		(
 			Byte opcode
 		);
@@ -22,11 +22,10 @@ namespace mos6502
 
 		int32_t getStepCount() const { return stepCount; }
 		Byte getOpcode() const { return opcode; }
-		InstructionOpcodeAbsolute getInstrucion() const { return instruction; }
-		InstructionTypeAbsolute getType() const { return type; }
+		InstructionOpcodeZeropageIndexed getInstrucion() const { return instruction; }
+		InstructionTypeZeropageIndexed getType() const { return type; }
 		InstructionGroups getGroup() const { return group; }
 		Byte getLowAddressByte() const { return lowAddressByte; }
-		Byte getHighAddressByte() const { return highAddressByte; }
 		Word getAddress() const { return address; }
 		Byte getData() const { return data; }
 		Byte getReg() const { return reg; }
@@ -36,13 +35,13 @@ namespace mos6502
 		int32_t stepCount;
 
 		Byte opcode;
-		InstructionOpcodeAbsolute instruction;
-		InstructionTypeAbsolute type;
+		InstructionOpcodeZeropageIndexed instruction;
+		InstructionTypeZeropageIndexed type;
 		InstructionGroups group;
 		Byte lowAddressByte;
-		Byte highAddressByte;
 		Word address;
 		Byte data;
 		Byte reg;
+		Byte regIndex;
 	};
 }

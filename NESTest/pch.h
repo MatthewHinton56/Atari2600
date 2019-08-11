@@ -11,3 +11,4 @@
 #include "mos6502\Instructions\Binary.h"
 #include "mos6502\Instructions\Absolute\Absolute.h"
 #include "mos6502\Instructions\Zeropage\Zeropage.h"
+#include "mos6502\Instructions\ZeropageIndexed\ZeropageIndexed.h"

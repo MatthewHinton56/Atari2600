@@ -10,8 +10,7 @@ namespace mos6502
 	{
 		read,
 		write,
-		rmw,
-		jmp
+		rmw
 	};
 
 	enum class InstructionOpcodeZeropage : uint8_t
@@ -72,9 +71,9 @@ namespace mos6502
 
 	static std::unordered_map< InstructionOpcodeZeropage, InstructionGroups> InstructionToGroupZeropage
 	{
-		{InstructionOpcodeZeropage::iNop1, InstructionGroups::iNop},
-		{InstructionOpcodeZeropage::iNop2, InstructionGroups::iNop},
-		{InstructionOpcodeZeropage::iNop3, InstructionGroups::iNop},
+		{InstructionOpcodeZeropage::iNop1, InstructionGroups::nop},
+		{InstructionOpcodeZeropage::iNop2, InstructionGroups::nop},
+		{InstructionOpcodeZeropage::iNop3, InstructionGroups::nop},
 		{InstructionOpcodeZeropage::iBit, InstructionGroups::bit},
 		{InstructionOpcodeZeropage::iSty, InstructionGroups::st},
 		{InstructionOpcodeZeropage::iLdy, InstructionGroups::ld},

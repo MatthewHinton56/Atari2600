@@ -11,6 +11,7 @@
     <ClCompile Include="MOS6502Test.cpp" />
     <ClCompile Include="AbsoluteTest.cpp" />
     <ClCompile Include="ZeropageTest.cpp" />
+    <ClCompile Include="ZeropageIndexedTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

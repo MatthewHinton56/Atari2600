@@ -1,6 +1,6 @@
 #pragma once
 #include "../Instruction.h"
-#include "ZeropageConstant.h"
+#include "ZeropageConstants.h"
 
 namespace mos6502
 {
@@ -26,8 +26,7 @@ namespace mos6502
 		InstructionTypeZeropage getType() const { return type; }
 		InstructionGroups getGroup() const { return group; }
 		Byte getLowAddressByte() const { return lowAddressByte; }
-		Byte getHighAddressByte() const { return highAddressByte; }
-		Word getAddress() const { return address; }
+		Byte getAddress() const { return address; }
 		Byte getData() const { return data; }
 		Byte getReg() const { return reg; }
 
@@ -40,8 +39,7 @@ namespace mos6502
 		InstructionTypeZeropage type;
 		InstructionGroups group;
 		Byte lowAddressByte;
-		Byte highAddressByte;
-		Word address;
+		Byte address;
 		Byte data;
 		Byte reg;
 	};

@@ -56,6 +56,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="OperationTests.cpp" />
+    <ClCompile Include="ZeropageIndexedTest.cpp" />
     <ClCompile Include="ZeropageTest.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +134,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MOS6502.obj;$(SolutionDir)NES\x64\Release\Absolute.obj;$(SolutionDir)NES\x64\Release\Zeropage.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)NES\x64\Release\MOS6502.obj;$(SolutionDir)NES\x64\Release\Absolute.obj;$(SolutionDir)NES\x64\Release\Zeropage.obj;$(SolutionDir)NES\x64\Release\ZeropageIndexed.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

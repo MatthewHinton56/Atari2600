@@ -128,19 +128,22 @@
   <ItemGroup>
     <ClInclude Include="APU\Triangle\TriangleConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />
-    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstant.h" />
+    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionGroup.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Instruction.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.h" />
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexedConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Zeropage\Zeropage.h" />
-    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstant.h" />
+    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstants.h" />
     <ClInclude Include="MOS6502\MOS6502.h" />
     <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\Instructions\Absolute\Absolute.cpp" />
+    <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp" />
     <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp" />
     <ClCompile Include="MOS6502\MOS6502.cpp" />
     <ClCompile Include="Test.cpp" />

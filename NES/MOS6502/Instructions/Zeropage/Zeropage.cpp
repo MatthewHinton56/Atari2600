@@ -15,7 +15,6 @@ Zeropage::Zeropage
 	type(InstructionToTypeZeropage[instruction]),
 	group(InstructionToGroupZeropage[instruction]),
 	lowAddressByte(0),
-	highAddressByte(0),
 	address(0),
 	data(0)
 {
@@ -50,7 +49,7 @@ int32_t Zeropage::step
 	{
 		case 2:
 			lowAddressByte = mem.readByte(PC);
-			address = 0x0000 | lowAddressByte;
+			address = lowAddressByte;
 			PC++;
 			return 0;
 
@@ -94,6 +93,8 @@ int32_t Zeropage::step
 			mem.writeByte(address, data);
 			return 1;
 	}
+
+	return -1;
 }
 
 

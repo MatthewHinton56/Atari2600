@@ -53,7 +53,7 @@ namespace mos6502
 		iTax,
 		iTsx,
 		dec,
-		iNop
+		nop
 	};
 
 }

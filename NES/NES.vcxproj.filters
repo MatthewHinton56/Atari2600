@@ -39,16 +39,22 @@
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\Instructions\InstructionGroup.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MOS6502\Instructions\Zeropage\Zeropage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstant.h">
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexedConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -63,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

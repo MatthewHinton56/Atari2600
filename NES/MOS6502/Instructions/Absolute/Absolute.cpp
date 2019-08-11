@@ -105,6 +105,8 @@ int32_t Absolute::step
 			mem.writeByte(address, data);
 			return 1;
 	}
+
+	return -1;
 }
 
 
