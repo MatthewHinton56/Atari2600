@@ -24,7 +24,7 @@ namespace mos6502
 		Byte getOpcode() const { return opcode; }
 		InstructionOpcodeRelative getInstruction() const { return instruction; }
 		InstructionGroups getGroup() const { return group; }
-		Byte getOffset() const { return offset; }
+		int8_t getOffset() const { return offset; }
 		bool getTaken() const { return taken; }
 
 	private:

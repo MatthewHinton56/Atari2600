@@ -28,6 +28,7 @@ int32_t Relative::step
 )
 {
 	Byte pcLow;
+	Byte temp;
 	stepCount++;
 	switch (stepCount)
 	{
