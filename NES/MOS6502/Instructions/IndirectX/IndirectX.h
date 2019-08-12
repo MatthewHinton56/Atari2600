@@ -1,14 +1,14 @@
 #pragma once
 #include "../Instruction.h"
-#include "indirectXConstants.h"
+#include "IndirectXConstants.h"
 
 namespace mos6502
 {
-	class indirectX
+	class IndirectX
 	{
 	public:
 
-		indirectX
+		IndirectX
 		(
 			Byte opcode
 		);
@@ -22,8 +22,8 @@ namespace mos6502
 
 		int32_t getStepCount() const { return stepCount; }
 		Byte getOpcode() const { return opcode; }
-		InstructionOpcodeindirectX getInstrucion() const { return instruction; }
-		InstructionTypeindirectX getType() const { return type; }
+		InstructionOpcodeIndirectX getInstrucion() const { return instruction; }
+		InstructionTypeIndirectX getType() const { return type; }
 		InstructionGroups getGroup() const { return group; }
 		Byte getLowAddressByte() const { return lowAddressByte; }
 		Byte getHighAddressByte() const { return highAddressByte; }
@@ -36,8 +36,8 @@ namespace mos6502
 		int32_t stepCount;
 
 		Byte opcode;
-		InstructionOpcodeindirectX instruction;
-		InstructionTypeindirectX type;
+		InstructionOpcodeIndirectX instruction;
+		InstructionTypeIndirectX type;
 		InstructionGroups group;
 		Byte lowAddressByte;
 		Byte highAddressByte;

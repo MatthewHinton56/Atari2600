@@ -14,6 +14,7 @@
     <ClCompile Include="ZeropageIndexedTest.cpp" />
     <ClCompile Include="AbsoluteIndexedTest.cpp" />
     <ClCompile Include="IndirectYTest.cpp" />
+    <ClCompile Include="IndirectXTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

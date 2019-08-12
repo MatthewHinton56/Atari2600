@@ -6,14 +6,14 @@
 namespace mos6502
 {
 
-	enum class InstructionTypeindirectX : uint8_t
+	enum class InstructionTypeIndirectX : uint8_t
 	{
 		read,
 		write,
 		rmw
 	};
 
-	enum class InstructionOpcodeindirectX : uint8_t
+	enum class InstructionOpcodeIndirectX : uint8_t
 	{
 		iOra = 0x01,
 		iAnd = 0x21,
@@ -25,27 +25,27 @@ namespace mos6502
 		iSbc = 0xE1
 	};
 
-	static std::unordered_map< InstructionOpcodeindirectX, InstructionTypeindirectX> InstructionToTypeindirectX
+	static std::unordered_map< InstructionOpcodeIndirectX, InstructionTypeIndirectX> InstructionToTypeIndirectX
 	{
-		{InstructionOpcodeindirectX::iOra, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iAnd, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iEor, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iAdc, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iSta, InstructionTypeindirectX::write},
-		{InstructionOpcodeindirectX::iLda, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iCmp, InstructionTypeindirectX::read},
-		{InstructionOpcodeindirectX::iSbc, InstructionTypeindirectX::read}
+		{InstructionOpcodeIndirectX::iOra, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iAnd, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iEor, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iAdc, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iSta, InstructionTypeIndirectX::write},
+		{InstructionOpcodeIndirectX::iLda, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iCmp, InstructionTypeIndirectX::read},
+		{InstructionOpcodeIndirectX::iSbc, InstructionTypeIndirectX::read}
 	};
 
-	static std::unordered_map< InstructionOpcodeindirectX, InstructionGroups> InstructionToGroupindirectX
+	static std::unordered_map< InstructionOpcodeIndirectX, InstructionGroups> InstructionToGroupIndirectX
 	{
-		{InstructionOpcodeindirectX::iOra, InstructionGroups::ora},
-		{InstructionOpcodeindirectX::iAnd, InstructionGroups::nnand},
-		{InstructionOpcodeindirectX::iEor, InstructionGroups::eor},
-		{InstructionOpcodeindirectX::iAdc, InstructionGroups::adc},
-		{InstructionOpcodeindirectX::iSta, InstructionGroups::st},
-		{InstructionOpcodeindirectX::iLda, InstructionGroups::ld},
-		{InstructionOpcodeindirectX::iCmp, InstructionGroups::cmp},
-		{InstructionOpcodeindirectX::iSbc, InstructionGroups::sbc}
+		{InstructionOpcodeIndirectX::iOra, InstructionGroups::ora},
+		{InstructionOpcodeIndirectX::iAnd, InstructionGroups::nnand},
+		{InstructionOpcodeIndirectX::iEor, InstructionGroups::eor},
+		{InstructionOpcodeIndirectX::iAdc, InstructionGroups::adc},
+		{InstructionOpcodeIndirectX::iSta, InstructionGroups::st},
+		{InstructionOpcodeIndirectX::iLda, InstructionGroups::ld},
+		{InstructionOpcodeIndirectX::iCmp, InstructionGroups::cmp},
+		{InstructionOpcodeIndirectX::iSbc, InstructionGroups::sbc}
 	};
 }

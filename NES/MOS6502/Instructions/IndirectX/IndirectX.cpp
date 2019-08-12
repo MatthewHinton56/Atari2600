@@ -1,19 +1,19 @@
 #pragma once
 
-#include "indirectX.h"
+#include "IndirectX.h"
 using namespace mos6502;
 
 static Byte UNUSED = 0;
 
-indirectX::indirectX
+IndirectX::IndirectX
 (
 	Byte _opcode
 )	:
 	stepCount(1),
 	opcode(_opcode),
-	instruction(static_cast<InstructionOpcodeindirectX>(opcode)),
-	type(InstructionToTypeindirectX[instruction]),
-	group(InstructionToGroupindirectX[instruction]),
+	instruction(static_cast<InstructionOpcodeIndirectX>(opcode)),
+	type(InstructionToTypeIndirectX[instruction]),
+	group(InstructionToGroupIndirectX[instruction]),
 	lowAddressByte(0),
 	highAddressByte(0),
 	address(0),
@@ -26,7 +26,7 @@ indirectX::indirectX
 }
 
 
-int32_t indirectX::step
+int32_t IndirectX::step
 (
 	Word& PC,
 	RegisterMap& registerMap,
@@ -49,7 +49,7 @@ int32_t indirectX::step
 
 		case 4:
 			lowAddressByte = mem.readByte(pointer);
-			break;
+			return 0;
 
 		case 5:
 			highAddressByte = mem.readByte(pointer + 1);
@@ -60,18 +60,18 @@ int32_t indirectX::step
 			switch (type)
 			{
 
-				case InstructionTypeindirectX::rmw:
-				case InstructionTypeindirectX::read:
+				case InstructionTypeIndirectX::rmw:
+				case InstructionTypeIndirectX::read:
 					data = mem.readByte(address);
-					return (type == InstructionTypeindirectX::read) ? 2 : 0;
+					return (type == InstructionTypeIndirectX::read) ? 2 : 0;
 
-				case InstructionTypeindirectX::write:
+				case InstructionTypeIndirectX::write:
 					mem.writeByte(address, registerMap[reg]);
 					return 1;
 			}
 
 		case 7:
-			if (type == InstructionTypeindirectX::rmw) mem.writeByte(address, data);
+			if (type == InstructionTypeIndirectX::rmw) mem.writeByte(address, data);
 			groupStep
 			(
 				group,
@@ -82,7 +82,7 @@ int32_t indirectX::step
 				registerMap[reg]
 			);
 
-			return (type == InstructionTypeindirectX::rmw) ? 0 : 1;
+			return (type == InstructionTypeIndirectX::rmw) ? 0 : 1;
 
 		case 8:
 			mem.writeByte(address, data);

@@ -14,3 +14,4 @@
 #include "mos6502\Instructions\ZeropageIndexed\ZeropageIndexed.h"
 #include "mos6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h"
 #include "mos6502\Instructions\IndirectY\IndirectY.h"
+#include "mos6502\Instructions\IndirectX\IndirectX.h"
