@@ -31,6 +31,11 @@ AbsoluteIndexed::AbsoluteIndexed
 			regIndex = Y;
 			break;
 
+		case InstructionOpcodeAbsoluteIndexed::iLdy:
+			reg = Y;
+			regIndex = X;
+			break;
+
 		case InstructionOpcodeAbsoluteIndexed::iOraY:
 		case InstructionOpcodeAbsoluteIndexed::iAndY:
 		case InstructionOpcodeAbsoluteIndexed::iEorY:
