@@ -69,6 +69,12 @@
     <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectY.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectXConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\MOS6502.cpp">
@@ -90,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MOS6502\Instructions\IndirectY\IndirectY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\IndirectX\IndirectX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
