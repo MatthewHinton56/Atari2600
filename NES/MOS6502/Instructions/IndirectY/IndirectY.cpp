@@ -53,6 +53,7 @@ int32_t IndirectY::step
 			pageBoundaryCrossed = temp < lowAddressByte;
 			lowAddressByte = temp;
 			address = (highAddressByte << 8) | lowAddressByte;
+			return 0;
 
 		case 5:
 			data = mem.readByte(address);
