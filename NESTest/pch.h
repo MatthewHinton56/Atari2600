@@ -15,3 +15,4 @@
 #include "mos6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h"
 #include "mos6502\Instructions\IndirectY\IndirectY.h"
 #include "mos6502\Instructions\IndirectX\IndirectX.h"
+#include "mos6502\Instructions\Indirect\Indirect.h"
