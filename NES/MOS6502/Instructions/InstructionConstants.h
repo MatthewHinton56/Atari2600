@@ -10,32 +10,24 @@ namespace mos6502
 	{
 		ibrk,
 		iPhp,
-		iBpl,
 		iClc,
 		iJsr,
 		bit,
 		iPlp,
-		iBmi,
 		iSec,
 		iRti,
 		iPha,
 		jmp,
-		iBvc,
 		iCli,
 		iRts,
 		iPla,
-		iBvs,
 		iSei,
 		st,
-		iBcc,
 		iTya,
 		iTay,
-		iBcs,
 		iClv,
 		inc,
-		iBne,
 		iCld,
-		iBeq,
 		iSed,
 		ora,
 		nnand, 
@@ -53,7 +45,8 @@ namespace mos6502
 		iTax,
 		iTsx,
 		dec,
-		nop
+		nop,
+		brn
 	};
 
 }

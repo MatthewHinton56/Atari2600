@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 
-#define getCarryFlag(x) x & 0x1
+#define getCarryFlag(x) (x & 0x1)
 #define getZeroFlag(x) ((x & 0x2) >> 1)
 #define getInterruptFlag(x) ((x & 0x4) >> 2)
 #define getDecimalFlag(x) ((x & 0x8) >> 3)

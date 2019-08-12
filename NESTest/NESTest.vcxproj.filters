@@ -16,6 +16,7 @@
     <ClCompile Include="IndirectYTest.cpp" />
     <ClCompile Include="IndirectXTest.cpp" />
     <ClCompile Include="IndirectTest.cpp" />
+    <ClCompile Include="RelativeTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
