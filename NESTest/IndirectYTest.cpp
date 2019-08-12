@@ -41,7 +41,6 @@ namespace {
 		mem.writeByte(0x1, 0x11);
 		mem.writeByte(0x11, 0x34);
 		mem.writeByte(0x12, 0x12);
-		mem.writeByte(0x3, 0x39);
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x11);
@@ -59,7 +58,7 @@ namespace {
 		ASSERT_EQ(instr.getStepCount(), 3);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
 
-		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
 		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
@@ -86,7 +85,6 @@ namespace {
 		mem.writeByte(0x1, 0x11);
 		mem.writeByte(0x11, 0x34);
 		mem.writeByte(0x12, 0x12);
-		mem.writeByte(0x3, 0x39);
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x31);
@@ -104,7 +102,7 @@ namespace {
 		ASSERT_EQ(instr.getStepCount(), 3);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
 
-		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
 		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
@@ -126,7 +124,7 @@ namespace {
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
 		registerMap[Y] = 0x5;
-		IndirectY instr(0x59);
+		IndirectY instr(0x51);
 		PC++;
 		mem.writeByte(0x1, 0x11);
 		mem.writeByte(0x11, 0x34);
@@ -134,7 +132,7 @@ namespace {
 		mem.writeByte(0x3, 0x39);
 		mem.writeByte(0x1239, 0x55);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x59);
+		ASSERT_EQ(instr.getOpcode(), 0x51);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iEor);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::eor);
@@ -149,7 +147,7 @@ namespace {
 		ASSERT_EQ(instr.getStepCount(), 3);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
 
-		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
 		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
 		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
@@ -171,13 +169,14 @@ namespace {
 		registerMap[SR] = 0x01;
 		registerMap[AC] = 0x01;
 		registerMap[Y] = 0x5;
-		IndirectY instr(0x79);
+		IndirectY instr(0x71);
 		PC++;
-		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
+		mem.writeByte(0x1, 0x11);
+		mem.writeByte(0x11, 0x34);
+		mem.writeByte(0x12, 0x12);
 		mem.writeByte(0x1239, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x79);
+		ASSERT_EQ(instr.getOpcode(), 0x71);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iAdc);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::adc);
@@ -186,20 +185,25 @@ namespace {
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 2);
 		ASSERT_EQ(PC, 2);
-		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+		ASSERT_EQ(instr.getPointer(), 0x11);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
+		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
+		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
-		ASSERT_EQ(PC, 3);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
-		ASSERT_EQ(instr.getStepCount(), 4);
-		ASSERT_EQ(instr.getData(), 0x1);
+		ASSERT_EQ(instr.getStepCount(), 5);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
+		ASSERT_EQ(instr.getData(), 0x1);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
-		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getStepCount(), 6);
 		ASSERT_EQ(registerMap[AC], 0x03);
 		ASSERT_EQ(registerMap[SR], 0x00);
 	}
@@ -208,13 +212,14 @@ namespace {
 	{
 		registerMap[AC] = 0xAC;
 		registerMap[Y] = 0x5;
-		IndirectY instr(0x99);
+		IndirectY instr(0x91);
 		PC++;
-		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x39, 0xBF);
+		mem.writeByte(0x1, 0x11);
+		mem.writeByte(0x11, 0x34);
+		mem.writeByte(0x12, 0x12);
+		mem.writeByte(0x1239, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0x99);
+		ASSERT_EQ(instr.getOpcode(), 0x91);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iSta);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
@@ -223,19 +228,25 @@ namespace {
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 2);
 		ASSERT_EQ(PC, 2);
-		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+		ASSERT_EQ(instr.getPointer(), 0x11);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getAddress(), 0x1239);
-		ASSERT_EQ(PC, 3);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
+		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
 
-		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getAddress(), 0x1239);
+		ASSERT_EQ(instr.getData(), 0xBF);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
+		ASSERT_EQ(instr.getStepCount(), 6);
 		ASSERT_EQ(mem.readByte(0x1239), 0xAC);
 	}
 
@@ -244,13 +255,14 @@ namespace {
 		registerMap[SR] = 0xFF;
 		registerMap[AC] = 0xAC;
 		registerMap[Y] = 0x5;
-		IndirectY instr(0xB9);
+		IndirectY instr(0xB1);
 		PC++;
-		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
+		mem.writeByte(0x1, 0x11);
+		mem.writeByte(0x11, 0x34);
+		mem.writeByte(0x12, 0x12);
 		mem.writeByte(0x1239, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xB9);
+		ASSERT_EQ(instr.getOpcode(), 0xB1);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iLda);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
@@ -259,20 +271,25 @@ namespace {
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 2);
 		ASSERT_EQ(PC, 2);
-		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+		ASSERT_EQ(instr.getPointer(), 0x11);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
+		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
+		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
-		ASSERT_EQ(PC, 3);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
-		ASSERT_EQ(instr.getStepCount(), 4);
-		ASSERT_EQ(instr.getData(), 0x2F);
+		ASSERT_EQ(instr.getStepCount(), 5);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
+		ASSERT_EQ(instr.getData(), 0x2F);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
-		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getStepCount(), 6);
 		ASSERT_EQ(registerMap[AC], 0x2F);
 		ASSERT_EQ(registerMap[SR], 0x7D);
 	}
@@ -282,13 +299,14 @@ namespace {
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0;
 		registerMap[Y] = 0x5;
-		IndirectY instr(0xD9);
+		IndirectY instr(0xD1);
 		PC++;
-		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x2, 0x12);
-		mem.writeByte(0x1239, 0);
+		mem.writeByte(0x1, 0x11);
+		mem.writeByte(0x11, 0x34);
+		mem.writeByte(0x12, 0x12);
+		mem.writeByte(0x1239, 0x0);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xD9);
+		ASSERT_EQ(instr.getOpcode(), 0xD1);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iCmp);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
@@ -297,36 +315,43 @@ namespace {
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 2);
 		ASSERT_EQ(PC, 2);
-		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+		ASSERT_EQ(instr.getPointer(), 0x11);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
+		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x39);
+		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
-		ASSERT_EQ(PC, 3);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
-		ASSERT_EQ(instr.getStepCount(), 4);
-		ASSERT_EQ(instr.getData(), 0x0);
+		ASSERT_EQ(instr.getStepCount(), 5);
 		ASSERT_EQ(instr.getAddress(), 0x1239);
+		ASSERT_EQ(instr.getData(), 0x0);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
-		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getStepCount(), 6);
 		ASSERT_EQ(registerMap[AC], 0x0);
 		ASSERT_EQ(registerMap[SR], 0x03);
 	}
 
 	TEST_F(IndirectYTest, indYSbc)
 	{
-		registerMap[Y] = 0x5;
+		registerMap[Y] = 0xFF;
 		registerMap[SR] = 0x01;
 		registerMap[AC] = 0x01;
-		IndirectY instr(0xF9);
+		IndirectY instr(0xF1);
 		PC++;
-		mem.writeByte(0x1, 0x34);
-		mem.writeByte(0x1239, 0x1);
-		mem.writeByte(0x2, 0x12);
+		mem.writeByte(0x1, 0x11);
+		mem.writeByte(0x11, 0x01);
+		mem.writeByte(0x12, 0x12);
+		mem.writeByte(0x1200, 0xDD);
+		mem.writeByte(0x1300, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
-		ASSERT_EQ(instr.getOpcode(), 0xF9);
+		ASSERT_EQ(instr.getOpcode(), 0xF1);
 		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeIndirectY::iSbc);
 		ASSERT_EQ(instr.getType(), InstructionTypeIndirectY::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::sbc);
@@ -335,20 +360,30 @@ namespace {
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 2);
 		ASSERT_EQ(PC, 2);
-		ASSERT_EQ(instr.getLowAddressByte(), 0x34);
+		ASSERT_EQ(instr.getPointer(), 0x11);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
 		ASSERT_EQ(instr.getStepCount(), 3);
-		ASSERT_EQ(instr.getAddress(), 0x1239);
-		ASSERT_EQ(PC, 3);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x1);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
+		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getLowAddressByte(), 0x0);
+		ASSERT_EQ(instr.getHighAddressByte(), 0x12);
+		ASSERT_EQ(instr.getAddress(), 0x1200);
+
+		ASSERT_EQ(instr.step(PC, registerMap, mem), 0);
+		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getAddress(), 0x1300);
+		ASSERT_EQ(instr.getData(), 0xDD);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 2);
-		ASSERT_EQ(instr.getStepCount(), 4);
+		ASSERT_EQ(instr.getStepCount(), 6);
+		ASSERT_EQ(instr.getAddress(), 0x1300);
 		ASSERT_EQ(instr.getData(), 0x1);
-		ASSERT_EQ(instr.getAddress(), 0x1239);
 
 		ASSERT_EQ(instr.step(PC, registerMap, mem), 1);
-		ASSERT_EQ(instr.getStepCount(), 5);
+		ASSERT_EQ(instr.getStepCount(), 7);
 		ASSERT_EQ(registerMap[AC], 0x00);
 		ASSERT_EQ(registerMap[SR], 0x03);
 	}
