@@ -62,16 +62,7 @@ int32_t Zeropage::step
 					return (type == InstructionTypeZeropage::read) ? 2 : 0;
 
 				case InstructionTypeZeropage::write:
-					groupStep
-					(
-						group,
-						PC,
-						mem,
-						registerMap[SR],
-						UNUSED,
-						registerMap[reg],
-						address
-					);
+					mem.writeByte(address, registerMap[reg]);
 					return 1;
 			}
 

@@ -70,10 +70,6 @@ namespace mos6502
 				(dataOp & regOp) ? clearZeroFlag(statusRegister) : setZeroFlag(statusRegister);
 				break;
 
-			case InstructionGroups::st:
-				mem.writeByte(address, regOp);
-				break;
-
 			case InstructionGroups::inc:
 			case InstructionGroups::dec:
 				dataOp = changeOne(group, dataOp, statusRegister);

@@ -74,16 +74,7 @@ int32_t Absolute::step
 					return (type == InstructionTypeAbsolute::read) ? 2 : 0;
 
 				case InstructionTypeAbsolute::write:
-					groupStep
-					(
-						group,
-						PC,
-						mem,
-						registerMap[SR],
-						UNUSED,
-						registerMap[reg],
-						address
-					);
+					mem.writeByte(address, registerMap[reg]);
 					return 1;
 			}
 

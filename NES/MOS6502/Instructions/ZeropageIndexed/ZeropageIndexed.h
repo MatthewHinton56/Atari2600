@@ -28,7 +28,6 @@ namespace mos6502
 		Byte getLowAddressByte() const { return lowAddressByte; }
 		Word getAddress() const { return address; }
 		Byte getData() const { return data; }
-		Byte getReg() const { return reg; }
 
 	private:
 

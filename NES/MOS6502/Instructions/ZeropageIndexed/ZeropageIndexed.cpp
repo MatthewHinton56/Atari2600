@@ -70,16 +70,7 @@ int32_t ZeropageIndexed::step
 					return (type == InstructionTypeZeropageIndexed::read) ? 2 : 0;
 
 				case InstructionTypeZeropageIndexed::write:
-					groupStep
-					(
-						group,
-						PC,
-						mem,
-						registerMap[SR],
-						UNUSED,
-						registerMap[reg],
-						address
-					);
+					mem.writeByte(address, registerMap[reg]);
 					return 1;
 			}
 
