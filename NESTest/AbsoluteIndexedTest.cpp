@@ -44,7 +44,7 @@ namespace {
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x19);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iOraY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iOraY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ora);
 		ASSERT_EQ(PC, 1);
@@ -82,7 +82,7 @@ namespace {
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x39);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iAndY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iAndY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::nnand);
 		ASSERT_EQ(PC, 1);
@@ -120,7 +120,7 @@ namespace {
 		mem.writeByte(0x1239, 0x55);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x59);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iEorY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iEorY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::eor);
 		ASSERT_EQ(PC, 1);
@@ -158,7 +158,7 @@ namespace {
 		mem.writeByte(0x1239, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x79);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iAdcY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iAdcY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::adc);
 		ASSERT_EQ(PC, 1);
@@ -195,7 +195,7 @@ namespace {
 		mem.writeByte(0x39, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x99);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iStaY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iStaY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
 		ASSERT_EQ(PC, 1);
@@ -231,7 +231,7 @@ namespace {
 		mem.writeByte(0x1239, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xB9);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iLdaY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iLdaY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -269,7 +269,7 @@ namespace {
 		mem.writeByte(0x1239, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xD9);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iCmpY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iCmpY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
 		ASSERT_EQ(PC, 1);
@@ -307,7 +307,7 @@ namespace {
 		mem.writeByte(0x2, 0x12);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xF9);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iSbcY);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iSbcY);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::sbc);
 		ASSERT_EQ(PC, 1);
@@ -345,7 +345,7 @@ namespace {
 		mem.writeByte(0x1239, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xBC);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iLdy);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iLdy);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -384,7 +384,7 @@ namespace {
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x1D);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iOraX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iOraX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ora);
 		ASSERT_EQ(PC, 1);
@@ -422,7 +422,7 @@ namespace {
 		mem.writeByte(0x1239, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x3D);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iAndX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iAndX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::nnand);
 		ASSERT_EQ(PC, 1);
@@ -460,7 +460,7 @@ namespace {
 		mem.writeByte(0x1239, 0x55);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x5D);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iEorX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iEorX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::eor);
 		ASSERT_EQ(PC, 1);
@@ -498,7 +498,7 @@ namespace {
 		mem.writeByte(0x1239, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x7D);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iAdcX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iAdcX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::adc);
 		ASSERT_EQ(PC, 1);
@@ -535,7 +535,7 @@ namespace {
 		mem.writeByte(0x39, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x9D);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iStaX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iStaX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
 		ASSERT_EQ(PC, 1);
@@ -571,7 +571,7 @@ namespace {
 		mem.writeByte(0x1239, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xBD);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iLdaX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iLdaX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -609,7 +609,7 @@ namespace {
 		mem.writeByte(0x1239, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xDD);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iCmpX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iCmpX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
 		ASSERT_EQ(PC, 1);
@@ -647,7 +647,7 @@ namespace {
 		mem.writeByte(0x2, 0x12);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xFD);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iSbcX);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iSbcX);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::sbc);
 		ASSERT_EQ(PC, 1);
@@ -684,7 +684,7 @@ namespace {
 		mem.writeByte(0x1239, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x1E);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iAsl);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iAsl);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::asl);
 		ASSERT_EQ(PC, 1);
@@ -729,7 +729,7 @@ namespace {
 		mem.writeByte(0x1239, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x3E);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iRol);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iRol);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::rol);
 		ASSERT_EQ(PC, 1);
@@ -774,7 +774,7 @@ namespace {
 		mem.writeByte(0x1239, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x5E);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iLsr);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iLsr);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::lsr);
 		ASSERT_EQ(PC, 1);
@@ -819,7 +819,7 @@ namespace {
 		mem.writeByte(0x1239, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x7E);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iRor);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iRor);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ror);
 		ASSERT_EQ(PC, 1);
@@ -866,7 +866,7 @@ namespace {
 		mem.writeByte(0x1300, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xBE);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iLdx);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iLdx);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -911,7 +911,7 @@ namespace {
 		mem.writeByte(0x1239, 0x0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xDE);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iDec);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iDec);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::dec);
 		ASSERT_EQ(PC, 1);
@@ -956,7 +956,7 @@ namespace {
 		mem.writeByte(0x1239, 0xFF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xFE);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeAbsoluteIndexed::iInc);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeAbsoluteIndexed::iInc);
 		ASSERT_EQ(instr.getType(), InstructionTypeAbsoluteIndexed::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::inc);
 		ASSERT_EQ(PC, 1);

@@ -41,7 +41,7 @@ namespace {
 		mem.writeByte(0x34, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x24);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iBit);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iBit);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::bit);
 		ASSERT_EQ(PC, 1);
@@ -71,7 +71,7 @@ namespace {
 		mem.writeByte(0x34, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x84);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iSty);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iSty);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
 		ASSERT_EQ(PC, 1);
@@ -98,7 +98,7 @@ namespace {
 		mem.writeByte(0x34, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xA4);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iLdy);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iLdy);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -130,7 +130,7 @@ namespace {
 		mem.writeByte(0x34, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xC4);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iCpy);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iCpy);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
 		ASSERT_EQ(PC, 1);
@@ -162,7 +162,7 @@ namespace {
 		mem.writeByte(0x34, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xE4);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iCpx);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iCpx);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
 		ASSERT_EQ(PC, 1);
@@ -194,7 +194,7 @@ namespace {
 		mem.writeByte(0x34, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x05);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iOra);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iOra);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ora);
 		ASSERT_EQ(PC, 1);
@@ -226,7 +226,7 @@ namespace {
 		mem.writeByte(0x34, 0xAA);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x25);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iAnd);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iAnd);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::nnand);
 		ASSERT_EQ(PC, 1);
@@ -258,7 +258,7 @@ namespace {
 		mem.writeByte(0x34, 0x55);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x45);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iEor);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iEor);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::eor);
 		ASSERT_EQ(PC, 1);
@@ -290,7 +290,7 @@ namespace {
 		mem.writeByte(0x34, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x65);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iAdc);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iAdc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::adc);
 		ASSERT_EQ(PC, 1);
@@ -321,7 +321,7 @@ namespace {
 		mem.writeByte(0x34, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x85);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iSta);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iSta);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
 		ASSERT_EQ(PC, 1);
@@ -348,7 +348,7 @@ namespace {
 		mem.writeByte(0x34, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xA5);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iLda);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iLda);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -380,7 +380,7 @@ namespace {
 		mem.writeByte(0x34, 0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xC5);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iCmp);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iCmp);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::cmp);
 		ASSERT_EQ(PC, 1);
@@ -412,7 +412,7 @@ namespace {
 		mem.writeByte(0x34, 0x1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xE5);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iSbc);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iSbc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::sbc);
 		ASSERT_EQ(PC, 1);
@@ -443,7 +443,7 @@ namespace {
 		mem.writeByte(0x34, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x06);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iAsl);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iAsl);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::asl);
 		ASSERT_EQ(PC, 1);
@@ -478,7 +478,7 @@ namespace {
 		mem.writeByte(0x34, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x26);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iRol);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iRol);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::rol);
 		ASSERT_EQ(PC, 1);
@@ -513,7 +513,7 @@ namespace {
 		mem.writeByte(0x34, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x46);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iLsr);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iLsr);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::lsr);
 		ASSERT_EQ(PC, 1);
@@ -548,7 +548,7 @@ namespace {
 		mem.writeByte(0x34, 0xC1);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x66);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iRor);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iRor);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ror);
 		ASSERT_EQ(PC, 1);
@@ -583,7 +583,7 @@ namespace {
 		mem.writeByte(0x34, 0xBF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0x86);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iStx);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iStx);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::write);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::st);
 		ASSERT_EQ(PC, 1);
@@ -610,7 +610,7 @@ namespace {
 		mem.writeByte(0x34, 0x2F);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xA6);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iLdx);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iLdx);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::read);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::ld);
 		ASSERT_EQ(PC, 1);
@@ -641,7 +641,7 @@ namespace {
 		mem.writeByte(0x34, 0x0);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xC6);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iDec);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iDec);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::dec);
 		ASSERT_EQ(PC, 1);
@@ -676,7 +676,7 @@ namespace {
 		mem.writeByte(0x34, 0xFF);
 		ASSERT_EQ(instr.getStepCount(), 1);
 		ASSERT_EQ(instr.getOpcode(), 0xE6);
-		ASSERT_EQ(instr.getInstrucion(), InstructionOpcodeZeropage::iInc);
+		ASSERT_EQ(instr.getInstruction(), InstructionOpcodeZeropage::iInc);
 		ASSERT_EQ(instr.getType(), InstructionTypeZeropage::rmw);
 		ASSERT_EQ(instr.getGroup(), InstructionGroups::inc);
 		ASSERT_EQ(PC, 1);

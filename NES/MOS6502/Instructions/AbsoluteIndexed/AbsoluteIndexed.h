@@ -22,7 +22,7 @@ namespace mos6502
 
 		int32_t getStepCount() const { return stepCount; }
 		Byte getOpcode() const { return opcode; }
-		InstructionOpcodeAbsoluteIndexed getInstrucion() const { return instruction; }
+		InstructionOpcodeAbsoluteIndexed getInstruction() const { return instruction; }
 		InstructionTypeAbsoluteIndexed getType() const { return type; }
 		InstructionGroups getGroup() const { return group; }
 		Byte getLowAddressByte() const { return lowAddressByte; }
