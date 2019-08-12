@@ -17,7 +17,8 @@ AbsoluteIndexed::AbsoluteIndexed
 	lowAddressByte(0),
 	highAddressByte(0),
 	address(0),
-	data(0)
+	data(0),
+	pageBoundaryCrossed(false)
 {
 	switch (instruction)
 	{

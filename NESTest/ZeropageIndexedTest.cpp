@@ -31,7 +31,7 @@ namespace {
 		RegisterMap registerMap;
 	};
 
-	TEST_F(ZeropageIndexedTest, zpgISty)
+	TEST_F(ZeropageIndexedTest, zpgXSty)
 	{
 		registerMap[Y] = 0xAC;
 		registerMap[X] = 0x5;
@@ -59,7 +59,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x4), 0xAC);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgILdy)
+	TEST_F(ZeropageIndexedTest, zpgXLdy)
 	{
 		registerMap[SR] = 0xFF;
 		registerMap[Y] = 0xAC;
@@ -94,7 +94,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x7D);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIOra)
+	TEST_F(ZeropageIndexedTest, zpgXOra)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
@@ -130,7 +130,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x80);
 	}
 	
-	TEST_F(ZeropageIndexedTest, zpgIAnd)
+	TEST_F(ZeropageIndexedTest, zpgXAnd)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
@@ -165,7 +165,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x02);
 	}
 	
-	TEST_F(ZeropageIndexedTest, zpgIEor)
+	TEST_F(ZeropageIndexedTest, zpgXEor)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0x55;
@@ -201,7 +201,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x02);
 	}
 	
-	TEST_F(ZeropageIndexedTest, zpgIAdc)
+	TEST_F(ZeropageIndexedTest, zpgXAdc)
 	{
 		registerMap[SR] = 0x01;
 		registerMap[AC] = 0x01;
@@ -236,7 +236,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x00);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgISta)
+	TEST_F(ZeropageIndexedTest, zpgXSta)
 	{
 		registerMap[AC] = 0xAC;
 		registerMap[X] = 0x5;
@@ -265,7 +265,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0xAC);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgILda)
+	TEST_F(ZeropageIndexedTest, zpgXLda)
 	{
 		registerMap[SR] = 0xFF;
 		registerMap[AC] = 0xAC;
@@ -300,7 +300,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x7D);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgICmp)
+	TEST_F(ZeropageIndexedTest, zpgXCmp)
 	{
 		registerMap[SR] = 0x00;
 		registerMap[AC] = 0;
@@ -335,7 +335,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x03);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgISbc)
+	TEST_F(ZeropageIndexedTest, zpgXSbc)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
@@ -370,7 +370,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x03);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIAsl)
+	TEST_F(ZeropageIndexedTest, zpgXAsl)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
@@ -408,7 +408,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0x82);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIRol)
+	TEST_F(ZeropageIndexedTest, zpgXRol)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
@@ -446,7 +446,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0x83);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgILsr)
+	TEST_F(ZeropageIndexedTest, zpgXLsr)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
@@ -484,7 +484,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0x60);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIRor)
+	TEST_F(ZeropageIndexedTest, zpgXRor)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x01;
@@ -522,7 +522,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0xE0);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIStx)
+	TEST_F(ZeropageIndexedTest, zpgYStx)
 	{
 		registerMap[Y] = 0x5;
 		registerMap[X] = 0xAC;
@@ -551,7 +551,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0xAC);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgILdx)
+	TEST_F(ZeropageIndexedTest, zpgYLdx)
 	{
 		registerMap[SR] = 0xFF;
 		registerMap[X] = 0xAC;
@@ -586,7 +586,7 @@ namespace {
 		ASSERT_EQ(registerMap[SR], 0x7D);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIDec)
+	TEST_F(ZeropageIndexedTest, zpgXDec)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
@@ -624,7 +624,7 @@ namespace {
 		ASSERT_EQ(mem.readByte(0x39), 0xFF);
 	}
 
-	TEST_F(ZeropageIndexedTest, zpgIInc)
+	TEST_F(ZeropageIndexedTest, zpgXInc)
 	{
 		registerMap[X] = 0x5;
 		registerMap[SR] = 0x00;
