@@ -57,6 +57,12 @@
     <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexedConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\MOS6502.cpp">
@@ -72,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -127,6 +127,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="APU\Triangle\TriangleConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h" />
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexedConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
@@ -142,6 +144,7 @@
     <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.cpp" />
     <ClCompile Include="MOS6502\Instructions\Absolute\Absolute.cpp" />
     <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp" />
     <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp" />

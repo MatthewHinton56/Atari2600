@@ -12,6 +12,7 @@
     <ClCompile Include="AbsoluteTest.cpp" />
     <ClCompile Include="ZeropageTest.cpp" />
     <ClCompile Include="ZeropageIndexedTest.cpp" />
+    <ClCompile Include="AbsoluteIndexedTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
