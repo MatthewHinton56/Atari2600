@@ -149,6 +149,8 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="MOS6502\Instructions\Relative\Relative.h" />
     <ClInclude Include="MOS6502\Instructions\Relative\RelativeConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Special\Special.h" />
+    <ClInclude Include="MOS6502\Instructions\Special\SpecialConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Stack\Stack.h" />
     <ClInclude Include="MOS6502\Instructions\Stack\StackConstants.h" />
     <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.h" />
@@ -168,6 +170,7 @@
     <ClCompile Include="MOS6502\Instructions\IndirectY\IndirectY.cpp" />
     <ClCompile Include="MOS6502\Instructions\Indirect\Indirect.cpp" />
     <ClCompile Include="MOS6502\Instructions\Relative\Relative.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Special\Special.cpp" />
     <ClCompile Include="MOS6502\Instructions\Stack\Stack.cpp" />
     <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp" />
     <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp" />

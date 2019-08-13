@@ -108,6 +108,12 @@
     <ClInclude Include="MOS6502\Instructions\Stack\StackConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Special\Special.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Special\SpecialConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\MOS6502.cpp">
@@ -150,6 +156,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MOS6502\Instructions\Stack\Stack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Special\Special.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
