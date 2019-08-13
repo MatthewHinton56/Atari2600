@@ -30,11 +30,7 @@
 #define clearDecimalFlag(x) x = (x & ~0x8)
 #define clearBreakFlag(x) x = (x & ~0x10)
 #define clearOverflowFlag(x) x = (x & ~0x40)
-#define clearNegativeFlag(x) x = (x & ~0x80)
-
-#define generateAC(A, C) ((C & 0x3) | (A << 0x2)) 
-#define generateCA(A, C) ((C << 0x3) | (A & 0x7)) 
-#define generateABC(A, B, C) ((A << 0x5) | (B << 0x2) | C) 
+#define clearNegativeFlag(x) x = (x & ~0x80) 
 
 namespace mos6502
 {

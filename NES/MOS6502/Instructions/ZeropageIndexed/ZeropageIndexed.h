@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class ZeropageIndexed
+	class ZeropageIndexed : public Instruction
 	{
 	public:
 
