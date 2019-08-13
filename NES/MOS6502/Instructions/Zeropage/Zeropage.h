@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Zeropage
+	class Zeropage : public Instruction
 	{
 	public:
 

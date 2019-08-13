@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="APU\Triangle\TriangleConstants.h" />
+    <ClInclude Include="MOS6502\FetchConstants.h" />
     <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h" />
     <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexedConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />

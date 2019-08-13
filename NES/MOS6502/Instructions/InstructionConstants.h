@@ -1,11 +1,13 @@
 #pragma once
 
+#include "../MOS6502Constants.h"
 #include <cstdint>
+#include <unordered_set>
 
 namespace mos6502
 {
 	//And is key word, so n(nand) is used 
-	
+
 	enum class InstructionGroups : int8_t
 	{
 		brk,

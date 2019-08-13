@@ -114,6 +114,9 @@
     <ClInclude Include="MOS6502\Instructions\Special\SpecialConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6502\FetchConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\MOS6502.cpp">

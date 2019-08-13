@@ -11,7 +11,7 @@ namespace mos6502
 
 			MOS6502
 			(
-				Memory<PAGE_SIZE, NUM_PAGES>& mem
+				Memory<PAGE_SIZE, NUM_PAGES>& _mem
 			);
 
 			virtual ~MOS6502() = default;
@@ -26,8 +26,6 @@ namespace mos6502
 
 			virtual Word getPC();
 
-			virtual unsigned int getCycles();
-
 			virtual bool getNmi();
 
 			virtual void setNmi();
@@ -41,13 +39,15 @@ namespace mos6502
 
 		private:
 
-			std::unique_ptr<Instruction> instruction;
+			Memory<PAGE_SIZE, NUM_PAGES>& mem;
 			RegisterMap registerMap;
+			std::unique_ptr<Instruction> instruction;
 			Word PC;
-			
-			unsigned int cycles;
+
 			bool nmi;
 			bool irq;
 			bool res;
+			bool pipeline;
+			bool complete;
 	};
 }
