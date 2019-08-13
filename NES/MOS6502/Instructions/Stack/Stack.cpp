@@ -83,7 +83,7 @@ int32_t Stack::step
 					return 0;
 
 				case InstructionGroups::rti:
-					registerMap[SR] = mem.readByte(0x0100 | registerMap[SP]);
+					registerMap[SR] = mem.readByte(0x0100 | registerMap[SP]) & 0xEF;
 					registerMap[SP]++;
 					return 0;
 
@@ -110,7 +110,6 @@ int32_t Stack::step
 			{
 				case InstructionGroups::brk:
 					mem.writeByte(0x0100 | registerMap[SP], registerMap[SR] | 0x10);
-					setInterruptFlag(registerMap[SR]);
 					registerMap[SP]--;
 					return 0;
 
@@ -137,6 +136,7 @@ int32_t Stack::step
 			{
 				case InstructionGroups::brk:
 					latch = mem.readByte(IRQ_VECTOR);
+					setInterruptFlag(registerMap[SR]);
 					return 0;
 
 				case InstructionGroups::rti:
@@ -158,7 +158,6 @@ int32_t Stack::step
 		case 7:
 			PC = (mem.readByte(IRQ_VECTOR + 1) << 8) | latch;
 			return 1;
-
 	}
 
 	return -1;
