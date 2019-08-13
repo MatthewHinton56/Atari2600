@@ -156,6 +156,14 @@ namespace mos6502
 			memory.fill(0);
 		}
 
+		inline uint8_t& operator[](unsigned int i)
+		{
+			if ((~getAddressMask() & i))
+			{
+				throw std::invalid_argument("Invalid Address");
+			}
+			return memory[i];
+		}
 
 	private:
 

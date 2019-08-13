@@ -17,7 +17,7 @@ MOS6502::MOS6502
 	irq(false),
 	res(false),
 	pipeline(false),
-	complete(false)
+	complete(true)
 {
 	registerMap[AC] = 0;
 	registerMap[X] = 0;
@@ -46,6 +46,7 @@ void MOS6502::cycle(bool _irq, bool _nmi)
 	if (complete)
 	{
 		instruction = fetch();
+		complete = false;
 	}
 	else
 	{
@@ -72,6 +73,7 @@ void MOS6502::reset()
 	res = true;
 	irq = false;
 	nmi = false;
+	complete = true;
 }
 
 Instruction& mos6502::MOS6502::getInstruction()
@@ -193,8 +195,10 @@ std::unique_ptr<Instruction> MOS6502::fetch()
 
 	if (STACK_INSTRUCTIONS.find(opcode) != STACK_INSTRUCTIONS.end())
 	{
-		return std::make_unique<Implied>(opcode);
+		return std::make_unique<Stack>(opcode);
 	}
+
+	return std::make_unique<Stack>(0x00);
 
 }
 

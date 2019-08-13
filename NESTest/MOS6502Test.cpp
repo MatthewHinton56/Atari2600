@@ -9,7 +9,7 @@
 #define COMMA ,
 
 using namespace mos6502;
-/*
+
 namespace {
 
 	class MOS6502Test : public ::testing::Test {
@@ -29,7 +29,7 @@ namespace {
 		Memory<PAGE_SIZE, NUM_PAGES> mem;
 		MOS6502 mos;
 	};
-
+	/*
 	TEST_F(MOS6502Test, fetchTest)
 	{
 		mos.getMemoryAccessor()[0] = 0x08;
@@ -89,7 +89,7 @@ namespace {
 		ASSERT_EQ(mos.getPC(), 0x5556);
 		ASSERT_EQ(mos.getCycles(), 0);
 	}
-
+	*/
 	TEST_F(MOS6502Test, MultiInstructionTest)
 	{
 		//LDX #0x80
@@ -116,36 +116,27 @@ namespace {
 		mem[12] = 0x10;
 
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
-		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getRegisterMap()[X], 0x80);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x84);
-		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 2);
 
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getInstruction().getCycles(), 2);
-		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		ASSERT_EQ(mos.getRegisterMap()[X], 0x80);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x84);
+
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getRegisterMap()[AC], 0x3E);
-		ASSERT_EQ(mos.getRegisterMap()[SR], 0x04);
-		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 4);
 
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getInstruction().getCycles(), 4);
-		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::standardInstructions);
+		ASSERT_EQ(mos.getRegisterMap()[AC], 0x3E);
+		ASSERT_EQ(mos.getRegisterMap()[SR], 0x04);
+
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		ASSERT_EQ(mem[0x1111], 0x3E);
-		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 7);
 
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getInstruction().getCycles(), 7);
-		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::xDecIncInstructions);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
@@ -153,23 +144,20 @@ namespace {
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		ASSERT_EQ(mem[0x1111], 0x3F);
-		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 10);
 
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getInstruction().getCycles(), 5);
-		ASSERT_EQ(mos.getInstruction().getInstructionType(), Instructions::yxBranchInstructions);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
 		mos.cycle(false, false);
-		ASSERT_EQ(mos.getRegisterMap()[Y], 0x3F);
-		ASSERT_EQ(mos.getCycles(), 0);
 		ASSERT_EQ(mos.getPC(), 13);
 
+		mos.cycle(false, false);
+		ASSERT_EQ(mos.getRegisterMap()[Y], 0x3F);
 	}
 
-
+	/*
 	TEST_F(MOS6502Test, BranchInstructionTest)
 	{
 		//BMI #0x11
@@ -505,6 +493,5 @@ namespace {
 		ASSERT_EQ(mos.getPC(), 0x5);
 	}
 	
-
-}
 */
+}

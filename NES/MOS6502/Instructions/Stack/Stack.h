@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Stack
+	class Stack : public Instruction
 	{
 	public:
 
