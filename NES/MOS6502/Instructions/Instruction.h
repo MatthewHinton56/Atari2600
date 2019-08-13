@@ -8,5 +8,6 @@ namespace mos6502
 		public:
 
 			virtual int32_t step(Word& PC, RegisterMap& registerMap, Memory<PAGE_SIZE, NUM_PAGES>& mem) = 0;
+			virtual InstructionGroups getGroup() const = 0;
 	};
 }

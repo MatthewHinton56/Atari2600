@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class AbsoluteIndexed
+	class AbsoluteIndexed : public Instruction
 	{
 	public:
 

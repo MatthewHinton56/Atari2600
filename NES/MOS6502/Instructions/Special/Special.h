@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Special
+	class Special : public Instruction
 	{
 	public:
 
@@ -23,6 +23,7 @@ namespace mos6502
 		int32_t getStepCount() const { return stepCount; }
 		InstructionSpecial getInstruction() const { return instruction; }
 		Byte getLatch() const { return latch; }
+		InstructionGroups getGroup() const { return InstructionGroups::spec; }
 
 	private:
 

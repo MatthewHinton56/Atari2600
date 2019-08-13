@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Relative
+	class Relative : public Instruction
 	{
 	public:
 

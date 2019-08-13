@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Implied
+	class Implied : public Instruction
 	{
 	public:
 

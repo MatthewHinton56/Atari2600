@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Absolute
+	class Absolute : public Instruction
 	{
 	public:
 

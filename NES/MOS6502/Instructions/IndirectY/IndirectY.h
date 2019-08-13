@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class IndirectY
+	class IndirectY : public Instruction
 	{
 	public:
 

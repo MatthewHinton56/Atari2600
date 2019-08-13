@@ -4,7 +4,7 @@
 
 namespace mos6502
 {
-	class Immediate
+	class Immediate : public Instruction
 	{
 	public:
 

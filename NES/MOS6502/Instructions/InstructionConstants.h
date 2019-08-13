@@ -39,7 +39,8 @@ namespace mos6502
 		ld,
 		dec,
 		nop,
-		brn
+		brn,
+		spec
 	};
 
 }

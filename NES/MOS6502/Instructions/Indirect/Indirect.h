@@ -3,7 +3,7 @@
 
 namespace mos6502
 {
-	class Indirect
+	class Indirect : public Instruction
 	{
 	public:
 
