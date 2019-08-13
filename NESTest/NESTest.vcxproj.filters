@@ -18,6 +18,7 @@
     <ClCompile Include="IndirectTest.cpp" />
     <ClCompile Include="RelativeTest.cpp" />
     <ClCompile Include="ImmediateTest.cpp" />
+    <ClCompile Include="AccumulatorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

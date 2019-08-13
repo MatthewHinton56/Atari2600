@@ -90,6 +90,12 @@
     <ClInclude Include="MOS6502\Instructions\Immediate\ImmediateConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Accumulator\Accumulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Accumulator\AccumulatorConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MOS6502\MOS6502.cpp">
@@ -123,6 +129,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MOS6502\Instructions\Immediate\Immediate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Accumulator\Accumulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
