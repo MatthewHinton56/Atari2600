@@ -32,7 +32,7 @@ Implied::Implied
 			break;
 
 		case InstructionOpcodeImplied::iTxs:
-			reg = SR;
+			reg = SP;
 			break;
 
 		default:
@@ -56,7 +56,7 @@ Implied::Implied
 			break;
 
 		case InstructionOpcodeImplied::iTsx:
-			srcReg = SR;
+			srcReg = SP;
 			break;
 	}
 }
