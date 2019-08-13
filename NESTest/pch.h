@@ -17,3 +17,4 @@
 #include "mos6502\Instructions\IndirectX\IndirectX.h"
 #include "mos6502\Instructions\Indirect\Indirect.h"
 #include "mos6502\Instructions\Relative\Relative.h"
+#include "mos6502\Instructions\Immediate\Immediate.h"

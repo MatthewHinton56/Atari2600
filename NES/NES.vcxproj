@@ -132,6 +132,8 @@
     <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />
     <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
+    <ClInclude Include="MOS6502\Instructions\Immediate\Immediate.h" />
+    <ClInclude Include="MOS6502\Instructions\Immediate\ImmediateConstants.h" />
     <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectX.h" />
     <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectXConstants.h" />
     <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectY.h" />
@@ -153,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.cpp" />
     <ClCompile Include="MOS6502\Instructions\Absolute\Absolute.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Immediate\Immediate.cpp" />
     <ClCompile Include="MOS6502\Instructions\IndirectX\IndirectX.cpp" />
     <ClCompile Include="MOS6502\Instructions\IndirectY\IndirectY.cpp" />
     <ClCompile Include="MOS6502\Instructions\Indirect\Indirect.cpp" />
