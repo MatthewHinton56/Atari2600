@@ -20,6 +20,7 @@
     <ClCompile Include="ImmediateTest.cpp" />
     <ClCompile Include="AccumulatorTest.cpp" />
     <ClCompile Include="ImpliedTest.cpp" />
+    <ClCompile Include="StackTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

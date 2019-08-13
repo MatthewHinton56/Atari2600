@@ -23,7 +23,6 @@ namespace mos6502
 		int32_t getStepCount() const { return stepCount; }
 		Byte getOpcode() const { return opcode; }
 		InstructionOpcodeStack getInstruction() const { return instruction; }
-		InstructionTypeStack getType() const { return type; }
 		InstructionGroups getGroup() const { return group; }
 		Byte getLowAddressByte() const { return lowAddressByte; }
 		Byte getLatch() const { return latch; }
@@ -34,7 +33,6 @@ namespace mos6502
 
 		Byte opcode;
 		InstructionOpcodeStack instruction;
-		InstructionTypeStack type;
 		InstructionGroups group;
 		Byte lowAddressByte;
 		Byte reg;

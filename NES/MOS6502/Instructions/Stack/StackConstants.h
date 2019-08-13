@@ -25,18 +25,6 @@ namespace mos6502
 		iPla = 0x68
 	};
 
-	static std::unordered_map< InstructionOpcodeStack, InstructionTypeStack> InstructionToTypeStack
-	{
-		{InstructionOpcodeStack::iBrk, InstructionTypeStack::write},
-		{InstructionOpcodeStack::iJsr, InstructionTypeStack::write},
-		{InstructionOpcodeStack::iRti, InstructionTypeStack::read},
-		{InstructionOpcodeStack::iRts, InstructionTypeStack::read},
-		{InstructionOpcodeStack::iPhp, InstructionTypeStack::write},
-		{InstructionOpcodeStack::iPlp, InstructionTypeStack::read},
-		{InstructionOpcodeStack::iPha, InstructionTypeStack::write},
-		{InstructionOpcodeStack::iPla, InstructionTypeStack::read}
-	};
-
 	static std::unordered_map< InstructionOpcodeStack, InstructionGroups> InstructionToGroupStack
 	{
 		{InstructionOpcodeStack::iBrk, InstructionGroups::brk},

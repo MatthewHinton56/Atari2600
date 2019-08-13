@@ -12,7 +12,6 @@ Stack::Stack
 	stepCount(1),
 	opcode(_opcode),
 	instruction(static_cast<InstructionOpcodeStack>(opcode)),
-	type(InstructionToTypeStack[instruction]),
 	group(InstructionToGroupStack[instruction]),
 	lowAddressByte(0),
 	latch(0)
