@@ -111,6 +111,7 @@ int32_t Stack::step
 			{
 				case InstructionGroups::brk:
 					mem.writeByte(0x0100 | registerMap[SP], registerMap[SR] | 0x10);
+					setInterruptFlag(registerMap[SR]);
 					registerMap[SP]--;
 					return 0;
 
