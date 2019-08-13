@@ -19,3 +19,4 @@
 #include "mos6502\Instructions\Relative\Relative.h"
 #include "mos6502\Instructions\Immediate\Immediate.h"
 #include "mos6502\Instructions\Accumulator\Accumulator.h"
+#include "mos6502\Instructions\Implied\Implied.h"

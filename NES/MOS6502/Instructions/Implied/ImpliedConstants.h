@@ -44,9 +44,12 @@ namespace mos6502
 		{InstructionOpcodeImplied::iTay, InstructionGroups::trf},
 		{InstructionOpcodeImplied::iIny, InstructionGroups::inc},
 		{InstructionOpcodeImplied::iInx, InstructionGroups::inc},
+
 		{InstructionOpcodeImplied::iTxa, InstructionGroups::trf},
+		{InstructionOpcodeImplied::iTax, InstructionGroups::trf},
 		{InstructionOpcodeImplied::iDex, InstructionGroups::dec},
 		{InstructionOpcodeImplied::iNop, InstructionGroups::nop},
+
 		{InstructionOpcodeImplied::iClc, InstructionGroups::clc},
 		{InstructionOpcodeImplied::iSec, InstructionGroups::sec},
 		{InstructionOpcodeImplied::iCli, InstructionGroups::cli},
@@ -55,6 +58,7 @@ namespace mos6502
 		{InstructionOpcodeImplied::iClv, InstructionGroups::clv},
 		{InstructionOpcodeImplied::iCld, InstructionGroups::cld},
 		{InstructionOpcodeImplied::iSed, InstructionGroups::sed},
+
 		{InstructionOpcodeImplied::iTxs, InstructionGroups::trf},
 		{InstructionOpcodeImplied::iTsx, InstructionGroups::trf}
 	};
