@@ -2,29 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="StandardInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
-    </ClCompile>
     <ClCompile Include="OperationTests.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
     <ClCompile Include="MemoryTest.cpp">
       <Filter>SupportTests</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryAccessorTest.cpp">
-      <Filter>SupportTests</Filter>
-    </ClCompile>
     <ClCompile Include="MOS6502Test.cpp" />
-    <ClCompile Include="ControlFlowInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
-    </ClCompile>
-    <ClCompile Include="XDecIncInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
-    </ClCompile>
-    <ClCompile Include="YXBranchInstructionTest.cpp">
-      <Filter>InstructionTests</Filter>
-    </ClCompile>
-    <ClCompile Include="SpecialInstructionTest.cpp" />
+    <ClCompile Include="AbsoluteTest.cpp" />
+    <ClCompile Include="ZeropageTest.cpp" />
+    <ClCompile Include="ZeropageIndexedTest.cpp" />
+    <ClCompile Include="AbsoluteIndexedTest.cpp" />
+    <ClCompile Include="IndirectYTest.cpp" />
+    <ClCompile Include="IndirectXTest.cpp" />
+    <ClCompile Include="IndirectTest.cpp" />
+    <ClCompile Include="RelativeTest.cpp" />
+    <ClCompile Include="ImmediateTest.cpp" />
+    <ClCompile Include="AccumulatorTest.cpp" />
+    <ClCompile Include="ImpliedTest.cpp" />
+    <ClCompile Include="StackTest.cpp" />
+    <ClCompile Include="SpecialTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

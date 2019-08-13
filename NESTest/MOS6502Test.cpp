@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "pch.h"
@@ -8,7 +9,7 @@
 #define COMMA ,
 
 using namespace mos6502;
-
+/*
 namespace {
 
 	class MOS6502Test : public ::testing::Test {
@@ -503,6 +504,7 @@ namespace {
 		mos.cycle(false, false);
 		ASSERT_EQ(mos.getPC(), 0x5);
 	}
-
+	
 
 }
+*/

@@ -1,43 +1,48 @@
 #pragma once
 
+#include "../MOS6502Constants.h"
+#include <cstdint>
+#include <unordered_set>
+
 namespace mos6502
 {
-	enum class InstructionAddressingMode : uint8_t
-	{
-		xIndirect,
-		zeroPage,
-		immediate,
-		absolute,
-		yIndirect,
-		xZeroPage,
-		absoluteY,
-		absoluteX,
-		implied,
-		yZeroPage
-	};
+	//And is key word, so n(nand) is used 
 
-	static std::map<InstructionAddressingMode, uint8_t> InstructionSizes
+	enum class InstructionGroups : int8_t
 	{
-		{InstructionAddressingMode::xIndirect, 2},
-		{InstructionAddressingMode::zeroPage, 2},
-		{InstructionAddressingMode::immediate, 2},
-		{InstructionAddressingMode::absolute, 3},
-		{InstructionAddressingMode::yIndirect, 2},
-		{InstructionAddressingMode::xZeroPage, 2},
-		{InstructionAddressingMode::absoluteY, 3},
-		{InstructionAddressingMode::absoluteX, 3},
-		{InstructionAddressingMode::implied, 1},
-		{InstructionAddressingMode::yZeroPage, 2}
+		brk,
+		clc,
+		jsr,
+		bit,
+		sec,
+		rti,
+		ph,
+		jmp,
+		cli,
+		rts,
+		pl,
+		sei,
+		st,
+		trf,
+		clv,
+		inc,
+		cld,
+		sed,
+		ora,
+		nnand, 
+		eor,
+		adc,
+		cmp,
+		sbc,
+		asl,
+		rol,
+		lsr,
+		ror,
+		ld,
+		dec,
+		nop,
+		brn,
+		spec
 	};
-
-	enum class Instructions : uint8_t
-	{
-		controlFlowInstructions,
-		yxBranchInstructions,
-		standardInstructions,
-		xDecIncInstructions,
-		specialInstructions
-	};
-
 
 }

@@ -1,7 +1,5 @@
 #pragma once
 #include "MOS6502Constants.h"
-#include "MemoryAccessor.h"
-#include "../Memory.h"
 #include "Instructions/Instruction.h"
 #include <memory.h>
 
@@ -13,7 +11,7 @@ namespace mos6502
 
 			MOS6502
 			(
-				Memory<PAGE_SIZE, NUM_PAGES>& mem
+				Memory<PAGE_SIZE, NUM_PAGES>& _mem
 			);
 
 			virtual ~MOS6502() = default;
@@ -22,15 +20,11 @@ namespace mos6502
 
 			virtual void reset();
 
-			virtual MemoryAccessor& getMemoryAccessor();
-
 			virtual Instruction& getInstruction();
 
 			virtual RegisterMap& getRegisterMap();
 
 			virtual Word getPC();
-
-			virtual unsigned int getCycles();
 
 			virtual bool getNmi();
 
@@ -45,14 +39,15 @@ namespace mos6502
 
 		private:
 
-			MemoryAccessor memory;
-			std::unique_ptr<Instruction> instruction;
+			Memory<PAGE_SIZE, NUM_PAGES>& mem;
 			RegisterMap registerMap;
+			std::unique_ptr<Instruction> instruction;
 			Word PC;
-			
-			unsigned int cycles;
+
 			bool nmi;
 			bool irq;
 			bool res;
+			bool pipeline;
+			bool complete;
 	};
 }

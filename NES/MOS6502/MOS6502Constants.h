@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+#include "../Memory.h"
 #include <cstdint>
 #include <vector>
 #include <array>
@@ -8,7 +8,7 @@
 #include <iostream>
 #include <map>
 
-#define getCarryFlag(x) x & 0x1
+#define getCarryFlag(x) (x & 0x1)
 #define getZeroFlag(x) ((x & 0x2) >> 1)
 #define getInterruptFlag(x) ((x & 0x4) >> 2)
 #define getDecimalFlag(x) ((x & 0x8) >> 3)
@@ -30,18 +30,12 @@
 #define clearDecimalFlag(x) x = (x & ~0x8)
 #define clearBreakFlag(x) x = (x & ~0x10)
 #define clearOverflowFlag(x) x = (x & ~0x40)
-#define clearNegativeFlag(x) x = (x & ~0x80)
-
-#define generateAC(A, C) ((C & 0x3) | (A << 0x2)) 
-#define generateCA(A, C) ((C << 0x3) | (A & 0x7)) 
-#define generateABC(A, B, C) ((A << 0x5) | (B << 0x2) | C) 
+#define clearNegativeFlag(x) x = (x & ~0x80) 
 
 namespace mos6502
 {
-	typedef uint16_t Word;
-	typedef uint8_t Byte;
 
-	typedef std::map<std::string, Byte> RegisterMap;
+	typedef std::array<Byte, 5> RegisterMap;
 
 	static const unsigned int NUM_PAGES = 256;
 	static const unsigned int PAGE_SIZE = 256;
@@ -56,11 +50,11 @@ namespace mos6502
 
 	static const Word RESET_VECTOR = 0xFFFC;
 
-	static const std::string AC = "AC";
-	static const std::string SR = "SR";
-	static const std::string Y = "Y";
-	static const std::string X = "X";
-	static const std::string SP = "SP";
+	static const int8_t AC = 0;
+	static const int8_t  SR = 1;
+	static const int8_t  Y = 2;
+	static const int8_t  X = 3;
+	static const int8_t  SP = 4;
 
 }
 

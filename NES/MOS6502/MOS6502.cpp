@@ -1,25 +1,23 @@
-#include "Instructions/XDecIncInstructions/XDecIncInstruction.h"
-#include "Instructions/StandardInstructions/StandardInstruction.h"
-#include "Instructions/ControlFlowInstructions/ControlFlowInstruction.h"
-#include "Instructions/YXBranchInstructions/YXBranchInstruction.h"
-#include "Instructions/SpecialInstructions/SpecialInstruction.h"
-#include "Instructions/InstructionConstants.h"
+#pragma once
+#include "FetchConstants.h"
 #include "MOS6502.h"
+#include <string>
 
 using namespace mos6502;
 
 MOS6502::MOS6502
 (
-	Memory<PAGE_SIZE, NUM_PAGES>& mem
+	Memory<PAGE_SIZE, NUM_PAGES>& _mem
 ) :
-	memory(mem),
+	mem(_mem),
 	registerMap(),
 	instruction(),
-	cycles(0),
 	PC(0),
 	nmi(false),
 	irq(false),
-	res(false)
+	res(false),
+	pipeline(false),
+	complete(false)
 {
 	registerMap[AC] = 0;
 	registerMap[X] = 0;
@@ -28,34 +26,39 @@ MOS6502::MOS6502
 	registerMap[SP] = 0xFF;
 }
 
-void MOS6502::cycle(bool irq, bool nmi)
+void MOS6502::cycle(bool _irq, bool _nmi)
 {
-	this->irq = (this->irq) ? this->irq : (irq && !getInterruptFlag(registerMap[SR]));
-	this->nmi = (this->nmi) ? this->nmi : nmi;
+	nmi = (_nmi) ? true : nmi;
+	irq = (_irq & !getInterruptFlag(registerMap[SR])) ? true : irq;
 
-	if (cycles == 0)
+	if (pipeline)
+	{
+		pipeline = false;
+		int32_t result = instruction->step
+		(
+			PC,
+			registerMap,
+			mem
+		);
+		complete = (result == 1);
+	}
+
+	if (complete)
 	{
 		instruction = fetch();
-		instruction->decode(registerMap, memory);
-		instruction->execute(registerMap);
-		cycles++;
-		return;
 	}
-
-	cycles++;
-
-	if (cycles < instruction->getCycles())
+	else
 	{
-		return;
+		int32_t result = instruction->step
+		(
+			PC,
+			registerMap,
+			mem
+		);
+		complete = (result == 1);
+		pipeline = (result == 2);
 	}
 
-	if (cycles == instruction->getCycles())
-	{
-		instruction->writeBack(registerMap, memory);
-		PC = instruction->pc();
-		instruction.reset();
-		cycles = 0;
-	}
 }
 
 void MOS6502::reset()
@@ -66,15 +69,9 @@ void MOS6502::reset()
 	registerMap[Y] = 0;
 	registerMap[SR] = 0;
 	registerMap[SP] = 0xFF;
-	cycles = 0;
 	res = true;
 	irq = false;
 	nmi = false;
-}
-
-MemoryAccessor& MOS6502::getMemoryAccessor()
-{
-	return memory;
 }
 
 Instruction& mos6502::MOS6502::getInstruction()
@@ -90,11 +87,6 @@ RegisterMap& MOS6502::getRegisterMap()
 Word mos6502::MOS6502::getPC()
 {
 	return PC;
-}
-
-unsigned int MOS6502::getCycles()
-{
-	return cycles;
 }
 
 bool MOS6502::getNmi()
@@ -119,47 +111,90 @@ bool MOS6502::getIrq()
 
 std::unique_ptr<Instruction> MOS6502::fetch()
 {
+	Byte opcode = mem.readByte(PC);
 	if (res)
 	{
-		PC = memory.readWord(RESET_VECTOR);
 		res = false;
+		return std::make_unique<Special>(InstructionSpecial::reset);
 	}
-	else if (nmi)
+
+	if (nmi)
 	{
 		nmi = false;
-		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkNmi, PC);
+		irq = false;
+
+		return std::make_unique<Special>(InstructionSpecial::nmi);
 	}
-	else if (irq)
+
+	if (irq)
 	{
 		irq = false;
-		return std::make_unique<SpecialInstruction>(SpecialInstructions::iBrkIrq, PC);
+
+		return std::make_unique<Special>(InstructionSpecial::irq);
 	}
 
-	Byte instructionByte = memory[PC];
-	Byte lowOrder = memory[PC + 1];
-	Byte highOrder = memory[PC + 2];
+	PC++;
+	Byte bc = 0x1F & opcode;
 
-	uint8_t a = (0xE0 & instructionByte) >> 5;
-	uint8_t b = (0x1C & instructionByte) >> 2;
-	uint8_t	c = (0x3 & instructionByte);
+	if (opcode == INDIRECT_JMP)
+	{
+		return std::make_unique<Indirect>(opcode);
+	}
 
-	uint8_t instructionCA = generateCA(a, c);
+	if (bc >= 0xC && bc <= 0xE)
+	{
+		return std::make_unique<Absolute>(opcode);
+	}
 
-	if (instructionCA < 004)
+	if (bc >= 0x4 && bc <= 0x6)
 	{
-		return std::make_unique <ControlFlowInstruction>(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique<Zeropage>(opcode);
 	}
-	else if (instructionCA < 010)
+
+	if ((bc >= 0x1C && bc <= 0x1E) || bc == 0x19)
 	{
-		return std::make_unique <YXBranchInstruction>(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique<AbsoluteIndexed>(opcode);
 	}
-	else if (instructionCA < 024)
+
+	if (bc >= 0x14 && bc <= 0x16)
 	{
-		return std::make_unique <StandardInstruction>(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique<ZeropageIndexed>(opcode);
 	}
-	else
+
+	if (bc == INDIRECT_Y_BC)
 	{
-		return std::make_unique <XDecIncInstruction>(a, b, c, PC, lowOrder, highOrder);
+		return std::make_unique<IndirectY>(opcode);
 	}
+
+	if (bc == RELATIVE_BC)
+	{
+		return std::make_unique<Relative>(opcode);
+	}
+
+	if (bc == INDIRECT_X_BC)
+	{
+		return std::make_unique<IndirectX>(opcode);
+	}
+
+	if (ACCUMULATOR_INSTRUCTIONS.find(opcode) != ACCUMULATOR_INSTRUCTIONS.end())
+	{
+		return std::make_unique<Accumulator>(opcode);
+	}
+
+	if (IMMEDIATE_INSTRUCTIONS.find(opcode) != IMMEDIATE_INSTRUCTIONS.end())
+	{
+		return std::make_unique<Immediate>(opcode);
+	}
+
+	if (IMPLIED_INSTRUCTIONS.find(opcode) != IMPLIED_INSTRUCTIONS.end())
+	{
+		return std::make_unique<Implied>(opcode);
+	}
+
+	if (STACK_INSTRUCTIONS.find(opcode) != STACK_INSTRUCTIONS.end())
+	{
+		return std::make_unique<Implied>(opcode);
+	}
+
 }
 

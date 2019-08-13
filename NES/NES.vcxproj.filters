@@ -15,19 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstructionConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\Instructions\Binary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\DecodeHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MOS6502\Instructions\Instruction.h">
@@ -36,22 +24,7 @@
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\MemoryAccessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MOS6502\MOS6502Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstructionConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Memory.h">
@@ -60,41 +33,139 @@
     <ClInclude Include="MOS6502\MOS6502.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\SpecialInstructions\SpecialInstructionConstants.h">
+    <ClInclude Include="APU\Triangle\TriangleConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MOS6502\Instructions\SpecialInstructions\SpecialInstruction.h">
+    <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\InstructionGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Zeropage\Zeropage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexedConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexedConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectYConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectY.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectXConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Indirect\Indirect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Relative\Relative.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Relative\RelativeConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Immediate\Immediate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Immediate\ImmediateConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Accumulator\Accumulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Accumulator\AccumulatorConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Implied\Implied.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Implied\ImpliedConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Stack\Stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Stack\StackConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Special\Special.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\Instructions\Special\SpecialConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MOS6502\FetchConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MOS6502\MemoryAccessor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MOS6502\MOS6502.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MOS6502\Instructions\SpecialInstructions\SpecialInstruction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Absolute\Absolute.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\IndirectY\IndirectY.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\IndirectX\IndirectX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Indirect\Indirect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Relative\Relative.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Immediate\Immediate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Accumulator\Accumulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Implied\Implied.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Stack\Stack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MOS6502\Instructions\Special\Special.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstructionConstants.h" />
     <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

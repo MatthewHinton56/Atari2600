@@ -213,39 +213,39 @@ namespace {
 	TEST_F(OperationTest, BinaryLogic)
 	{
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::AND,0xF0, 0x0F, statusRegister), 0x00);
+		ASSERT_EQ(logic(InstructionGroups::nnand,0xF0, 0x0F, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x02);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::AND, 0xF0, 0xC0, statusRegister), 0xC0);
+		ASSERT_EQ(logic(InstructionGroups::nnand, 0xF0, 0xC0, statusRegister), 0xC0);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::AND, 0x0C, 0x0B, statusRegister), 0x08);
+		ASSERT_EQ(logic(InstructionGroups::nnand, 0x0C, 0x0B, statusRegister), 0x08);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::OR, 0x00, 0x00, statusRegister), 0x00);
+		ASSERT_EQ(logic(InstructionGroups::ora, 0x00, 0x00, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x02);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::OR, 0xF0, 0xC0, statusRegister), 0xF0);
+		ASSERT_EQ(logic(InstructionGroups::ora, 0xF0, 0xC0, statusRegister), 0xF0);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::OR, 0x0C, 0x0B, statusRegister), 0x0F);
+		ASSERT_EQ(logic(InstructionGroups::ora, 0x0C, 0x0B, statusRegister), 0x0F);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::XOR, 0xCA, 0xCA, statusRegister), 0x00);
+		ASSERT_EQ(logic(InstructionGroups::eor, 0xCA, 0xCA, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x02);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::XOR, 0xF0, 0x70, statusRegister), 0x80);
+		ASSERT_EQ(logic(InstructionGroups::eor, 0xF0, 0x70, statusRegister), 0x80);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(logic(LogicOperator::XOR, 0x0C, 0x0B, statusRegister), 0x07);
+		ASSERT_EQ(logic(InstructionGroups::eor, 0x0C, 0x0B, statusRegister), 0x07);
 		ASSERT_EQ(statusRegister, 0x00);
 	}
 
@@ -254,81 +254,81 @@ namespace {
 		//ASL
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ASL, 0x80, statusRegister), 0x00);
+		ASSERT_EQ(shift(InstructionGroups::asl, 0x80, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x03);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ASL, 0x40, statusRegister), 0x80);
+		ASSERT_EQ(shift(InstructionGroups::asl, 0x40, statusRegister), 0x80);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ASL, 0x77, statusRegister), 0xEE);
+		ASSERT_EQ(shift(InstructionGroups::asl, 0x77, statusRegister), 0xEE);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		//LSR
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::LSR, 0x01, statusRegister), 0x00);
+		ASSERT_EQ(shift(InstructionGroups::lsr, 0x01, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x03);
 
 		statusRegister = 0x80;
-		ASSERT_EQ(shift(ShiftOperator::LSR, 0xFE, statusRegister), 0x7F);
+		ASSERT_EQ(shift(InstructionGroups::lsr, 0xFE, statusRegister), 0x7F);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::LSR, 0xEE, statusRegister), 0x77);
+		ASSERT_EQ(shift(InstructionGroups::lsr, 0xEE, statusRegister), 0x77);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		//ROL
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x80, statusRegister), 0x00);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x80, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x03);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x40, statusRegister), 0x80);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x40, statusRegister), 0x80);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x77, statusRegister), 0xEE);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x77, statusRegister), 0xEE);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x80, statusRegister), 0x01);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x80, statusRegister), 0x01);
 		ASSERT_EQ(statusRegister, 0x01);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x40, statusRegister), 0x81);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x40, statusRegister), 0x81);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(shift(ShiftOperator::ROL, 0x77, statusRegister), 0xEF);
+		ASSERT_EQ(shift(InstructionGroups::rol, 0x77, statusRegister), 0xEF);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		//ROR
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0x01, statusRegister), 0x00);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0x01, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x03);
 
 		statusRegister = 0x80;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0xFE, statusRegister), 0x7F);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0xFE, statusRegister), 0x7F);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0xEE, statusRegister), 0x77);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0xEE, statusRegister), 0x77);
 		ASSERT_EQ(statusRegister, 0x00);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0x01, statusRegister), 0x80);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0x01, statusRegister), 0x80);
 		ASSERT_EQ(statusRegister, 0x81);
 
 		statusRegister = 0x81;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0xFE, statusRegister), 0xFF);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0xFE, statusRegister), 0xFF);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(shift(ShiftOperator::ROR, 0xEE, statusRegister), 0xF7);
+		ASSERT_EQ(shift(InstructionGroups::ror, 0xEE, statusRegister), 0xF7);
 		ASSERT_EQ(statusRegister, 0x80);
 	}
 
@@ -360,38 +360,38 @@ namespace {
 
 	TEST_F(OperationTest, ArithmeticTest)
 	{
-		ASSERT_EQ(arithmetic(ArithmeticOperator::ADD, 0x23, 0x23, statusRegister), 0x46);
+		ASSERT_EQ(arithmetic(InstructionGroups::adc, 0x23, 0x23, statusRegister), 0x46);
 
 		statusRegister = 0x1;
-		ASSERT_EQ(arithmetic(ArithmeticOperator::SUB, 0x23, 0x23, statusRegister), 0x00);
+		ASSERT_EQ(arithmetic(InstructionGroups::sbc, 0x23, 0x23, statusRegister), 0x00);
 
 		statusRegister = 0x0;
-		ASSERT_EQ(arithmetic(ArithmeticOperator::CMP, 0x24, 0x23, statusRegister), 0x24);
+		ASSERT_EQ(arithmetic(InstructionGroups::cmp, 0x24, 0x23, statusRegister), 0x24);
 
 		statusRegister = 0x08;
-		ASSERT_EQ(arithmetic(ArithmeticOperator::ADD, 0x50, 0x50, statusRegister), 0x00);
+		ASSERT_EQ(arithmetic(InstructionGroups::adc, 0x50, 0x50, statusRegister), 0x00);
 
 		statusRegister = 0x08;
-		ASSERT_EQ(arithmetic(ArithmeticOperator::SUB, 0x50, 0x50, statusRegister), 0x99);
+		ASSERT_EQ(arithmetic(InstructionGroups::sbc, 0x50, 0x50, statusRegister), 0x99);
 
 		statusRegister = 0x08;
-		ASSERT_EQ(arithmetic(ArithmeticOperator::CMP, 0x24, 0x23, statusRegister), 0x24);
+		ASSERT_EQ(arithmetic(InstructionGroups::cmp, 0x24, 0x23, statusRegister), 0x24);
 	}
 
 	TEST_F(OperationTest, IncDec)
 	{
-		ASSERT_EQ(inc(0x7F, statusRegister), 0x80);
+		ASSERT_EQ(changeOne(InstructionGroups::inc, 0x7F, statusRegister), 0x80);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0;
-		ASSERT_EQ(inc(0xFF, statusRegister), 0x00);
+		ASSERT_EQ(changeOne(InstructionGroups::inc, 0xFF, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x02);
 
-		ASSERT_EQ(dec(0x00, statusRegister), 0xFF);
+		ASSERT_EQ(changeOne(InstructionGroups::dec, 0x00, statusRegister), 0xFF);
 		ASSERT_EQ(statusRegister, 0x80);
 
 		statusRegister = 0;
-		ASSERT_EQ(dec(0x01, statusRegister), 0x00);
+		ASSERT_EQ(changeOne(InstructionGroups::dec, 0x01, statusRegister), 0x00);
 		ASSERT_EQ(statusRegister, 0x02);
 
 	}

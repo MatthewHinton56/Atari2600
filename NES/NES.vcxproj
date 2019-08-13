@@ -126,37 +126,60 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="APU\Triangle\TriangleConstants.h" />
+    <ClInclude Include="MOS6502\FetchConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.h" />
+    <ClInclude Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexedConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Absolute\Absolute.h" />
+    <ClInclude Include="MOS6502\Instructions\Absolute\AbsoluteConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Accumulator\Accumulator.h" />
+    <ClInclude Include="MOS6502\Instructions\Accumulator\AccumulatorConstants.h" />
     <ClInclude Include="MOS6502\Instructions\Binary.h" />
-    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.h" />
-    <ClInclude Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\DecodeHelper.h" />
+    <ClInclude Include="MOS6502\Instructions\Immediate\Immediate.h" />
+    <ClInclude Include="MOS6502\Instructions\Immediate\ImmediateConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Implied\Implied.h" />
+    <ClInclude Include="MOS6502\Instructions\Implied\ImpliedConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectX.h" />
+    <ClInclude Include="MOS6502\Instructions\IndirectX\IndirectXConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectY.h" />
+    <ClInclude Include="MOS6502\Instructions\IndirectY\IndirectYConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Indirect\Indirect.h" />
+    <ClInclude Include="MOS6502\Instructions\InstructionGroup.h" />
     <ClInclude Include="MOS6502\Instructions\InstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\SpecialInstructions\SpecialInstruction.h" />
-    <ClInclude Include="MOS6502\Instructions\SpecialInstructions\SpecialInstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.h" />
     <ClInclude Include="MOS6502\Instructions\Instruction.h" />
-    <ClInclude Include="MOS6502\Instructions\StandardInstructions\StandardInstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstructionConstants.h" />
-    <ClInclude Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.h" />
-    <ClInclude Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.h" />
     <ClInclude Include="Memory.h" />
-    <ClInclude Include="MOS6502\MemoryAccessor.h" />
+    <ClInclude Include="MOS6502\Instructions\Relative\Relative.h" />
+    <ClInclude Include="MOS6502\Instructions\Relative\RelativeConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Special\Special.h" />
+    <ClInclude Include="MOS6502\Instructions\Special\SpecialConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Stack\Stack.h" />
+    <ClInclude Include="MOS6502\Instructions\Stack\StackConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.h" />
+    <ClInclude Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexedConstants.h" />
+    <ClInclude Include="MOS6502\Instructions\Zeropage\Zeropage.h" />
+    <ClInclude Include="MOS6502\Instructions\Zeropage\ZeropageConstants.h" />
     <ClInclude Include="MOS6502\MOS6502.h" />
     <ClInclude Include="MOS6502\MOS6502Constants.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MOS6502\Instructions\ControlFlowInstructions\ControlFlowInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\SpecialInstructions\SpecialInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\StandardInstructions\StandardInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\XDecIncInstructions\XDecIncInstruction.cpp" />
-    <ClCompile Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstruction.cpp" />
-    <ClCompile Include="MOS6502\MemoryAccessor.cpp" />
+    <ClCompile Include="MOS6502\Instructions\AbsoluteIndexed\AbsoluteIndexed.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Absolute\Absolute.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Accumulator\Accumulator.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Immediate\Immediate.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Implied\Implied.cpp" />
+    <ClCompile Include="MOS6502\Instructions\IndirectX\IndirectX.cpp" />
+    <ClCompile Include="MOS6502\Instructions\IndirectY\IndirectY.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Indirect\Indirect.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Relative\Relative.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Special\Special.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Stack\Stack.cpp" />
+    <ClCompile Include="MOS6502\Instructions\ZeropageIndexed\ZeropageIndexed.cpp" />
+    <ClCompile Include="MOS6502\Instructions\Zeropage\Zeropage.cpp" />
     <ClCompile Include="MOS6502\MOS6502.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
-    <None Include="MOS6502\Instructions\YXBranchInstructions\YXBranchInstructionConstants.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
