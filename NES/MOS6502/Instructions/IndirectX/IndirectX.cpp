@@ -33,7 +33,6 @@ int32_t IndirectX::step
 	Memory<PAGE_SIZE, NUM_PAGES>& mem
 )
 {
-	Byte temp;
 	stepCount++;
 	switch (stepCount)
 	{
