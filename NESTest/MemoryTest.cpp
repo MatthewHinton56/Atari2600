@@ -98,4 +98,43 @@ namespace {
 
 		ASSERT_EQ(num, 5);
 	}
+
+	TEST_F(MemoryTest, MemoryMirrorTest)
+	{
+		mem.writeByte(0x0, 0x55);
+
+		ASSERT_EQ(mem[0x0000], 0x55);
+		ASSERT_EQ(mem[0x0800], 0x55);
+		ASSERT_EQ(mem[0x1000], 0x55);
+		ASSERT_EQ(mem[0x1800], 0x55);
+
+		mem.writeByte(0x07FF, 0xC5);
+
+		ASSERT_EQ(mem[0x07FF], 0xC5);
+		ASSERT_EQ(mem[0x0FFF], 0xC5);
+		ASSERT_EQ(mem[0x17FF], 0xC5);
+		ASSERT_EQ(mem[0x1FFF], 0xC5);
+
+		mem.writeByte(0x2000, 0x12);
+		mem.writeByte(0x2001, 0xC3);
+		mem.writeByte(0x2002, 0x41);
+		mem.writeByte(0x2003, 0x12);
+		mem.writeByte(0x2004, 0x91);
+		mem.writeByte(0x2005, 0x24);
+		mem.writeByte(0x2006, 0x65);
+		mem.writeByte(0x2007, 0xF4);
+
+		for (Word address = 0x2000; address < 0x4000; address += ((Word)0x8))
+		{
+			ASSERT_EQ(mem[address + 0], 0x12);
+			ASSERT_EQ(mem[address + 1], 0xC3);
+			ASSERT_EQ(mem[address + 2], 0x41);
+			ASSERT_EQ(mem[address + 3], 0x12);
+			ASSERT_EQ(mem[address + 4], 0x91);
+			ASSERT_EQ(mem[address + 5], 0x24);
+			ASSERT_EQ(mem[address + 6], 0x65);
+			ASSERT_EQ(mem[address + 7], 0xF4);
+		}
+
+	}
 } 

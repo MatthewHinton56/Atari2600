@@ -54,6 +54,28 @@ namespace mos6502
 
 		inline void writeByte(Word address, Byte val)
 		{
+			if (address < 0x2000)
+			{
+				Word baseAddress = address % 0x0800;
+
+				address = baseAddress;
+				memory[baseAddress]			 = val;
+				memory[baseAddress + 0x0800] = val;
+				memory[baseAddress + 0x1000] = val;
+				memory[baseAddress + 0x1800] = val;
+			}
+
+			if (address >= 0x2000 && address < 0x4000)
+			{
+				Word baseAddress = (address % 0x8) + 0x2000;
+				for (Word add = baseAddress; add < 0x4000; add += 0x8)
+				{
+					memory[add] = val; 
+				}
+
+				address = baseAddress;
+			}
+
 			if (memoryListeners.find(address) != memoryListeners.end())
 			{
 				memoryListeners[address](address, val, true);
