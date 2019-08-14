@@ -16,13 +16,13 @@ namespace mos6502
 
 			virtual ~MOS6502() = default;
 
-			virtual void cycle(bool irq, bool nmi);
+			virtual void cycle();
 
-			virtual void reset();
-
-			virtual Instruction& getInstruction();
+			Memory<PAGE_SIZE, NUM_PAGES>& getMemory() { return mem;  }
 
 			virtual RegisterMap& getRegisterMap();
+
+			virtual Instruction& getInstruction();
 
 			virtual Word getPC();
 
@@ -33,6 +33,10 @@ namespace mos6502
 			virtual bool getIrq();
 
 			virtual void setIrq();
+
+			virtual bool getReset();
+
+			virtual void setReset();
 
 			virtual std::unique_ptr<Instruction> fetch();
 
@@ -46,7 +50,7 @@ namespace mos6502
 
 			bool nmi;
 			bool irq;
-			bool res;
+			bool reset;
 			bool pipeline;
 			bool complete;
 	};

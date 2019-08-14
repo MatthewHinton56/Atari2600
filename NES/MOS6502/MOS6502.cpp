@@ -15,21 +15,19 @@ MOS6502::MOS6502
 	PC(0),
 	nmi(false),
 	irq(false),
-	res(false),
+	reset(false),
 	pipeline(false),
 	complete(true)
 {
 	registerMap[AC] = 0;
 	registerMap[X] = 0;
 	registerMap[Y] = 0;
-	registerMap[SR] = 0x04;
-	registerMap[SP] = 0xFF;
+	registerMap[SR] = 0x34;
+	registerMap[SP] = 0xFD;
 }
 
-void MOS6502::cycle(bool _irq, bool _nmi)
+void MOS6502::cycle()
 {
-	nmi = (_nmi) ? true : nmi;
-	irq = (_irq & !getInterruptFlag(registerMap[SR])) ? true : irq;
 
 	if (pipeline)
 	{
@@ -62,20 +60,6 @@ void MOS6502::cycle(bool _irq, bool _nmi)
 
 }
 
-void MOS6502::reset()
-{
-	instruction.reset();
-	registerMap[AC] = 0;
-	registerMap[X] = 0;
-	registerMap[Y] = 0;
-	registerMap[SR] = 0;
-	registerMap[SP] = 0xFF;
-	res = true;
-	irq = false;
-	nmi = false;
-	complete = true;
-}
-
 Instruction& mos6502::MOS6502::getInstruction()
 {
 	return (*instruction);
@@ -98,7 +82,18 @@ bool MOS6502::getNmi()
 
 void mos6502::MOS6502::setIrq()
 {
-	irq = true;
+	if(!getInterruptFlag(registerMap[SR]))
+		irq = true;
+}
+
+bool mos6502::MOS6502::getReset()
+{
+	return reset;
+}
+
+void mos6502::MOS6502::setReset()
+{
+	reset = true;
 }
 
 void mos6502::MOS6502::setNmi()
@@ -114,9 +109,9 @@ bool MOS6502::getIrq()
 std::unique_ptr<Instruction> MOS6502::fetch()
 {
 	Byte opcode = mem.readByte(PC);
-	if (res)
+	if (reset)
 	{
-		res = false;
+		reset = false;
 		return std::make_unique<Special>(InstructionSpecial::reset);
 	}
 
